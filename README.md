@@ -41,7 +41,7 @@ DESCRIPTION OF THE DIRECTORY STRUCTURE:
   • root/Papers_Referencs/                                        Contains all or most of the references used
 
 
-  • root/Simulations/                                             The simulation container; the data are only sorted
+  root/Simulations/                                             The simulation container; the data are only sorted
                                                                   by materials and date-time-identifiers
                                                                    Data tracking is done through the LookUp table
                                                                   in the Simulations directory
