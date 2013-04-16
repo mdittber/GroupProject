@@ -5,6 +5,8 @@ function timestamp = getTimeDate(option)
 %
 %   option=1: for file names  yyyy-mm-dd_hh-mm-ss
 %   option=2: for log entries yyyy/mm/dd hh:mm:ss
+%   option=3: for DB entries yyyymmddhhmmss
+%   option=4: output including milliseconds yyyymmddhhmmssfff
 
     switch option
         case 1
@@ -13,7 +15,7 @@ function timestamp = getTimeDate(option)
             timestamp = [timestamp temp(12:19)];
             timestamp(14) = ':';
             timestamp(17) = ':';
-        otherwise
+        case 2
             temp = datestr(now,31);
             timestamp = [temp(1:10) ' '];
             timestamp = [timestamp temp(12:19)];
@@ -21,5 +23,10 @@ function timestamp = getTimeDate(option)
             timestamp(8) = '/';
             timestamp(14) = ':';
             timestamp(17) = ':';
+        case 3
+            temp = datestr(now,31);
+            timestamp = [temp(1:4) temp(6:7) temp(9:10) temp(12:13) temp(15:16) temp(18:19)];
+        case 4
+            timestamp = datestr(now,'yyyymmddHHMMSSFFF');
     end
 end

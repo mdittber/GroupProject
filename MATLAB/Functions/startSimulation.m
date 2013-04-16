@@ -14,7 +14,13 @@ function startSimulation(Mpar)
 %           7. Column: Vdmax
 %           8. Column: Vd Sweep
 
-    save MPar
+    global config
+    dirMpar = [config.system, 'Mpar.mat'];
+    save(dirMpar,'Mpar');
+    [n,m] = size(Mpar);
+    for i=1:n
+        writeDBentry(Mpar(i,:));
+    end
     
     setProgessInfo('   Creating OMEN Cmd files...', gui_simulate, 't_progress')
     setProgessInfo('...OMEN Cmd files available!', gui_simulate, 't_progress')

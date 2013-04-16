@@ -22,7 +22,7 @@ function varargout = gui_simulate(varargin)
 
 % Edit the above text to modify the response to help gui_simulate
 
-% Last Modified by GUIDE v2.5 15-Apr-2013 17:31:26
+% Last Modified by GUIDE v2.5 16-Apr-2013 00:14:44
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -152,3 +152,26 @@ function uitable1_CellEditCallback(hObject, eventdata, handles)
 %	NewData: EditData or its converted form set on the Data property. Empty if Data was not changed
 %	Error: error string when failed to convert EditData to appropriate value for Data
 % handles    structure with handles and user data (see GUIDATA)
+
+
+
+function t_progress_Callback(hObject, eventdata, handles)
+% hObject    handle to t_progress (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of t_progress as text
+%        str2double(get(hObject,'String')) returns contents of t_progress as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function t_progress_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to t_progress (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end

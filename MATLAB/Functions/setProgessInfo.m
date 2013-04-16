@@ -1,5 +1,5 @@
 function setProgessInfo(msg, fObject, hObject)
-%setProgessInfo(msg)
+%setProgessInfo(msg, fObject, hObject)
 %   msg:        string that should be displayed
 %   fObject:    figure, where the information
 %               will be displayed (gui_simulate,...)
