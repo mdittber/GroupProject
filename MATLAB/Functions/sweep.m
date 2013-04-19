@@ -32,7 +32,7 @@ function dots = sweep(def_dot)
     
     [~, N] = size(permMatrix); %Number of permutations
    
-    dots( N ) = qdot; %initialize N qdots
+    dots( N ) = Qdot; %initialize N qdots
     
 	% Assign Values to the new dots
     

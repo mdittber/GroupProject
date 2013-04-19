@@ -17,7 +17,7 @@ function simMultParam( Mpar )
     %********************************************************************
     %PARAMETERS MATERIAL 1
     %********************************************************************
-    default = qdot();
+    default = Qdot();
 
     %********************************************************************
     %Config of multiple values
@@ -69,7 +69,7 @@ function simMultParam( Mpar )
     default.no_oxide_mat            = 0;                %number of pieces that form the oxide around the wire  
 
 
-    def_mat(1) = geometry();
+    def_mat(1) = Geometry();
 
     def_mat(1).type                 = Mpar{2};			%type of material: square or circle
     def_mat(1).cs                   = 'yes';            %does the material determine the nanowire cross section 
@@ -77,7 +77,7 @@ function simMultParam( Mpar )
     def_mat(1).radius               =  Mpar{3};              %radius of circle
     def_mat(1).coord                = [0.0 0.0 0.0];	%[xcenter ycenter zcenter]
 
-    def_mat(2) = geometry();
+    def_mat(2) = Geometry();
 
     def_mat(2).type                 = Mpar{2};			%type of material: square or circle
     def_mat(2).cs                   = 'yes';            %does the material determine the nanowire cross section 
@@ -87,11 +87,6 @@ function simMultParam( Mpar )
 
     default.geometry = def_mat;
 
-    
-%     copy values of Mpar
-    
-
-    
     
     %********************************************************************
     %WRITE CMD FILES AND SIMULATE FOR MATERIAL 1

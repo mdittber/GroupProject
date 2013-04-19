@@ -29,7 +29,7 @@ function DBpart = simAll(def_dot)
     
     status = (-1)*ones(N,1); %status of each simulation. returned zero if sucessful
     
-    consoleOconsoleOutut = cell(N,1); %console output for each sim will be saved here
+    consoleOut = cell(N,1); %console output for each sim will be saved here
     
     simTimestamp = cell(N,1); %Timestamp for each simulation
     logTimestamp = getTimeDate(4); %Timestamp for all simulations
