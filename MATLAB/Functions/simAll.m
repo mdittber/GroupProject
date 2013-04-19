@@ -25,7 +25,7 @@ function [dots, simSuccess] = simAll(def_dot)
     
     cd(config.simulations);
     
-    simSuccess = zeros(N); %each element changed to 1 if corresponding simulation is successfull
+    simSuccess = zeros(N,1); %each element changed to 1 if corresponding simulation is successfull
     
     mat = def_dot.mat_name; %matrial
     
@@ -145,20 +145,17 @@ function [dots, simSuccess] = simAll(def_dot)
 end
 
 
-function bool = checkSuccess(status, consoleOut)
+function check = checkSuccess(status, consoleOut)
 
 % check if the OMEN simulation was successful, returns 1 or 0
 % consoleOut: console output of OMEN
 % status: status returned by unix function
+% check status and if LayerMatrix is created.
 
-
-	% TODO	
-	% exist('filename.m', 'file') returns 0 if not existing
-		
-	if status == 0 
-		bool = 1;
+	if (status == 0) && ( exist('LayerMatrix.m', 'file') ~= 0 )
+		check = 1;
 	else
-		bool = 0; 
+		check = 0; 
     end
 
 end
