@@ -38,7 +38,9 @@ function simMultParam( Mpar )
 
     default.mat_name                = Mpar{1};       %material_model
 %     dynamic mat: fn
-
+    
+    default.lattice_type            = 'zincblende';
+    
     default.a0                      = 0.582;            %lattice constant
     default.first_atom              = 'cation';         %atom situated at [0 0 0]
 
