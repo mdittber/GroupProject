@@ -19,13 +19,14 @@ function startSimulation(Mpar)
     save(dirMpar,'Mpar');
     [n,m] = size(Mpar);
     for i=1:n
+        simMultParam(Mpar(i,:))
         writeDBentry(Mpar(i,:));
     end
     
-    setProgessInfo('   Creating OMEN Cmd files...', gui_simulate, 't_progress')
-    setProgessInfo('...OMEN Cmd files available!', gui_simulate, 't_progress')
+    %setProgessInfo('   Creating OMEN Cmd files...', gui_simulate, 't_progress')
+    %setProgessInfo('...OMEN Cmd files available!', gui_simulate, 't_progress')
     
-    setProgessInfo('   Starting OMEN calculations...', gui_simulate, 't_progress')
+    %setProgessInfo('   Starting OMEN calculations...', gui_simulate, 't_progress')
     setProgessInfo('...OMEN calculations done!', gui_simulate, 't_progress')
     
     setProgessInfo('###...Simulation Procedure done!', gui_simulate, 't_progress')

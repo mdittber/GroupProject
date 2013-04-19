@@ -15,8 +15,6 @@ function writeDBentry(paramSet)
     global config
     config.root;
     
-    dir = [config.root, 'simulations\', ID];
-    mkdir(dir);
     
     % Create LookUp table entry
     dirLU = [config.system, 'LookUp.mat'];

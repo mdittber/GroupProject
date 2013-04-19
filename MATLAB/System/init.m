@@ -2,11 +2,15 @@
 %  Update directories, set root directory
 
 global config;
-config.root    = 'C:\Users\matthias\Documents\ETH\ITET\Gruppenarbeit\';
-config.system  = [config.root, 'MATLAB\System\'];
+config.root    = '/usr/zupo/stud7/gra13f2/GroupProject/';
+config.system  = [config.root, 'MATLAB/System/'];
+config.log     = [config.root, 'SystemData'];
 config.user    = getenv('USERNAME');
-config.machine = getenv('COMPUTERNAME');
-config.vOMEN   = 'version???';
+config.machine = getenv('HOSTNAME');
+config.OMEN   = [config.root, 'OMEN/OMEN_data/OMEN_ethz-amd64'];
+config.simulations = [config.root, 'Simulations/'];
+
+config.vOMEN = 'version';
 
 addpath(genpath(config.root))
 cd(config.root)

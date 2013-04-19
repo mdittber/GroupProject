@@ -55,7 +55,7 @@ function Mpar = reshapeCheckUITable(Mpar_raw)
         
         for i=1:n
             for j=3:m
-                Mpar(i,j) = cellstr(num2str(Tmp(i,j)));
+                Mpar(i,j) = num2cell(Tmp(i,j));
             end
         end
 
