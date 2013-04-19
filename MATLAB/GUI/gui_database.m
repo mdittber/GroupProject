@@ -22,7 +22,7 @@ function varargout = gui_database(varargin)
 
 % Edit the above text to modify the response to help gui_database
 
-% Last Modified by GUIDE v2.5 15-Apr-2013 23:51:12
+% Last Modified by GUIDE v2.5 17-Apr-2013 15:17:38
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -75,8 +75,8 @@ varargout{1} = handles.output;
 
 
 % --- Executes during object creation, after setting all properties.
-function uitable1_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to uitable1 (see GCBO)
+function uitable_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to uitable (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 global config
@@ -85,3 +85,100 @@ if exist(dirLU,'file') == 2
     load(dirLU);
     set(hObject,'data',LookUp);
 end
+
+
+% --- Executes on button press in r_ascend.
+function r_ascend_Callback(hObject, eventdata, handles)
+% hObject    handle to r_ascend (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of r_ascend
+
+
+% --- Executes on button press in r_descend.
+function r_descend_Callback(hObject, eventdata, handles)
+% hObject    handle to r_descend (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of r_descend
+
+
+% --- Executes on selection change in p_filter1.
+function p_filter1_Callback(hObject, eventdata, handles)
+% hObject    handle to p_filter1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns p_filter1 contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from p_filter1
+
+
+% --- Executes during object creation, after setting all properties.
+function p_filter1_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to p_filter1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on selection change in p_filter2.
+function p_filter2_Callback(hObject, eventdata, handles)
+% hObject    handle to p_filter2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns p_filter2 contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from p_filter2
+
+
+% --- Executes during object creation, after setting all properties.
+function p_filter2_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to p_filter2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on selection change in p_sort.
+function p_sort_Callback(hObject, eventdata, handles)
+% hObject    handle to p_sort (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns p_sort contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from p_sort
+par = get(hObject,'Value');
+colnames = get(handles.uitable,'ColumnName');
+idx = strmatch(par,char(colnames));
+load('LookUp');
+sLookUp = DB.sort(LookUp,idx,'ascend');
+set(handles.uitable,'Data',sLookUp);
+
+% --- Executes during object creation, after setting all properties.
+function p_sort_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to p_sort (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+colnames = get(handles.uitable,'ColumnName');
+set(hObject,'String',colnames);

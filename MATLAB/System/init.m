@@ -7,3 +7,6 @@ config.system  = [config.root, 'MATLAB\System\'];
 config.user    = getenv('USERNAME');
 config.machine = getenv('COMPUTERNAME');
 config.vOMEN   = 'version???';
+
+addpath(genpath(config.root))
+cd(config.root)
