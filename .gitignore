@@ -2,6 +2,9 @@
 ## Eclipse
 #################
 
+
+Simulations/
+
 *.pydevproject
 .project
 .metadata

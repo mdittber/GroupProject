@@ -28,5 +28,7 @@ function timestamp = getTimeDate(option)
             timestamp = [temp(1:4) temp(6:7) temp(9:10) temp(12:13) temp(15:16) temp(18:19)];
         case 4
             timestamp = datestr(now,'yyyymmddHHMMSSFFF');
+        case 5
+            timestamp = datestr(clock, 'yyyymmdd-HHMM-SSFFF');
     end
 end

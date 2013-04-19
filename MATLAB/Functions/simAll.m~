@@ -1,4 +1,4 @@
-function DBpart = simAll(def_dot)
+function [dots, simSuccess] = simAll(def_dot)
 
 % CREATE OMEN CMD FILE FOR EVERY PARAMETER COMBINATION
 % PERFORMS OMEN SIMULATION FOR ALL CMD FILES
@@ -12,12 +12,12 @@ function DBpart = simAll(def_dot)
 % qdot object containing the parameters
 %********************************************************************
 	
+    cd 
         
 % PERFORM SWEEP
 %********************************************************************
 		    
-%     dots = sweep(def_dot); %create array of qdots with all parameters
-    dots = def_dot;
+    dots = sweep(def_dot); %create array of qdots with all parameters
     N = length(dots);
 
     
@@ -25,17 +25,17 @@ function DBpart = simAll(def_dot)
 %********************************************************************
 	global config;
     
+    simSuccess = zeros(N); %each element changed to 1 if corresponding simulation is successfull
+    
     mat = def_dot.mat_name; %matrial
     
     status = (-1)*ones(N,1); %status of each simulation. returned zero if sucessful
     
-    consoleOconsoleOutut = cell(N,1); %console output for each sim will be saved here
+    consoleOut = cell(N,1); %console output for each sim will be saved here
     
     simTimestamp = cell(N,1); %Timestamp for each simulation
-    logTimestamp = getTimeDate(4); %Timestamp for all simulations
+    logTimestamp = getTimeDate(5); %Timestamp for all simulations
     
-    DBpart = cell(N,3);
-
 
 % WRITE CMD FILE AND SIMULATE 
 %********************************************************************
@@ -44,10 +44,11 @@ function DBpart = simAll(def_dot)
 
     for i = 1:N
 		
-        fprintf(1, 'start simulation of dot %i',i);
+        %print message
+        fprintf(1, 'START simulation %i \n',i);
         
         %timestamp for this simulation
-        simTimestamp{i} = getTimeDate(4);
+        simTimestamp{i} = getTimeDate(5);
 	
     % CREATE AND CHANGE DIR
 		
@@ -57,36 +58,34 @@ function DBpart = simAll(def_dot)
         
 	% SAVE QDOT
         
-        QDOTNAME = ['qdotObj_' simTimestamp{i} ];  %name of mat-file in which the current qdot is saved
-        	%QDOTNAME = ['qdot_' simTimestamp '.mat'];
-        %TODO: object name with timestamp
+        QDOTNAME = 'qdotObj';  %name of mat-file in which the current qdot is saved
         qdotObj = dots(i);
         save( QDOTNAME, 'qdotObj');
         
         
 	% WRITE CMD FILE
             
-        CMDFILENAME = ['qdot_' simTimestamp{i} '_cmd']; 
+        CMDFILENAME = 'qdot_cmd'; 
         
-        writeCmdFile(dots(i), CMDFILENAME); %write the cmdfiles
+        writeCmdFile(dots(i), CMDFILENAME,  simTimestamp{i} ); %write the cmdfiles
 			
 	% SIMULATE WITH OMEN
         
         t2 = tic;   %measure time of single simulation
         
-        UNIXCOMMAND = [config.OMEN, ' ', CMDFILENAME] %create command string
+        UNIXCOMMAND = [config.OMEN, ' ', CMDFILENAME]; %create command string
         [status(i), consoleOut{i}] = unix( UNIXCOMMAND, '-echo') ; %execute
 
         singleTime = toc(t2);
 		
-		simSuccess = checkSuccess( status(i), consoleOut{i} );
+		simSuccess(i) = checkSuccess( status(i), consoleOut{i} );
 		
 	%WRITE LOGFILE OF THIS SIMULATIONS
 
         simlogFile = ['simlog_' simTimestamp{i} '.txt'];
         simlogfid = fopen(simlogFile, 'w');
 
-        if  simSuccess ==1  %simulation successful 
+        if  simSuccess(i) ==1  %simulation successful 
             fprintf(simlogfid, 'Simulation SUCCESSFUL.\n');
         else
             fprintf(simlogfid, 'Simulation FAILED.\n');
@@ -96,15 +95,11 @@ function DBpart = simAll(def_dot)
         fwrite(simlogfid, consoleOut{i});
         fclose(simlogfid);
         
-	%WRITE DB ENTRY
-    %
-        
-		if simSuccess == 1
-			DBpart(i,:)= DB.newEntry(i, dots, simTimestamp{i});
-		end
-        
 		cd ..;
-   
+        
+        %print message
+        fprintf(1, 'END of simulation %i \n',i);
+        
     end
     
     totalTime = toc(t1);
