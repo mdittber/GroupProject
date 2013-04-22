@@ -52,7 +52,7 @@ function [dots, simSuccess] = simAll(def_dot)
 	
     % CREATE AND CHANGE DIR
 		
-        SIMDIR = sprintf('%s_%s', simTimestamp{i}, mat);
+        SIMDIR = sprintf('ID%s_%s', simTimestamp{i}, mat);
         mkdir(SIMDIR);
         cd(SIMDIR);
         
@@ -62,7 +62,10 @@ function [dots, simSuccess] = simAll(def_dot)
         
         QDOTNAME = 'qdotObj';  %name of mat-file in which the current qdot is saved
         qdotObj = dots(i);
+        qdotObj.timestamp = simTimestamp{i};
+        qdotObj.path      = [config.simulations, SIMDIR];
         save( QDOTNAME, 'qdotObj');
+        
         
         
 	% WRITE CMD FILE

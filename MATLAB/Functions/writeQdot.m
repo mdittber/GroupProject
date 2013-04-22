@@ -2,8 +2,6 @@ function wQdot = writeQdot(Mpar_row)
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
 
-    Mpar_row
-
     %********************************************************************
     % Writes cmd files and simulates with OMEN for different parameters
     %********************************************************************
@@ -16,7 +14,7 @@ function wQdot = writeQdot(Mpar_row)
 
     global config;
 
-    cd( config.simulations );
+    %cd( config.simulations );
 
     %********************************************************************
     %PARAMETERS MATERIAL 1
@@ -41,16 +39,16 @@ function wQdot = writeQdot(Mpar_row)
     %********************************************************************
 
     %material_model
-    vmat = getVec(Mpar_row(1))
+    vmat = getVec(Mpar_row(1));
     switch vmat(1)
         case 1
-            default.mat_name = cellstr('PbSe_allan');
+            default.mat_name = 'PbSe_allan';
         case 2
-            default.mat_name = cellstr('PbSe_lent');
+            default.mat_name = 'PbSe_lent';
         case 3
-            default.mat_name = cellstr('CdS_CdSe');
+            default.mat_name = 'CdS_CdSe';
         case 4
-            default.mat_name = cellstr('ZnSe_CdSe');
+            default.mat_name = 'ZnSe_CdSe';
     end
     %dynamic mat: fn
     
@@ -64,7 +62,7 @@ function wQdot = writeQdot(Mpar_row)
     default.tb                      = 10;              	%tight-binding order
     default.dsp3                    = 30;             	%passivation energy [eV]
 
-    default.n_of_modes              = Mpar_row{4};          %number of modes for bandstructure calculation
+    default.n_of_modes              = str2double(Mpar_row(4));          %number of modes for bandstructure calculation
 
     default.max_bond_def            = 0.1;              %maximum relative bond deformation (should only be changed if very large strain)
 
@@ -75,7 +73,7 @@ function wQdot = writeQdot(Mpar_row)
     default.CPU_per_vd_point        = 1;
 
     
-    v = getVec(Mpar_row(5))
+    v = getVec(Mpar_row(5));
     default.NVD                     = v(3);				%number of drain voltages Vd=Vdmin:(Vdmax-Vdmin)/(NVD-1):Vdmax
     default.Vdmin                   = v(1);				%absolute minimum drain potential
     default.Vdmax                   = v(2);				%absolute maximum drain pote
@@ -89,15 +87,16 @@ function wQdot = writeQdot(Mpar_row)
 
 
     def_mat(1) = Geometry();
+    def_mat(2) = Geometry();
 
     % Geometry
-    switch Mpar_row(2)
+    switch str2double(Mpar_row(2))
         case 1
-            def_mat(1).type = cellstr('sphere');
-            def_mat(2).type = cellstr('sphere');
+            def_mat(1).type = 'sphere';
+            def_mat(2).type = 'sphere';
         case 2
-            def_mat(1).type = cellstr('quboid');
-            def_mat(2).type = cellstr('sphere');
+            def_mat(1).type = 'quboid';
+            def_mat(2).type = 'quboid';
     end
     v = getVec(Mpar_row(3));
     
@@ -107,7 +106,7 @@ function wQdot = writeQdot(Mpar_row)
     def_mat(1).radius               =  v(1);              %radius of circle
     def_mat(1).coord                = [0.0 0.0 0.0];	%[xcenter ycenter zcenter]
 
-    def_mat(2) = Geometry();
+    
 
     %def_mat(2).type                 = Mpar{2};			%type of material: square or circle
     def_mat(2).cs                   = 'yes';            %does the material determine the nanowire cross section 
@@ -116,13 +115,20 @@ function wQdot = writeQdot(Mpar_row)
     def_mat(2).coord                = [0.0 0.0 0.0];    %[xcenter ycenter zcenter]
 
     default.geometry = def_mat;
-
+    
+    %********************************************************************
+    %TECHNICAL DATA
+    %********************************************************************
+    default.user                    = config.user;
+    default.OMENversion             = config.vOMEN;
+    default.machine                 = config.machine;
+    
     %********************************************************************
     %WRITE CMD FILES AND SIMULATE FOR MATERIAL 1
     %********************************************************************
 
     wQdot = default;
-    %DBpart1 = simAll(default);
+    DBpart1 = simAll(default);
     clear default def_mat;
 
 end
