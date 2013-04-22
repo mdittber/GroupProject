@@ -50,6 +50,16 @@ classdef Qdot
     
     
     methods
+        
+        function obj = Qdot()
+            
+            defaultQdot;
+            
+            obj.a0 = a0;
+            obj.mat_name = mat;
+            
+            
+        end
 					
         function params = getSelParam(obj)        
             %return selected parameters in a struct or cell
