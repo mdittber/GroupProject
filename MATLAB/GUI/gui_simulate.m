@@ -85,7 +85,7 @@ A = get(handles.uitable1,'data');
 add = str2double(get(handles.e_addrow,'String'));
 add = round(add);
 B = cell(n+add,m);
-%B(:) = {''}
+B(:) = {''};
 B(1:n,:) = A;
 set(handles.uitable1,'data',B);
 
@@ -95,7 +95,7 @@ function e_addrow_Callback(hObject, eventdata, handles)
 % hObject    handle to e_addrow (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+pb_addrow_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'String') returns contents of e_addrow as text
 %        str2double(get(hObject,'String')) returns contents of e_addrow as a double
 
@@ -118,11 +118,11 @@ function pb_startsim_Callback(hObject, eventdata, handles)
 % hObject    handle to pb_startsim (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
-setProgessInfo('###   Starting Simulation Procedure...', gui_simulate, 't_progress')
+delProgressInfo(gui_simulate, 't_progress');
+setProgressInfo('###   Starting Simulation Procedure...', gui_simulate, 't_progress')
 Mpar_raw = get(handles.uitable1,'data');
 Mpar = reshapeCheckUITable(Mpar_raw);
-startSimulation(Mpar);
+%startSimulation(Mpar);
 
 % --- Executes on button press in pb_cancelsim.
 function pb_cancelsim_Callback(hObject, eventdata, handles)
@@ -139,7 +139,7 @@ function uitable1_CreateFcn(hObject, eventdata, handles)
 % handles    empty - handles not created until after all CreateFcns called
 % --- Executes when entered data in editable cell(s) in uitable1.
 A = get(hObject,'data');
-A(:) = {[]};
+A(:) = {''};
 set(hObject,'data',A);
 
 
