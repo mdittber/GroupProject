@@ -16,8 +16,8 @@ function Mpar = reshapeCheckUITable(Mpar_raw)
 %           5. Column: [Vdmin, Vdmax, Vd Sweep]
 
     setProgessInfo('   Reshaping Parameters...', gui_simulate, 't_progress')
-    Mpar = delEmptyRows(Mpar_raw)
-    [n,m] = size(Mpar)
+    Mpar = delEmptyRows(Mpar_raw);
+    [n,m] = size(Mpar);
     
     %% Check for invalid entries
     if n==0

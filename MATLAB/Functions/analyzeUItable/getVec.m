@@ -3,7 +3,7 @@ function vec = getVec(MparElem)
 %   Detailed explanation goes here
 
 cMparElem = char(MparElem);
-%vec = zeros(3,1);
+vec = zeros(1,1);
 tmp = '';
 [n,m] = size(cMparElem);
 j = 1;
@@ -15,8 +15,9 @@ for i=1:1:m
     
     elseif str2double(cMparElem(i)) >= 0 && str2double(cMparElem(i)) <= 9
         tmp = [tmp, cMparElem(i)];
+    end
     
-    elseif strcmp(cMparElem(i),',') || i == m
+    if strcmp(cMparElem(i),',') || i == m
         vec(j) = str2double(tmp);
         j = j+1;
         tmp = '';

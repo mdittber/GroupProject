@@ -58,7 +58,16 @@ function writeCmdFile(qdot, filename, timestamp)
 end
 
 function printVar(file, varname, value, comment)
-    fprintf(file,'%s   =   %s;     // %s \n\n',varname, mat2str(value), comment);
+
+    if ischar(value) %value is a string
+    fprintf(file,'%s   =   %s;     // %s \n\n',varname, value, comment);
+    
+    elseif (isfloat(value) == 1) && (length(value) == 1)
+            fprintf(file,'%s   =   %g;     // %s \n\n',varname, value, comment);
+
+    else %value is a float vector or matrix  
+        fprintf(file,'%s   =   %s;     // %s \n\n',varname, mat2str(value), comment);
+    end
 end
 
 function printGeometry(file, qdot)
