@@ -20,8 +20,8 @@ classdef DButils
             for i=1:N % over all entries
                                
                 if eval( sprintf('DB(%i).%s',i,propertyName) ) == value
-                    index(k) = i; 
-                    timestamp{k} = DB(i).timestamp;
+                    index(k,1) = i; 
+                    timestamp{k,1} = DB(i).timestamp;
                     k = k+1;
                 end
             end
@@ -78,6 +78,25 @@ classdef DButils
                 matrix{i,1} = i; %first element is array index of DB!
                 matrix{i,2} = DB(i).timestamp;
                 matrix{i,3} = DB(i).mat_name;
+				matrix{i,4} = DB(i).a0;
+				matrix{i,5} = DB(i).tb;
+				matrix{i,6} = DB(i).dsp3;
+				matrix{i,7} = DB(i).n_of_modes;
+				matrix{i,8} = DB(i).NVD;
+				matrix{i,9} = DB(i).Vdmin;
+				matrix{i,10} = DB(i).Vdmax;
+				
+				matrix{i,11} = DB(i).geometry(1).type;
+				matrix{i,12} = DB(i).geometry(1).id;
+				matrix{i,13} = DB(i).geometry(1).radius;
+				matrix{i,13} = DB(i).geometry(1).coord;
+				
+				matrix{i,11} = DB(i).geometry(2).type;
+				matrix{i,12} = DB(i).geometry(2).id;
+				matrix{i,13} = DB(i).geometry(2).radius;
+				matrix{i,13} = DB(i).geometry(2).coord;
+
+					
             end
             
             
