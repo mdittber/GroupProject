@@ -36,21 +36,21 @@ default.no_channel_mat          = 1;               	%number of pieces that form 
 default.no_oxide_mat            = 0;                %number of pieces that form the oxide around the wire  
 
 
-def_mat(1) = Geometry();
+geo(1) = Geometry();
 
-def_mat(1).type                 = 'sphere';			%type of material: square or circle
-def_mat(1).cs                   = 'yes';            %does the material determine the nanowire cross section 
-def_mat(1).id                   = 1;
-def_mat(1).radius               = 1;                %radius of circle
-def_mat(1).coord                = [0.0 0.0 0.0];	%[xcenter ycenter zcenter]
+geo(1).type                 = 'sphere';			%type of material: square or circle
+geo(1).cs                   = 'yes';            %does the material determine the nanowire cross section 
+geo(1).id                   = 1;
+geo(1).radius               = 1;                %radius of circle
+geo(1).coord                = [0.0 0.0 0.0];	%[xcenter ycenter zcenter]
 
-def_mat(2) = Geometry();
+geo(2) = Geometry();
 
-def_mat(2).type                 = 'sphere';			%type of material: square or circle
-def_mat(2).cs                   = 'yes';            %does the material determine the nanowire cross section 
-def_mat(2).id                   = 1;
-def_mat(2).radius               = 2;                %radius of circle
-def_mat(2).coord                = [0.0 0.0 0.0];	%[xcenter ycenter zcenter]
+geo(2).type                 = 'sphere';			%type of material: square or circle
+geo(2).cs                   = 'yes';            %does the material determine the nanowire cross section 
+geo(2).id                   = 1;
+geo(2).radius               = 2;                %radius of circle
+geo(2).coord                = [0.0 0.0 0.0];	%[xcenter ycenter zcenter]
 
-default.geometry = def_mat;
+default.geometry = geo;
 
