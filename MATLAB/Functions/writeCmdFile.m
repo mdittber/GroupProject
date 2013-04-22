@@ -67,6 +67,7 @@ function printVar(file, varname, value, comment)
 
     else %value is a float vector or matrix  
         fprintf(file,'%s   =   %s;     // %s \n\n',varname, mat2str(value), comment);
+
     end
 end
 

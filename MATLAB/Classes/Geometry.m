@@ -8,5 +8,4 @@ classdef Geometry
         radius
         coord
     end
-    
 end
