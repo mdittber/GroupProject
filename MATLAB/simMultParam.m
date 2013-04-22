@@ -1,4 +1,4 @@
-function simMultParam( Mpar )
+function default = simMultParam( Mpar )
 
     %********************************************************************
     % Writes cmd files and simulates with OMEN for different parameters
@@ -12,7 +12,7 @@ function simMultParam( Mpar )
 
     global config;
 
-    cd( config.simulations );
+    %cd( config.simulations );
 
     %********************************************************************
     %PARAMETERS MATERIAL 1
@@ -36,7 +36,7 @@ function simMultParam( Mpar )
     %Parameters
     %********************************************************************
 
-    default.mat_name                = Mpar{1};       %material_model
+%    default.mat_name                = Mpar{1};       %material_model
 %     dynamic mat: fn
     
     default.lattice_type            = 'zincblende';
@@ -49,7 +49,7 @@ function simMultParam( Mpar )
     default.tb                      = 10;              	%tight-binding order
     default.dsp3                    = 30;             	%passivation energy [eV]
 
-    default.n_of_modes              = Mpar{5};               %number of modes for bandstructure calculation
+%    default.n_of_modes              = Mpar{5};               %number of modes for bandstructure calculation
 
     default.max_bond_def            = 0.1;              %maximum relative bond deformation (should only be changed if very large strain)
 
@@ -59,10 +59,10 @@ function simMultParam( Mpar )
 
     default.CPU_per_vd_point        = 1;
 
-    default.NVD                     = Mpar{8};				%number of drain voltages Vd=Vdmin:(Vdmax-Vdmin)/(NVD-1):Vdmax
-    default.Vdmin                   = Mpar{6};				%absolute minimum drain potential
-    default.Vdmax                   = Mpar{7};				%absolute maximum drain pote
-    %default.directory              = ;
+%     default.NVD                     = Mpar{8};				%number of drain voltages Vd=Vdmin:(Vdmax-Vdmin)/(NVD-1):Vdmax
+%     default.Vdmin                   = Mpar{6};				%absolute minimum drain potential
+%     default.Vdmax                   = Mpar{7};				%absolute maximum drain pote
+%     %default.directory              = ;
 
     %GEOMETRY
 
@@ -73,18 +73,18 @@ function simMultParam( Mpar )
 
     def_mat(1) = Geometry();
 
-    def_mat(1).type                 = Mpar{2};			%type of material: square or circle
+%     def_mat(1).type                 = Mpar{2};			%type of material: square or circle
     def_mat(1).cs                   = 'yes';            %does the material determine the nanowire cross section 
     def_mat(1).id                   = 2;
-    def_mat(1).radius               =  Mpar{3};              %radius of circle
+%     def_mat(1).radius               =  Mpar{3};              %radius of circle
     def_mat(1).coord                = [0.0 0.0 0.0];	%[xcenter ycenter zcenter]
 
     def_mat(2) = Geometry();
 
-    def_mat(2).type                 = Mpar{2};			%type of material: square or circle
+%     def_mat(2).type                 = Mpar{2};			%type of material: square or circle
     def_mat(2).cs                   = 'yes';            %does the material determine the nanowire cross section 
     def_mat(2).id                   = 1;
-    def_mat(2).radius               = Mpar{4};                %radius of circle
+%     def_mat(2).radius               = Mpar{4};                %radius of circle
     def_mat(2).coord                = [0.0 0.0 0.0];    %[xcenter ycenter zcenter]
 
     default.geometry = def_mat;
@@ -94,7 +94,7 @@ function simMultParam( Mpar )
     %WRITE CMD FILES AND SIMULATE FOR MATERIAL 1
     %********************************************************************
 
-    DBpart1 = simAll(default);
-    clear default def_mat;
+    %DBpart1 = simAll(default);
+    %clear default def_mat;
 
 end

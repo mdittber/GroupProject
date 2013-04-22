@@ -51,12 +51,22 @@ classdef Qdot
     
     methods
         
-        function obj = Qdot()
-            
-            defaultQdot;
-            
-            obj.a0 = a0;
-            obj.mat_name = mat;
+        function obj = Qdot(varargin)
+            % optional arguments: 
+
+            if (nargin ==1)
+                if strcmp( varargin{1}, 'PbS')
+                    
+                    defaultPbSQdot;
+                    obj = default;
+                    
+                elseif strcmp( varargin{1}, 'CdS_CdSe')
+                    
+                    defaultCdS_CdSeQdot;
+                    obj = default;
+                                       
+                end
+            end
             
             
         end
