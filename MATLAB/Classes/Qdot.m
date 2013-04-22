@@ -52,7 +52,8 @@ classdef Qdot
     methods
         
         function obj = Qdot(varargin)
-            % optional arguments: 
+            % optional argument: Qdot obj is constructed from default values
+			% if no argument is specified, an empty Qdot obj is constructed
 
             if (nargin ==1)
                 if strcmp( varargin{1}, 'PbS')
