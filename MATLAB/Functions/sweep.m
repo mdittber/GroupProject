@@ -1,23 +1,25 @@
 function dots = sweep(def_dot)
+
+% Takes a default qdot object with scalar sweep parameters 
+% entered in the form [min,max,steps].
+% returns array of qdots with all parameter combinations
+% supportes sweep parameters: radius(1), radius(2), Voltage
+%********************************************************************
+
+    
+    nMat = def_dot.no_mat;
+
+    p1 = sweepAndLockRadii(def_dot);
+    
 	
-	% Takes a default qdot object with scalar sweep parameters 
-	% entered in the form [min,max,steps].
-	% returns array of qdots with all parameter combinations
-	% supportes sweep parameters: radius(1), radius(2), NVD
-	%********************************************************************
-
-    r1 = paramSweep( def_dot.geometry(1).radius );
-    r2 = paramSweep( def_dot.geometry(2).radius );
-    nvd = paramSweep( def_dot.NVD );
-
-
-    p1 = lock(r1,r2);
-    p2 = nvd;
+    voltage = [def_dot.Vdmin, def_dot.Vdmax, def_dot.NVD];
+    p2 = paramSweep( voltage );
     
-	% Create Permutation Matrix with all parameter combinations
     
-	psize = size(p1) + size(p2);
-    permMatrix = zeros( psize(1), cols(p1) * cols(p2) );
+% CREATE PERMUTATION MATRIX with all parameter combinations
+% collumn i of permMatrix contains parameters for qdot(i)
+    
+    permMatrix = zeros( rows(p1)+rows(p2), cols(p1)*cols(p2) );
     
 	% Assign values to the permutation matrix 
     
@@ -29,24 +31,37 @@ function dots = sweep(def_dot)
         end
     end
     
-    [~, N] = size(permMatrix); %Number of permutations
+    N = cols(permMatrix); %Number of permutations
    
     dots( N ) = Qdot; %initialize N qdots
     
-	% Assign Values to the new dots
+% ASSIGN VALUES TO NEW QDOTS
     
     for i = 1:N
         dots(i) = def_dot;
+        j = 1;
         
-        dots(i).geometry(1).radius = permMatrix(1,i);
-        dots(i).geometry(2).radius = permMatrix(2,i);
-        dots(i).NVD = permMatrix(3,i);
+        % fill in the radii
+        for k = 1:nMat
+            dots(i).geometry(k).radius = permMatrix(k,i);
+            j=k;
+        end
+        
+        %fill in the voltages
+        dots(i).NVD = 1;
+        dots(i).Vdmax = permMatrix(j,i);
+        dots(i).Vdmin = permMatrix(j,i);
+        
     end
 end
 
+%%
+% SUBFUNCTIONS
+%********************************************************************
 
 function p = paramSweep(a)
 % create all parameter values using linspace
+
     if(cols(a) == 3)
         p = linspace(a(1),a(2),a(3));
     elseif(cols(a) ==1)
@@ -78,6 +93,20 @@ function p12 = lock(a1,a2)
     p12 = [a1;a2];
 end
 
+function radiiMatrix = sweepAndLockRadii(def_dot)
+%sweep each radius and lock it with the radii from the qdot. 
+
+    nMat = def_dot.no_mat;
+    
+    radiiMatrix = paramSweep( def_dot.geometry(1).radius );
+    
+    for i = 2:nMat
+        r = paramSweep( def_dot.geometry(i).radius );     
+        radiiMatrix = lock( radiiMatrix , r);
+    end
+	
+end
+
 
 function n = cols(mat)
 % returns number of collums in a 2x2 matrix
@@ -85,5 +114,8 @@ function n = cols(mat)
 end
 
 function m = rows(mat)
+% returns number of rows in a 2x2 matrix
     [m,~] = size(mat);
 end
+
+
