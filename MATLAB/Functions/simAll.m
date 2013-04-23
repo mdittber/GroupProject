@@ -128,7 +128,7 @@ function [dots, simSuccess] = simAll(def_dot)
     fprintf(logfid, 'Simulation %s %s \nTotal time: %f sec.\n\n',logTimestamp, mat, totalTime);
 
     %Check for failed simulations
-    if( sum(status) ~= 0 )
+    if( sum( simSuccess ) == 0 )
         failed = find(status);
         fprintf(logfid, 'Attempt to simulate %i qdots. \n', N);
         fprintf(logfid, 'Simulation failed for indices %s \n\n', sprintf('%d, ',failed));
@@ -157,7 +157,7 @@ function check = checkSuccess(status, consoleOut)
 % status: status returned by unix function
 % check status and if LayerMatrix is created.
 
-	if (status == 0) && ( exist('LayerMatrix.m', 'file') ~= 0 )
+	if (status == 0) && ( exist('VB_V_0_0.dat', 'file') ~= 0 )
 		check = 1;
 	else
 		check = 0; 
