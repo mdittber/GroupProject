@@ -44,9 +44,9 @@ function dots = sweep(def_dot)
         % fill in the radii
         for k = 1:nMat
             dots(i).geometry(k).radius = permMatrix(k,i);
-            j=k;
+            j=k+1;
         end
-        
+
         %fill in the voltages
         dots(i).NVD = 1;
         dots(i).Vdmax = permMatrix(j,i);

@@ -45,7 +45,7 @@ function [dots, simSuccess] = simAll(def_dot)
     for i = 1:N
 		
         %print message
-        fprintf(1, 'START simulation %i \n',i);
+        fprintf(1, 'START SIMULATION %i \n',i);
         
         %timestamp for this simulation
         simTimestamp{i} = getTimeDate(5);
@@ -92,8 +92,10 @@ function [dots, simSuccess] = simAll(def_dot)
 
         if  simSuccess(i) ==1  %simulation successful 
             fprintf(simlogfid, 'Simulation SUCCESSFUL.\n');
+            fprintf(1, 'Simulation SUCCESSFUL.\n');
         else
             fprintf(simlogfid, 'Simulation FAILED.\n');
+            fprintf(1, 'Simulation FAILED.\n');
         end
 
         fprintf(simlogfid, 'elapsed time %f \n\nConsole output for simulation: %s \n\n' , singleTime, simTimestamp{i});
@@ -103,7 +105,7 @@ function [dots, simSuccess] = simAll(def_dot)
 		cd ..;
         
         %print message
-        fprintf(1, 'END of simulation %i \n',i);
+        fprintf(1, 'END OF SIMULATION %i \n',i);
         
     end
     
