@@ -2,7 +2,7 @@
 
 default = Qdot;
 
-default.mat_name                = 'PbS';       %material_model
+default.mat_name                = 'PbS_allan';       %material_model
 
 default.lattice_type            = 'zincblende';
 

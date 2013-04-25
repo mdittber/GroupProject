@@ -5,11 +5,13 @@ function dots = sweep(def_dot)
 % returns array of qdots with all parameter combinations
 % supportes sweep parameters: radius(1), radius(2), Voltage
 %********************************************************************
-   
+
+    
     nMat = def_dot.no_mat;
 
     p1 = sweepAndLockRadii(def_dot);
     
+	
     voltage = [def_dot.Vdmin, def_dot.Vdmax, def_dot.NVD];
     p2 = paramSweep( voltage );
     
@@ -32,7 +34,6 @@ function dots = sweep(def_dot)
     N = cols(permMatrix); %Number of permutations
    
     dots( N ) = Qdot; %initialize N qdots
-    
     
 % ASSIGN VALUES TO NEW QDOTS
     
