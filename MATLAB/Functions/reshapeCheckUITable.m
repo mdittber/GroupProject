@@ -28,9 +28,9 @@ function Mpar = reshapeCheckUITable(Mpar_raw)
             if config.cancelSim == 1
                 break;
             end
-            setProgressInfo(['(', int2str(i), '/', int2str(n), ')', 'Creating OMEN Cmd file...'], gui_simulate, 't_progress')
+            setProgressInfo(['(', int2str(i), '/', int2str(n), ') Creating OMEN Cmd file...'], gui_simulate, 't_progress')
             writeQdot(Mpar(i,:))
-            setProgressInfo(['(', int2str(i), '/', int2str(n), ')', 'OMEN Cmd file available!'], gui_simulate, 't_progress')
+            setProgressInfo(['(', int2str(i), '/', int2str(n), ') OMEN Cmd file available!'], gui_simulate, 't_progress')
         end
         config.cancelSim = 0;
     
