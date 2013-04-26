@@ -45,7 +45,7 @@ function wQdot = writeQdot(Mpar_row)
             %GEOMETRY
             
             [CHK,vRadius]= getUitInput(Mpar_row(3));
-            default.geometry(1).radius = vRadius(1);              %radius of circle
+            default.geometry(1).radius = vRadius;              %radius of circle
 
             [CHK,vGeo] = getUitInput(Mpar_row(2));
             switch vGeo(1)
@@ -60,7 +60,7 @@ function wQdot = writeQdot(Mpar_row)
             %GEOMETRY
             
             [CHK,vRadius]= getUitInput(Mpar_row(3));
-            default.geometry(1).radius = vRadius(1);              %radius of circle
+            default.geometry(1).radius = vRadius;              %radius of circle
 
             [CHK,vGeo] = getUitInput(Mpar_row(2));
             switch vGeo(1)
@@ -74,8 +74,8 @@ function wQdot = writeQdot(Mpar_row)
             %GEOMETRY
 
             [CHK,vRadius]= getUitInput(Mpar_row(3));
-            default.geometry(1).radius = vRadius(1);              %radius of circle
-            default.geometry(2).radius = vRadius(2);              %radius of circle
+            default.geometry(1).radius = vRadius(1,:);              %radius of circle
+            default.geometry(2).radius = vRadius(2,:);              %radius of circle
             
             [CHK,vGeo] = getUitInput(Mpar_row(2));
             switch vGeo(1)
@@ -95,8 +95,8 @@ function wQdot = writeQdot(Mpar_row)
             %GEOMETRY
  
             [CHK,vRadius]= getUitInput(Mpar_row(3));
-            default.geometry(1).radius = vRadius(1);              %radius of circle
-            default.geometry(2).radius = vRadius(2);              %radius of circle
+            default.geometry(1).radius = vRadius(1,:);              %radius of circle
+            default.geometry(2).radius = vRadius(2,:);              %radius of circle
             
             [CHK,vGeo] = getUitInput(Mpar_row(2));
             switch vGeo(1)
