@@ -2,10 +2,9 @@
 ## Eclipse
 #################
 
-
-
-
-
+OMEN_ethz-amd64
+OMEN/
+Papers_References/
 Simulations/
 
 *.pydevproject
