@@ -40,7 +40,7 @@ geo(1) = Geometry();
 
 geo(1).type                 = 'sphere';			%type of material: square or circle
 geo(1).cs                   = 'yes';            %does the material determine the nanowire cross section 
-geo(1).id                   = 1;
+geo(1).id                   = 2;
 geo(1).radius               = 1.0;                %radius of circle
 geo(1).coord                = [0.0 0.0 0.0];	%[xcenter ycenter zcenter]
 
