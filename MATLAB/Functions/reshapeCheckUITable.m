@@ -15,7 +15,7 @@ function Mpar = reshapeCheckUITable(Mpar_raw)
 %           4. Column: # of modes
 %           5. Column: [Vdmin, Vdmax, Vd Sweep]
 
-    setProgessInfo('   Reshaping Parameters...', gui_simulate, 't_progress')
+    global config;
     Mpar = delEmptyRows(Mpar_raw);
     [n,m] = size(Mpar);
     
@@ -25,17 +25,24 @@ function Mpar = reshapeCheckUITable(Mpar_raw)
     else
         
         for i=1:n
+            if config.cancelSim == 1
+                break;
+            end
+            setProgressInfo(['(', int2str(i), '/', int2str(n), ')', 'Creating OMEN Cmd file...'], gui_simulate, 't_progress')
             writeQdot(Mpar(i,:))
-        end    
+            setProgressInfo(['(', int2str(i), '/', int2str(n), ')', 'OMEN Cmd file available!'], gui_simulate, 't_progress')
+        end
+        config.cancelSim = 0;
     
-    %% Reshape for Cmd files
+    %% Reshape for Cmd files    
+    %setProgessInfo('   Starting OMEN calculations...', gui_simulate, 't_progress')
     
-        
-
     end
     
+    setProgressInfo('Writing DB entries', gui_simulate, 't_progress')
+    setProgressInfo('Writing DB entries done!', gui_simulate, 't_progress')
     
-    setProgessInfo('...Reshaping Parameters done!', gui_simulate, 't_progress')
-    
+    setProgressInfo('Simulation Procedure done!', gui_simulate, 't_progress')
+    setProgressInfo('hline', gui_simulate, 't_progress')
 end
 

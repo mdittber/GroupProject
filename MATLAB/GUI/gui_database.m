@@ -22,7 +22,7 @@ function varargout = gui_database(varargin)
 
 % Edit the above text to modify the response to help gui_database
 
-% Last Modified by GUIDE v2.5 17-Apr-2013 15:17:38
+% Last Modified by GUIDE v2.5 26-Apr-2013 15:07:49
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -79,12 +79,16 @@ function uitable_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to uitable (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
-global config
-dirLU = [config.system, 'LookUp.mat'];
-if exist(dirLU,'file') == 2
-    load(dirLU);
-    set(hObject,'data',LookUp);
-end
+Mpar = DButils.createDB();
+set(hObject,'Data',Mpar);
+jscrollpane = findjobj(hObject);
+jtable = jscrollpane.getViewport.getView;
+ 
+% Now turn the JIDE sorting on
+jtable.setSortable(true);		% or: set(jtable,'Sortable','on');
+jtable.setAutoResort(true);
+jtable.setMultiColumnSortable(true);
+jtable.setPreserveSelectionsAfterSorting(true);
 
 
 % --- Executes on button press in r_ascend.
@@ -182,3 +186,46 @@ end
 
 colnames = get(handles.uitable,'ColumnName');
 set(hObject,'String',colnames);
+
+
+% --------------------------------------------------------------------
+function uitable_ButtonDownFcn(hObject, eventdata, handles)
+% hObject    handle to uitable (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes when entered data in editable cell(s) in uitable.
+function uitable_CellEditCallback(hObject, eventdata, handles)
+% hObject    handle to uitable (see GCBO)
+% eventdata  structure with the following fields (see UITABLE)
+%	Indices: row and column indices of the cell(s) edited
+%	PreviousData: previous data for the cell(s) edited
+%	EditData: string(s) entered by the user
+%	NewData: EditData or its converted form set on the Data property. Empty if Data was not changed
+%	Error: error string when failed to convert EditData to appropriate value for Data
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes when selected cell(s) is changed in uitable.
+function uitable_CellSelectionCallback(hObject, eventdata, handles)
+% hObject    handle to uitable (see GCBO)
+% eventdata  structure with the following fields (see UITABLE)
+%	Indices: row and column indices of the cell(s) currently selecteds
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on key press with focus on uitable and none of its controls.
+function uitable_KeyPressFcn(hObject, eventdata, handles)
+% hObject    handle to uitable (see GCBO)
+% eventdata  structure with the following fields (see UITABLE)
+%	Key: name of the key that was pressed, in lower case
+%	Character: character interpretation of the key(s) that was pressed
+%	Modifier: name(s) of the modifier key(s) (i.e., control, shift) pressed
+% handles    structure with handles and user data (see GUIDATA)
+switch eventdata.Key
+    case '1'
+        disp('1')
+    case '2'
+        disp('2')
+end

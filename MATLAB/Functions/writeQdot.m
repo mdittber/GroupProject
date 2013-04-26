@@ -14,8 +14,6 @@ function wQdot = writeQdot(Mpar_row)
 
     global config;
 
-    %cd( config.simulations );
-
     %********************************************************************
     %PARAMETERS MATERIAL 1
     %********************************************************************
@@ -39,7 +37,7 @@ function wQdot = writeQdot(Mpar_row)
     %********************************************************************
 
     %material_model
-    vmat = getVec(Mpar_row(1));
+    vmat = getUitInput(Mpar_row(1));
     switch vmat(1)
         case 1
             default.mat_name = 'PbSe_allan';
@@ -73,7 +71,7 @@ function wQdot = writeQdot(Mpar_row)
     default.CPU_per_vd_point        = 1;
 
     
-    v = getVec(Mpar_row(5));
+    v = getUitInput(Mpar_row(5));
     default.NVD                     = v(3);				%number of drain voltages Vd=Vdmin:(Vdmax-Vdmin)/(NVD-1):Vdmax
     default.Vdmin                   = v(1);				%absolute minimum drain potential
     default.Vdmax                   = v(2);				%absolute maximum drain pote
@@ -90,15 +88,20 @@ function wQdot = writeQdot(Mpar_row)
     def_mat(2) = Geometry();
 
     % Geometry
-    switch str2double(Mpar_row(2))
+    mat = getUitInput(Mpar_row(2));
+    switch mat(1)
         case 1
             def_mat(1).type = 'sphere';
-            def_mat(2).type = 'sphere';
         case 2
             def_mat(1).type = 'quboid';
+    end
+    switch mat(2)
+        case 1
+            def_mat(2).type = 'sphere';
+        case 2
             def_mat(2).type = 'quboid';
     end
-    v = getVec(Mpar_row(3));
+    v = getUitInput(Mpar_row(3));
     
     %def_mat(1).type                 = Mpar{2};			%type of material: square or circle
     def_mat(1).cs                   = 'yes';            %does the material determine the nanowire cross section 
