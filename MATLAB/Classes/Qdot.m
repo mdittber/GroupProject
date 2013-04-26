@@ -64,6 +64,16 @@ classdef Qdot
                 elseif strcmp( varargin{1}, 'CdS_CdSe')
                     
                     defaultCdS_CdSeQdot;
+                    obj = default;                
+                
+                elseif strcmp( varargin{1}, 'PbSe_allan')
+                    
+                    defaultPbSe_allanQdot;
+                    obj = default;
+
+                 elseif strcmp( varargin{1}, 'PbSe_lent')
+                    
+                    defaultPbSe_lentQdot;
                     obj = default;
                                        
                 end

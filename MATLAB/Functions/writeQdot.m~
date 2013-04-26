@@ -17,7 +17,7 @@ function wQdot = writeQdot(Mpar_row)
     %********************************************************************
     %PARAMETERS MATERIAL 1
     %********************************************************************
-    %default = Qdot();
+    default = Qdot();
 
     %********************************************************************
     %Config of multiple values
@@ -41,75 +41,72 @@ function wQdot = writeQdot(Mpar_row)
     switch vMat(1)
         case 1
             default = Qdot('PbSe_allan');
-            
-            %GEOMETRY
-            
             [CHK,vRadius]= getUitInput(Mpar_row(3));
-            default.geometry(1).radius = vRadius(1);              %radius of circle
-
-            [CHK,vGeo] = getUitInput(Mpar_row(2));
-            switch vGeo(1)
-                case 1
-                    default.geometry(1).type = 'sphere';
-                case 2
-                    default.geometry(1).type = 'quboid';
-            end
+            def_mat(1).radius = vRadius(1);              %radius of circle
         case 2
             default = Qdot('PbSe_lent');
             
             %GEOMETRY
+            def_mat(1) = Geometry();
+            def_mat(2) = Geometry();
             
             [CHK,vRadius]= getUitInput(Mpar_row(3));
-            default.geometry(1).radius = vRadius(1);              %radius of circle
+            def_mat(1).radius = vRadius(1);              %radius of circle
 
             [CHK,vGeo] = getUitInput(Mpar_row(2));
             switch vGeo(1)
                 case 1
-                    default.geometry(1).type = 'sphere';
+                    def_mat(1).type = 'sphere';
                 case 2
-                    default.geometry(1).type = 'quboid';
+                    def_mat(1).type = 'quboid';
             end
         case 3
             default = Qdot('CdS_CdSe');
             %GEOMETRY
 
+            def_mat(1) = Geometry();
+            def_mat(2) = Geometry();
+            
             [CHK,vRadius]= getUitInput(Mpar_row(3));
-            default.geometry(1).radius = vRadius(1);              %radius of circle
-            default.geometry(2).radius = vRadius(2);              %radius of circle
+            def_mat(1).radius = vRadius(1);              %radius of circle
+            def_mat(2).radius = vRadius(2);              %radius of circle
             
             [CHK,vGeo] = getUitInput(Mpar_row(2));
             switch vGeo(1)
                 case 1
-                    default.geometry(1).type = 'sphere';
+                    def_mat(1).type = 'sphere';
                 case 2
-                    default.geometry(1).type = 'quboid';
+                    def_mat(1).type = 'quboid';
             end
             switch vGeo(2)
                 case 1
-                    default.geometry(2).type = 'sphere';
+                    def_mat(2).type = 'sphere';
                 case 2
-                    default.geometry(2).type = 'quboid';
+                    def_mat(2).type = 'quboid';
             end
         case 4
             default = Qdot('ZnSe_CdSe');
             %GEOMETRY
- 
+
+            def_mat(1) = Geometry();
+            def_mat(2) = Geometry();
+            
             [CHK,vRadius]= getUitInput(Mpar_row(3));
-            default.geometry(1).radius = vRadius(1);              %radius of circle
-            default.geometry(2).radius = vRadius(2);              %radius of circle
+            def_mat(1).radius = vRadius(1);              %radius of circle
+            def_mat(2).radius = vRadius(2);              %radius of circle
             
             [CHK,vGeo] = getUitInput(Mpar_row(2));
             switch vGeo(1)
                 case 1
-                    default.geometry(1).type = 'sphere';
+                    def_mat(1).type = 'sphere';
                 case 2
-                    default.geometry(1).type = 'quboid';
+                    def_mat(1).type = 'quboid';
             end
             switch vGeo(2)
                 case 1
-                    default.geometry(2).type = 'sphere';
+                    def_mat(2).type = 'sphere';
                 case 2
-                    default.geometry(2).type = 'quboid';
+                    def_mat(2).type = 'quboid';
             end
     end
 
@@ -119,6 +116,8 @@ function wQdot = writeQdot(Mpar_row)
     default.NVD        = vVolt(3);				%number of drain voltages Vd=Vdmin:(Vdmax-Vdmin)/(NVD-1):Vdmax
     default.Vdmin      = vVolt(1);				%absolute minimum drain potential
     default.Vdmax      = vVolt(2);				%absolute maximum drain pote
+
+    default.geometry = def_mat;
     
     %********************************************************************
     %TECHNICAL DATA
@@ -133,6 +132,7 @@ function wQdot = writeQdot(Mpar_row)
 
     wQdot = default;
     DBpart1 = simAll(default);
+    clear default def_mat;
 
 end
 
