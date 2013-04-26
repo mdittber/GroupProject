@@ -79,13 +79,16 @@ function uitable_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to uitable (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
-Mpar = DButils.createDB();
-set(hObject,'Data',Mpar);
+DB = DButils.createDB();
+Mpar = DButils.createMatrix(DB)
+set(hObject,'data',Mpar);
+
 jscrollpane = findjobj(hObject);
 jtable = jscrollpane.getViewport.getView;
  
 % Now turn the JIDE sorting on
-jtable.setSortable(true);		% or: set(jtable,'Sortable','on');
+%jtable.setSortable(true);		% or: 
+set(jtable,'Sortable','on');
 jtable.setAutoResort(true);
 jtable.setMultiColumnSortable(true);
 jtable.setPreserveSelectionsAfterSorting(true);
@@ -165,12 +168,12 @@ function p_sort_Callback(hObject, eventdata, handles)
 
 % Hints: contents = cellstr(get(hObject,'String')) returns p_sort contents as cell array
 %        contents{get(hObject,'Value')} returns selected item from p_sort
-par = get(hObject,'Value');
-colnames = get(handles.uitable,'ColumnName');
-idx = strmatch(par,char(colnames));
-load('LookUp');
-sLookUp = DB.sort(LookUp,idx,'ascend');
-set(handles.uitable,'Data',sLookUp);
+% par = get(hObject,'Value');
+% colnames = get(handles.uitable,'ColumnName');
+% idx = strmatch(par,char(colnames));
+% load('LookUp');
+% sLookUp = DB.sort(LookUp,idx,'ascend');
+% set(handles.uitable,'Data',sLookUp);
 
 % --- Executes during object creation, after setting all properties.
 function p_sort_CreateFcn(hObject, eventdata, handles)
@@ -184,8 +187,8 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
     set(hObject,'BackgroundColor','white');
 end
 
-colnames = get(handles.uitable,'ColumnName');
-set(hObject,'String',colnames);
+% colnames = get(handles.uitable,'ColumnName');
+% set(hObject,'String',colnames);
 
 
 % --------------------------------------------------------------------
@@ -223,9 +226,9 @@ function uitable_KeyPressFcn(hObject, eventdata, handles)
 %	Character: character interpretation of the key(s) that was pressed
 %	Modifier: name(s) of the modifier key(s) (i.e., control, shift) pressed
 % handles    structure with handles and user data (see GUIDATA)
-switch eventdata.Key
-    case '1'
-        disp('1')
-    case '2'
-        disp('2')
-end
+% switch eventdata.Key
+%     case '1'
+%         disp('1')
+%     case '2'
+%         disp('2')
+% end

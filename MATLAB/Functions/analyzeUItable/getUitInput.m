@@ -26,10 +26,10 @@ function [CHK, M] = getUitInput(cellstr)
     if isempty(cellstr);
         [CHK, M] = warning(4);
     else
-        str = char(cellstr)
+        str = char(cellstr);
 
         % Delete all spaces in string and check if string is empty
-        str = str(str ~= ' ')
+        str = str(str ~= ' ');
         if isempty(str)
             [CHK, M] = warning(4);
             return;

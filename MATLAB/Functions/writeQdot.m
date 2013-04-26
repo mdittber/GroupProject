@@ -37,8 +37,8 @@ function wQdot = writeQdot(Mpar_row)
     %********************************************************************
 
     %material_model
-    vmat = getUitInput(Mpar_row(1));
-    switch vmat(1)
+    [CHK,vMat] = getUitInput(Mpar_row(1));
+    switch vMat(1)
         case 1
             default.mat_name = 'PbSe_allan';
         case 2
@@ -71,10 +71,10 @@ function wQdot = writeQdot(Mpar_row)
     default.CPU_per_vd_point        = 1;
 
     
-    v = getUitInput(Mpar_row(5));
-    default.NVD                     = v(3);				%number of drain voltages Vd=Vdmin:(Vdmax-Vdmin)/(NVD-1):Vdmax
-    default.Vdmin                   = v(1);				%absolute minimum drain potential
-    default.Vdmax                   = v(2);				%absolute maximum drain pote
+    [CHK,vVolt] = getUitInput(Mpar_row(5));
+    default.NVD                     = vVolt(3);				%number of drain voltages Vd=Vdmin:(Vdmax-Vdmin)/(NVD-1):Vdmax
+    default.Vdmin                   = vVolt(1);				%absolute minimum drain potential
+    default.Vdmax                   = vVolt(2);				%absolute maximum drain pote
     %default.directory              = ;
 
     %GEOMETRY
@@ -88,25 +88,25 @@ function wQdot = writeQdot(Mpar_row)
     def_mat(2) = Geometry();
 
     % Geometry
-    mat = getUitInput(Mpar_row(2));
-    switch mat(1)
+    [CHK,vGeo] = getUitInput(Mpar_row(2));
+    switch vGeo(1)
         case 1
             def_mat(1).type = 'sphere';
         case 2
             def_mat(1).type = 'quboid';
     end
-    switch mat(2)
+    switch vGeo(2)
         case 1
             def_mat(2).type = 'sphere';
         case 2
             def_mat(2).type = 'quboid';
     end
-    v = getUitInput(Mpar_row(3));
+    [CHK,vRadius]= getUitInput(Mpar_row(3));
     
     %def_mat(1).type                 = Mpar{2};			%type of material: square or circle
     def_mat(1).cs                   = 'yes';            %does the material determine the nanowire cross section 
     def_mat(1).id                   = 2;
-    def_mat(1).radius               =  v(1);              %radius of circle
+    def_mat(1).radius               =  vRadius(1);              %radius of circle
     def_mat(1).coord                = [0.0 0.0 0.0];	%[xcenter ycenter zcenter]
 
     
@@ -114,7 +114,7 @@ function wQdot = writeQdot(Mpar_row)
     %def_mat(2).type                 = Mpar{2};			%type of material: square or circle
     def_mat(2).cs                   = 'yes';            %does the material determine the nanowire cross section 
     def_mat(2).id                   = 1;
-    def_mat(2).radius               = v(2);                %radius of circle
+    def_mat(2).radius               = vRadius(2);                %radius of circle
     def_mat(2).coord                = [0.0 0.0 0.0];    %[xcenter ycenter zcenter]
 
     default.geometry = def_mat;

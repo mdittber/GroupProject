@@ -122,7 +122,7 @@ delProgressInfo(gui_simulate, 't_progress');
 setProgressInfo('hline', gui_simulate, 't_progress')
 setProgressInfo('Starting Simulation Procedure...', gui_simulate, 't_progress')
 Mpar_raw = get(handles.uitable1,'data');
-%Mpar = reshapeCheckUITable(Mpar_raw);
+Mpar = reshapeCheckUITable(Mpar_raw);
 %startSimulation(Mpar);
 
 % --- Executes on button press in pb_cancelsim.

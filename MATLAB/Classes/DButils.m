@@ -10,8 +10,19 @@ classdef DButils
         
         
         function DB = createDB()
-            % 
-            %
+            %% CHANGE deleting 'log' folder
+            global config;
+            DirSimStruct = getDirStructure('Simulations');
+            [n,m] = size(DirSimStruct);
+            n = n - 1;
+            DB(n) = Qdot;
+            for i=1:n
+                if strcmp(DirSimStruct(i), 'log') == 0
+                    DirSim = DirSimStruct{i};
+                    load([config.simulations, DirSim, '/qdotObj.mat']);
+                    DB(i) = qdotObj;
+                end
+            end
         end
 
         function [index, timestamp] = getIndex(DB, propertyName, value)
@@ -75,17 +86,16 @@ classdef DButils
             matrix = cell(N,M);
             
             for i = 1:N
-                
                 matrix{i,2} = DB(i).mat_name;
 				matrix{i,3} = DB(i).geometry(1).id;
 				matrix{i,4} = DB(i).geometry(1).type;
                 matrix{i,5} = DB(i).geometry(1).radius;
-				matrix{i,6} = DB(i).geometry(1).coord;
+				matrix{i,6} = mat2str(DB(i).geometry(1).coord);
 	
                 matrix{i,7} = DB(i).geometry(2).id;
 				matrix{i,8} = DB(i).geometry(2).type;
 				matrix{i,9} = DB(i).geometry(2).radius;
-				matrix{i,10} = DB(i).geometry(2).coord;
+				matrix{i,10} = mat2str(DB(i).geometry(2).coord);
                 
                 matrix{i,11} = DB(i).n_of_modes;
 				matrix{i,12} = DB(i).Vdmax;            
@@ -99,12 +109,8 @@ classdef DButils
                 matrix{i,18} = DB(i).OMENversion;
                 matrix{i,19} = DB(i).path;
                 matrix{i,20} = DB(i).user;
-                matrix{i,21} = DB(i).machine;
-
-					
+                matrix{i,21} = DB(i).machine
             end
-            
-            
         end
         
     end  
