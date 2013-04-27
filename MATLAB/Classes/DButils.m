@@ -1,64 +1,39 @@
 classdef DButils
-    %DB is an array of qdots...
+    % Class DButils provides methods for manipulating DB
+    % DB is an 1xN array of Qdots
     
     methods(Static)
         
-        function DB = add(DB,DBpart)
-            % add new dots to the DB
-            DB = [DB; DBpart];
-        end
-        
-        
         function DB = createDB()
-            %% CHANGE deleting 'log' folder
-            global config;
-            DirSimStruct = getDirStructure('Simulations');
-            [n,m] = size(DirSimStruct);
-            n = n - 1;
-            DB(n) = Qdot;
-            for i=1:n
-                if strcmp(DirSimStruct(i), 'log') == 0
-                    DirSim = DirSimStruct{i};
-                    load([config.simulations, DirSim, '/qdotObj.mat']);
-                    DB(i) = qdotObj;
-                end
+            % create the DB from simulation folders
+            
+            %get sim folders
+            global config;            
+            SimDirs = dir([config.simulations '/ID*']);
+            [N,~] = size(SimDirs);
+            
+            %initialize DB
+            if N<1
+                DB = Qdot.empty;
+                return;
+            end            
+            DB(N) = Qdot;
+            
+            %load data into DB 
+            for i=1:N    
+                load([config.simulations, SimDirs(i).name, '/qdotObj.mat']);
+                DB(i) = qdotObj;
+            end
+            
+        end
+    
+        function showSelParam(DB)
+            % display selected parameters for every Qdot in DB
+            
+            for i=1:length(DB)
+                DB(i).getSelParam()
             end
         end
-
-        function [index, timestamp] = getIndex(DB, propertyName, value)
-            %get the index and timestamp of a entry in DB with specific value in property
-            
-            timestamp = cell(0,0);
-            index = [];
-            
-            [~,N] = size(DB);
-            k = 1;
-            for i=1:N % over all entries
-                      
-                % NOT YET STABLE!
-
-                
-                if  eval( sprintf('DB(%i).%s',i,propertyName) ) == value
-                
-                    index(k,1) = i; 
-                    timestamp{k,1} = DB(i).timestamp;
-                    k = k+1;
-                end
-            end
-        end
-        
-
-        function entries = getEntries(DB, index)
-            % returns the objects with the specified indices in an array
-            N=length(index);
-            
-            entries(N) = Qdot;
-            
-            for i=1:N
-                entries(i) = DB(index(i));
-            end
-        end
-       
          
         function sLookUp = sort(LookUp, col, mode)
             % sLookUp = sort(LookUp, col, mode)
@@ -109,9 +84,147 @@ classdef DButils
                 matrix{i,18} = DB(i).OMENversion;
                 matrix{i,19} = DB(i).path;
                 matrix{i,20} = DB(i).user;
-                matrix{i,21} = DB(i).machine
+                matrix{i,21} = DB(i).machine;
             end
         end
         
+        
+        %********************************************************************
+        % METHODS for Filtering
+        %********************************************************************
+
+        function entries = filter(DB, propertyName, value, mode, tol)
+            % returns array of obj whose properties match value
+            % suited for properties of type scalar numeric or string
+            % mode 1: property and value EXACTLY MATCHING 
+            % mode 2: property matches a RANGE of values = [min, max]
+            % mode 3: property and value match APPROXIMATELY :
+            %           numeric properties: specify tolerance tol
+            %           string properties: objects whose property contains string 'value' are selected
+            
+            switch mode
+                case 1
+                    indices = DButils.find(DB, propertyName, value);
+                case 2
+                    indices = DButils.findRange(DB, propertyName, value(1), value(2));
+                case 3
+                    indices = DButils.findSimilar(DB, propertyName, value, tol);
+            end
+            entries = DButils.getEntries(DB, indices);            
+        end
+        
+        
+        %********************************************************************
+        % sub fuctions for filtering
+        %********************************************************************
+        
+        function entries = getEntries(DB, indices)
+            % returns the objects with the specified indices in an Qdot array
+            
+            N=length(indices);
+            if N<1
+                entries = Qdot.empty;
+                return;
+            end
+            
+            entries(N) = Qdot;
+            for i=1:N
+                entries(i) = DB(indices(i));
+            end
+        end
+        
+        function [index, path] = find(DB, propertyName, value)
+            % return indices and paths of DB entries with values of a Qdot property
+            % which EXACTLY match argument value
+            
+            path = cell(0,0);
+            index = [];
+            [~,N] = size(DB);
+            
+            for i=1:N % over all entries
+                currentValue = eval( sprintf('DB(%i).%s',i,propertyName));
+                if isequaln( currentValue, value)                       
+                    index(end+1,1) = i; 
+                    path{end+1,1} = DB(i).path;
+                end
+            end
+        end
+                
+        function [index,path] = findRange(DB, propertyName, min, max)
+            % return indices and paths of DB entries with values of a Qdot property
+            % within a RANGE of values
+            % Works only for properties of type double, scalar
+            
+            path = cell(0,0);
+            index = [];
+            [~,N] = size(DB);
+            
+            for i=1:N % over all entries
+                currentValue = eval( sprintf('DB(%i).%s',i,propertyName));
+                if (currentValue <= max ) && ( currentValue >= min )
+                    index(end+1,1) = i; 
+                    path{end+1,1} = DB(i).path;
+                end
+            end
+            
+        end
+        
+        function [index,path] = findSimilar(DB, propertyName, value, tol)
+            % return indices and paths of DB entries with values of a Qdot property
+            % which match APPROXIMATELY argument value
+            % For scalar doubles specify tol:  tolerance in percent/100
+            % for chars: all strings CONTAINING value will be returned 
+            
+            firstValue = eval( sprintf('DB(%i).%s',1,propertyName)); %read the first value to determine the datatype of the property
+            
+            if ischar( firstValue )
+                
+                path = cell(0,0);
+                index = [];
+                [~,N] = size(DB);
+                
+                for i=1:N % over all entries
+                    currentValue = eval( sprintf('DB(%i).%s',i,propertyName));
+                    if regexp(currentValue, value, 'once')
+                        index(end+1,1) = i; 
+                        path{end+1,1} = DB(i).path;
+                    end
+                end                
+                
+            
+            elseif isnumeric( firstValue )
+                [index, path] = DButils.findRange(DB, propertyName, value*(1-tol),  value*(1+tol));
+            end
+        end
+               
+        function cleaned = removeDuplicates(DB)
+            % returns the DB with all Duplicates removed.
+            % not suitable for large DBs
+            N = length(DB);
+            cleaned = Qdot.empty;
+            
+            if N > 100000 
+                warning('over 100 000 iterations necessary. removeDuplicates not executed');
+                return;
+            end
+            
+            for i=1:N
+                foundDuplicate = 0;
+                
+                for k=1:N
+                    %check for duplicates
+                    if (isequal(DB(i), DB(k))) && (k<i)
+                        foundDuplicate = 1;
+                        break;
+                    end
+                end
+
+                if foundDuplicate == 0
+                    %no duplicates found: add the current Qdot to new DB
+                    cleaned(end+1) = DB(i);
+                end
+            end
+        end
+
     end  
 end
