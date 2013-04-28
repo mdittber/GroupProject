@@ -52,9 +52,6 @@ function writeCmdFile(qdot, filename, timestamp)
     fprintf(file, '%s', cmds);
 
     fclose(file);
-
-
-
 end
 
 function printVar(file, varname, value, comment)
@@ -91,13 +88,4 @@ function printGeometry(file, qdot)
         printVar(file,['mat_coord(',nr,',1)'],qdot.geometry(i).coord, 'type of material: square or circle');
         
     end
-    
 end
-
-
-
-
-
-
-
-

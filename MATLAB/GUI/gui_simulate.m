@@ -113,17 +113,19 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
+
 % --- Executes on button press in pb_startsim.
 function pb_startsim_Callback(hObject, eventdata, handles)
 % hObject    handle to pb_startsim (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 delProgressInfo(gui_simulate, 't_progress');
-setProgressInfo('hline', gui_simulate, 't_progress')
-setProgressInfo('Starting Simulation Procedure...', gui_simulate, 't_progress')
+setProgressInfo('hline', 0, gui_simulate, 't_progress')
+setProgressInfo('Starting Simulation Procedure...', 1, gui_simulate, 't_progress')
 Mpar_raw = get(handles.uitable1,'data');
-Mpar = reshapeCheckUITable(Mpar_raw);
-%startSimulation(Mpar);
+simProcedure(Mpar_raw);
+
+
 
 % --- Executes on button press in pb_cancelsim.
 function pb_cancelsim_Callback(hObject, eventdata, handles)

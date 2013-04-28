@@ -4,7 +4,11 @@ classdef DButils
     
     methods(Static)
         
-        function DB = createDB()
+        function cleanUp()
+            
+        end
+        
+        function [DB, SimDirs] = createDB()
             % create the DB from simulation folders
             
             %get sim folders
@@ -61,30 +65,32 @@ classdef DButils
             matrix = cell(N,M);
             
             for i = 1:N
-                matrix{i,2} = DB(i).mat_name;
-				matrix{i,3} = DB(i).geometry(1).id;
-				matrix{i,4} = DB(i).geometry(1).type;
-                matrix{i,5} = DB(i).geometry(1).radius;
-				matrix{i,6} = mat2str(DB(i).geometry(1).coord);
+                matrix{i,1} = DB(i).mat_name;
+				matrix{i,2} = DB(i).geometry(1).id;
+				matrix{i,3} = DB(i).geometry(1).type;
+                matrix{i,4} = DB(i).geometry(1).radius;
+				matrix{i,5} = mat2str(DB(i).geometry(1).coord);
 	
-                matrix{i,7} = DB(i).geometry(2).id;
-				matrix{i,8} = DB(i).geometry(2).type;
-				matrix{i,9} = DB(i).geometry(2).radius;
-				matrix{i,10} = mat2str(DB(i).geometry(2).coord);
+                if size(DB(i).geometry,1) == 2
+                matrix{i,6} = DB(i).geometry(2).id;
+				matrix{i,7} = DB(i).geometry(2).type;
+				matrix{i,8} = DB(i).geometry(2).radius;
+				matrix{i,9} = mat2str(DB(i).geometry(2).coord);
+                end
                 
-                matrix{i,11} = DB(i).n_of_modes;
-				matrix{i,12} = DB(i).Vdmax;            
-				matrix{i,13} = DB(i).a0;                
-				matrix{i,14} = DB(i).tb;
-				matrix{i,15} = DB(i).dsp3;
+                matrix{i,10} = DB(i).n_of_modes;
+				matrix{i,11} = DB(i).Vdmax;            
+				matrix{i,12} = DB(i).a0;                
+				matrix{i,13} = DB(i).tb;
+				matrix{i,14} = DB(i).dsp3;
     
-                matrix{i,16} = DB(i).timestamp(1:8);
-                matrix{i,17} = DB(i).timestamp(10:13);                
+                matrix{i,15} = DB(i).timestamp(1:8);
+                matrix{i,16} = DB(i).timestamp(10:13);                
                
-                matrix{i,18} = DB(i).OMENversion;
-                matrix{i,19} = DB(i).path;
-                matrix{i,20} = DB(i).user;
-                matrix{i,21} = DB(i).machine;
+                matrix{i,17} = DB(i).OMENversion;
+                matrix{i,18} = DB(i).path;
+                matrix{i,19} = DB(i).user;
+                matrix{i,20} = DB(i).machine;
             end
         end
         
@@ -142,8 +148,8 @@ classdef DButils
             [~,N] = size(DB);
             
             for i=1:N % over all entries
-                currentValue = eval( sprintf('DB(%i).%s',i,propertyName));
-                if isequaln( currentValue, value)                       
+                currentValue = eval(sprintf('DB(%i).%s',i,propertyName));
+                if isequaln(currentValue, value)                       
                     index(end+1,1) = i; 
                     path{end+1,1} = DB(i).path;
                 end
