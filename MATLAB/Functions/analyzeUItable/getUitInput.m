@@ -64,7 +64,7 @@ function [CHK, M] = getUitInput(cellstr)
                     end
                 end
                 chkdim(row) = chkdim(row) + 1;
-            elseif strcmp(str(i),';') || strcmp(str(i),']')
+            elseif strcmp(str(i),';')
                 if i > 1
                     if strcmp(str(i-1),',') || strcmp(str(i-1),';')
                         [CHK, M] = warning(3);
@@ -73,6 +73,17 @@ function [CHK, M] = getUitInput(cellstr)
                 end
                 row = row + 1;
                 chkdim(row) = 1;
+            elseif strcmp(str(i),']')
+                if i > 1
+                    if strcmp(str(i-1),',') || strcmp(str(i-1),';')
+                        [CHK, M] = warning(3);
+                        return;
+                    end
+                end
+                if i ~= m
+                    row = row + 1;
+                    chkdim(row) = 1;
+                end
             end
         end
         if sum(chkdim)/chkdim(1) ~= length(chkdim)

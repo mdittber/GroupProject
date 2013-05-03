@@ -18,7 +18,7 @@ config.machine = getenv('HOSTNAME');
 config.OMEN   = [config.root, 'OMEN_ethz-amd64'];
 config.simulations = [config.root, 'Simulations/'];
 config.vOMEN = 'version';
-config.cancelSim = 0;
+config.cancelSim = 0;   % Is = 1 if simulation is aborted otherwise = 0
 
 if exist(config.simulations) == 0
     mkdir(config.simulations)
