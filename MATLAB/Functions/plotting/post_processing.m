@@ -1,6 +1,6 @@
 number_of_modes=1;
 number_of_elec_field=1;
-no_orbital=5;
+no_orbital=20;
 
 Layer_Matrix=load('Layer_Matrix.dat');
 
