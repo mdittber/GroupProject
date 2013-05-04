@@ -63,10 +63,9 @@ function [dots, simSuccess] = simAll(def_dot)
         QDOTNAME = 'qdotObj';  %name of mat-file in which the current qdot is saved
         qdotObj = dots(i);
         qdotObj.timestamp = simTimestamp{i};
-        qdotObj.path      = [config.simulations, SIMDIR];
+        qdotObj.path      = SIMDIR;
+        
         save( QDOTNAME, 'qdotObj');
-        
-        
         
 	% WRITE CMD FILE
             

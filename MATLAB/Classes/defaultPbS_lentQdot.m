@@ -1,8 +1,10 @@
-% default parameters for a qdot
+% default parameters for a qdot 
+
+% CHOOSE RIGHT PARAMS!!!
 
 default = Qdot;
 
-default.mat_name                = 'PbS';       %material_model
+default.mat_name                = 'PbS_lent';       %material_model
 
 default.lattice_type            = 'zincblende';
 

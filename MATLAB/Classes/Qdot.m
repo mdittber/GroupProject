@@ -44,8 +44,6 @@ classdef Qdot
         OMENversion
         machine
         path
-        simDir
-        
         
     end
     

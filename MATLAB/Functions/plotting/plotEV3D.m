@@ -1,6 +1,13 @@
 function plotEV3D(qdotObj, NMod)
+% Plot wavefn of qdotObj.
+% Plotnr: abcd: 
+% a:(1,2)=(CB,VB)
+% b: (1,2) = (crosssection y,z ; crosssection x,y)
+% cd: mode number
 
     %load matrices from files
+%     TODO
+%     simPath = [config.Simulations, qdotObj.path];
     simPath = sprintf('Simulations/ID%s_%s/', qdotObj.timestamp, qdotObj.mat_name);
 
     Layer_Matrix = load([simPath, 'Layer_Matrix.dat']);
@@ -26,24 +33,9 @@ function plotEV3D(qdotObj, NMod)
 end
 
 
-
-function psi2 = EV2psi( EV , NOrb, NMod)
-    % compute psi^2 from eigenvector from OMEN, for NMod modes
-    % EV: collumns: mode1,realpart || mode2,immag.part || mode2,realpart...
-
-    [N,~] = size(EV);
-    NAtom = N/NOrb;
-
-    psi2 = zeros(NAtom,NMod);
-    complEV = zeros(N, NMod);
-
-    for k = 1:NMod
-        complEV(:,k)=EV(:,2*k-1)+1i*EV(:,2*k);
-        psi2(:,k) = sum( reshape( abs( complEV(:,k) ).^2, NOrb, NAtom))';
-    end
-
-end
-
+%********************************************************************************
+% SUBFUNCTIONS
+%********************************************************************************
 
 
 function plot3DunitCell( LayerMatrix ,EV,index)
@@ -52,19 +44,20 @@ function plot3DunitCell( LayerMatrix ,EV,index)
 
     EV=EV/max(EV)*length(h);
 
-    %schnitt 1
+    %schnitt 1: y,z plane
     figure(100+index)
     hold on
     IA=1;
     while LayerMatrix(IA,1)<1e-8,
         plot3(LayerMatrix(IA,1),LayerMatrix(IA,2),LayerMatrix(IA,3),'ko','MarkerSize',8,'MarkerFaceColor',h(ceil(EV(IA)),:))
+        view([90,0])
         IA=IA+1;
     end
     xlabel('x')
     ylabel('y')
     zlabel('z')
 
-    %schnitt 2
+    %schnitt 2: x,y plane
     figure(200+index)
     hold on
     for IA=1:length(LayerMatrix(:,1)),
