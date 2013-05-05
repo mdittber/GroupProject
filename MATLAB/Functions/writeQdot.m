@@ -57,7 +57,7 @@ function wQdot = writeQdot(Mpar_row, row)
             
             
         case 3
-            default = Qdot('CdS_CdSe');
+            default = Qdot('CdSe_CdS');
 
             % Geometry
             [CHK,vGeo] = getUitInput(Mpar_row(2));
@@ -106,6 +106,24 @@ function wQdot = writeQdot(Mpar_row, row)
             checkUitInput(CHK,vRadius,[row,3]);
             default.geometry(1).radius = vRadius(1,:);
             default.geometry(2).radius = vRadius(2,:);
+            
+        case 5
+            default = Qdot('PbS_lent');
+            
+            % Geometry
+            [CHK,vGeo] = getUitInput(Mpar_row(2));
+            checkUitInput(CHK,vGeo,[row,2]);
+            switch vGeo(1)
+                case 1
+                    default.geometry(1).type = 'sphere';
+                case 2
+                    default.geometry(1).type = 'quboid';
+            end
+            
+            % Radius
+            [CHK,vRadius]= getUitInput(Mpar_row(3));
+            checkUitInput(CHK,vRadius,[row,3]);
+            default.geometry(1).radius = vRadius;
             
         otherwise
     end

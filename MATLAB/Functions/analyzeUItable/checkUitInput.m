@@ -4,18 +4,19 @@ function checkUitInput(CHK, M, pos)
 %   correct or in a irregular range
 
     global config
-    
+    M
+    CHK
     if CHK == 0
         setProgressInfo(['Cell(', num2str(pos(1)), ',', num2str(pos(2)), ') - ', M], 2, gui_simulate, 't_progress');
     else
         switch pos(2)
             case 1  % Material
-                if M<1 || M>4
+                if M<1 || M>5
                     setProgressInfo(['Cell(', num2str(pos(1)), ',', num2str(pos(2)), ') - Material index out of range. Aborting Simulation!'], 2, gui_simulate, 't_progress');
                     config.cancelSim = 1;
                 end
             case 2  % Geometry
-                if M<1 || M>2
+                if min(M)<1 || max(M)>2
                     setProgressInfo(['Cell(', num2str(pos(1)), ',', num2str(pos(2)), ') - Geometry index out of range. Aborting Simulation!'], 2, gui_simulate, 't_progress');
                     config.cancelSim = 1;
                 end
