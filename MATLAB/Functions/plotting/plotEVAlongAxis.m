@@ -5,6 +5,7 @@ function plotEVAlongAxis(dots, pName, startPoint, direction, plotGrid, tolerance
     % tolerance in %/100 of a0. (for latticetype 'zincblende': will be /2)
     
     Ndots = length(dots); 
+    
     pValue = cell(1,Ndots);
     LayerMatrix = cell(1,Ndots);
     EV = cell(1,Ndots);
@@ -13,6 +14,7 @@ function plotEVAlongAxis(dots, pName, startPoint, direction, plotGrid, tolerance
     selAtomInd = cell(1,Ndots);
     scale = cell(1,Ndots);
     subset = cell(1,Ndots); 
+    warn = [];
 
 % get EVs and param values for pName
     
@@ -49,10 +51,12 @@ function plotEVAlongAxis(dots, pName, startPoint, direction, plotGrid, tolerance
         
         %print warning if few atoms on line
         if length(selAtomInd{k})<8
-            warning('ID %i: Less than 8 atoms on line! Set plotGrid = true to check the line',k);
+            warn(end+1) = k;
         end
 
     end
+    
+    warning('Less than 8 atoms on line for IDs: %s! Set plotGrid = [IDs]',mat2str(warn));
     
 % plot atoms and line if selected in plotGrid
     if isequal(plotGrid, 'all')
@@ -180,7 +184,7 @@ function plotNormal(values, pName, pValue, scales, plotid)
     labels = cellfun( @(a,b) sprintf('ID %i: %s', a, mat2str(b)), IDs, pValue, 'UniformOutput', false);
 
     figure(plotid);
-    title( sprintf('Parameter: %s', pName), 'Interpreter', 'none');
+    suptitle( strrep( sprintf('Parameter: %s', pName), '_','\_') );
     hold on;
 
 % plot    
