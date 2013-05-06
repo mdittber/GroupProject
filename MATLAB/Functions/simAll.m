@@ -63,10 +63,9 @@ function [dots, simSuccess] = simAll(def_dot)
         QDOTNAME = 'qdotObj';  %name of mat-file in which the current qdot is saved
         qdotObj = dots(i);
         qdotObj.timestamp = simTimestamp{i};
-        qdotObj.path      = [config.simulations, SIMDIR];
+        qdotObj.path      = SIMDIR;
+        
         save( QDOTNAME, 'qdotObj');
-        
-        
         
 	% WRITE CMD FILE
             
@@ -90,7 +89,7 @@ function [dots, simSuccess] = simAll(def_dot)
         simlogFile = ['simlog_' simTimestamp{i} '.txt'];
         simlogfid = fopen(simlogFile, 'w');
 
-        if  simSuccess(i) ==1  %simulation successful 
+        if  simSuccess(i) == 1  %simulation successful 
             fprintf(simlogfid, 'Simulation SUCCESSFUL.\n');
             fprintf(1, '\nEND OF SIMULATION %i: SUCCESSFUL.\n', i);
         else
@@ -128,11 +127,11 @@ function [dots, simSuccess] = simAll(def_dot)
 
     %Check for failed simulations
     
-    if( sum( simSuccess == 0 )   )
+    if( sum( simSuccess == 0 ) )
         failed = find( simSuccess == 0 );
         fprintf(logfid, 'Attempt to simulate %i qdots. \n', N);
         fprintf(logfid, 'Simulation failed for indices %s \n\n', sprintf('%d, ',failed));
-
+        setProgressInfo('Some simulations FAILED!', 2, gui_simulate, 't_progress');
     else 
         fprintf(logfid, 'All %i simulations terminated normally! \n\n', N);
     end
@@ -160,7 +159,7 @@ function check = checkSuccess(status, dir, consoleOut)
 	if (status == 0) && ( exist( [dir '/VB_V_0_0.dat'], 'file') ~= 0 )
 		check = 1;
 	else
-		check = 0; 
+		check = 0;
     end
 
 end

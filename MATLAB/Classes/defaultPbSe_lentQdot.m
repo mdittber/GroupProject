@@ -2,17 +2,17 @@
 
 default = Qdot;
 
-default.mat_name                = 'CdS_CdSe';       %material_model
+default.mat_name                = 'PbSe_lent';       %material_model
 
-default.lattice_type            = 'zincblende';
+default.lattice_type            = 'rocksalt';
 
-default.a0                      = 0.582;            %lattice constant
+default.a0                      = 0.6121;            %lattice constant
 default.first_atom              = 'cation';         %atom situated at [0 0 0]
 
 default.open_system             = 0;
 
-default.tb                      = 10;              	%tight-binding order
-default.dsp3                    = 30;             	%passivation energy [eV]
+default.tb                      = 20;              	%tight-binding order
+default.dsp3                    = 0;             	%passivation energy [eV]
 
 default.n_of_modes              = 4;               %number of modes for bandstructure calculation
 
@@ -31,8 +31,8 @@ default.directory               = [];
 
 %GEOMETRY
 
-default.no_mat                  = 2;				%number of pieces that form the nanowire (channel + oxide)
-default.no_channel_mat          = 2;               	%number of pieces that form the nanowire channel
+default.no_mat                  = 1;				%number of pieces that form the nanowire (channel + oxide)
+default.no_channel_mat          = 1;               	%number of pieces that form the nanowire channel
 default.no_oxide_mat            = 0;                %number of pieces that form the oxide around the wire  
 
 
@@ -41,16 +41,8 @@ geo(1) = Geometry();
 geo(1).type                 = 'sphere';			%type of material: square or circle
 geo(1).cs                   = 'yes';            %does the material determine the nanowire cross section 
 geo(1).id                   = 1;
-geo(1).radius               = 1.0;                %radius of circle
+geo(1).radius               = 1.0;              %radius of circle
 geo(1).coord                = [0.0 0.0 0.0];	%[xcenter ycenter zcenter]
-
-geo(2) = Geometry();
-
-geo(2).type                 = 'sphere';			%type of material: square or circle
-geo(2).cs                   = 'yes';            %does the material determine the nanowire cross section 
-geo(2).id                   = 1;
-geo(2).radius               = 2.0;                %radius of circle
-geo(2).coord                = [0.0 0.0 0.0];	%[xcenter ycenter zcenter]
 
 default.geometry = geo;
 

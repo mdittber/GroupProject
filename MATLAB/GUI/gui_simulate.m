@@ -22,7 +22,7 @@ function varargout = gui_simulate(varargin)
 
 % Edit the above text to modify the response to help gui_simulate
 
-% Last Modified by GUIDE v2.5 16-Apr-2013 00:14:44
+% Last Modified by GUIDE v2.5 25-Apr-2013 17:57:45
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -113,22 +113,28 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
+
 % --- Executes on button press in pb_startsim.
 function pb_startsim_Callback(hObject, eventdata, handles)
 % hObject    handle to pb_startsim (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 delProgressInfo(gui_simulate, 't_progress');
-setProgressInfo('###   Starting Simulation Procedure...', gui_simulate, 't_progress')
+setProgressInfo('hline', 0, gui_simulate, 't_progress')
+setProgressInfo('Starting Simulation Procedure...', 1, gui_simulate, 't_progress')
 Mpar_raw = get(handles.uitable1,'data');
-Mpar = reshapeCheckUITable(Mpar_raw);
-%startSimulation(Mpar);
+simProcedure(Mpar_raw);
+
+
 
 % --- Executes on button press in pb_cancelsim.
 function pb_cancelsim_Callback(hObject, eventdata, handles)
 % hObject    handle to pb_cancelsim (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+global config;
+config.cancelSim = 1;
+setProgressInfo('Canceling Simulation Procedure!', gui_simulate, 't_progress')
 
 
 
@@ -175,3 +181,12 @@ function t_progress_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
+
+
+
+% --- Executes on button press in pb_clear.
+function pb_clear_Callback(hObject, eventdata, handles)
+% hObject    handle to pb_clear (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+uitable1_CreateFcn(handles.uitable1, eventdata, handles)

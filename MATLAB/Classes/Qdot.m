@@ -45,7 +45,6 @@ classdef Qdot
         machine
         path
         
-        
     end
     
     
@@ -56,16 +55,31 @@ classdef Qdot
 			% if no argument is specified, an empty Qdot obj is constructed
 
             if (nargin ==1)
-                if strcmp( varargin{1}, 'PbS')
+                if strcmp( varargin{1}, 'PbS_lent')
                     
-                    defaultPbSQdot;
+                    defaultPbS_lentQdot;
                     obj = default;
                     
-                elseif strcmp( varargin{1}, 'CdS_CdSe')
+                elseif strcmp( varargin{1}, 'CdSe_CdS')
                     
-                    defaultCdS_CdSeQdot;
+                    defaultCdSe_CdSQdot;
+                    obj = default;                
+                
+                elseif strcmp( varargin{1}, 'PbSe_allan')
+                    
+                    defaultPbSe_allanQdot;
+                    obj = default;
+
+                 elseif strcmp( varargin{1}, 'PbSe_lent')
+                    
+                    defaultPbSe_lentQdot;
                     obj = default;
                                        
+                 elseif strcmp( varargin{1}, 'InGaAs')
+                    
+                    defaultPbSe_lentQdot;
+                    obj = default;
+                    
                 end
             end
             

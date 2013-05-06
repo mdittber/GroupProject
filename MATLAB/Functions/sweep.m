@@ -92,6 +92,7 @@ function p12 = lock(a1,a2)
     p12 = [a1;a2];
 end
 
+
 function radiiMatrix = sweepAndLockRadii(def_dot)
 %sweep each radius and lock it with the radii from the qdot. 
 
@@ -103,7 +104,6 @@ function radiiMatrix = sweepAndLockRadii(def_dot)
         r = paramSweep( def_dot.geometry(i).radius );     
         radiiMatrix = lock( radiiMatrix , r);
     end
-	
 end
 
 
@@ -112,9 +112,8 @@ function n = cols(mat)
     [~,n] = size(mat);
 end
 
+
 function m = rows(mat)
 % returns number of rows in a 2x2 matrix
     [m,~] = size(mat);
 end
-
-
