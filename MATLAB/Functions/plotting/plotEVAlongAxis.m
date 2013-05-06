@@ -15,17 +15,18 @@ function plotEVAlongAxis(dots, pName, startPoint, direction, plotGrid, tolerance
     scale = cell(1,Ndots);
     subset = cell(1,Ndots); 
     warn = [];
-
+    global config;
+    
 % get EVs and param values for pName
     
     for k =1:Ndots
-        %     simPath = [config.Simulations, qdotObj.path];
-        simPath = sprintf('Simulations/ID%s_%s/', dots(k).timestamp, dots(k).mat_name);
+         simPath = [config.simulations, dots(k).path];
+        %simPath = sprintf('Simulations/ID%s_%s/', dots(k).timestamp, dots(k).mat_name);
 
-        LayerMatrix{k} = load([simPath, 'Layer_Matrix.dat']);
+        LayerMatrix{k} = load([simPath, '/Layer_Matrix.dat']);
 %         CB_V = load([simPath, 'CB_V_0_0.dat']);
         
-        EV{k} = load([simPath, 'VB_V_0_0.dat']);
+        EV{k} = load([simPath, '/VB_V_0_0.dat']);
         
         pValue{1,k} = eval( sprintf('dots(%i).%s',k,pName) );
         

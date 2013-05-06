@@ -17,7 +17,7 @@ config.user    = getenv('USER');
 config.machine = getenv('HOSTNAME');
 config.OMEN   = [config.root, 'OMEN_ethz-amd64'];
 config.simulations = [config.root, 'Simulations/'];
-config.vOMEN = 'version';
+config.vOMEN = '04May2013';
 config.cancelSim = 0;   % Is = 1 if simulation is aborted otherwise = 0
 
 if exist(config.simulations) == 0

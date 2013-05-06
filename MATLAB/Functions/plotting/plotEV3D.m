@@ -5,15 +5,16 @@ function plotEV3D(dots, NMod)
 % b: (1,2) = (crosssection y,z ; crosssection x,y)
 % cd: mode number
 
+global config;
 
     for k =1:length(dots)
 
-    %     simPath = [config.Simulations, qdotObj.path];
-        simPath = sprintf('Simulations/ID%s_%s/', dots(k).timestamp, dots(k).mat_name);
+        simPath = [config.simulations, dots(k).path];
+        %simPath = sprintf('Simulations/ID%s_%s/', dots(k).timestamp, dots(k).mat_name);
 
-        LayerMatrix = load([simPath, 'Layer_Matrix.dat']);
-        CB_V = load([simPath, 'CB_V_0_0.dat']);
-        VB_V = load([simPath, 'VB_V_0_0.dat']);
+        LayerMatrix = load([simPath, '/Layer_Matrix.dat']);
+        CB_V = load([simPath, '/CB_V_0_0.dat']);
+        VB_V = load([simPath, '/VB_V_0_0.dat']);
 
         [NAtom,~] = size(LayerMatrix);            
         [n,m]  = size( VB_V );

@@ -1,20 +1,21 @@
 function plotBandGap()
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
+    global config
 
     [DB, SimDirs] = DButils.createDB();
     [n,m] = size(DB);
     for i=1:m
-        [BGap(i), Radius(i,:), Volt(i), Mat(i)] = getBandGap(DB(i),SimDirs(i).name);
+        [BGap(i), Radius(i,:), Volt(i), Mat(i)] = getBandGap(DB(i),SimDirs(i).name)
     end
     
     figure;
     hold on;
-    [n,m] = size(Radius);
+    [n,m] = size(Radius)
     if m == 1
-        Col = Volt/max(Volt);
-        S = 25*Mat;
-        sVolt = round(sort(unique(Volt))*100)/100;
+        Col = Volt/1;%max(Volt)
+        S = 250*Mat
+        sVolt = round(sort(unique(Volt))*100)/100
         sh = scatter(Radius(:,1),BGap,S,Col)
         xlabel('Radius of Quantum Dot in nm');
         ylabel('Band Gap in eV');
