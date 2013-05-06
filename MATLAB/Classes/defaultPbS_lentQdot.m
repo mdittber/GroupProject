@@ -6,17 +6,17 @@ default = Qdot;
 
 default.mat_name                = 'PbS_lent';       %material_model
 
-default.lattice_type            = 'zincblende';
+default.lattice_type            = 'rocksalt';
 
-default.a0                      = 0.582;            %lattice constant
+default.a0                      = 0.5936;           %lattice constant
 default.first_atom              = 'cation';         %atom situated at [0 0 0]
 
 default.open_system             = 0;
 
-default.tb                      = 10;              	%tight-binding order
-default.dsp3                    = 30;             	%passivation energy [eV]
+default.tb                      = 20;              	%tight-binding order
+default.dsp3                    = 0;             	%passivation energy [eV]
 
-default.n_of_modes              = 4;               %number of modes for bandstructure calculation
+default.n_of_modes              = 4;                %number of modes for bandstructure calculation
 
 default.max_bond_def            = 0.1;              %maximum relative bond deformation (should only be changed if very large strain)
 
@@ -47,4 +47,3 @@ geo(1).radius               = 1.0;              %radius of circle
 geo(1).coord                = [0.0 0.0 0.0];	%[xcenter ycenter zcenter]
 
 default.geometry = geo;
-

@@ -7,7 +7,7 @@ ColCode = Layer_Matrix(:,4)/numOfElements;
 
 fig_count = 1;
 %fig = figure(fig_count)
-scatter3(Layer_Matrix(:,1), Layer_Matrix(:,2), Layer_Matrix(:,3),SizeCode,ColCode)%,'filled');
+scatter3(Layer_Matrix(:,1), Layer_Matrix(:,2), Layer_Matrix(:,3),SizeCode,ColCode,'filled');
 title('Structure of a XYZ quantum dot');
 %legend('Pb','S');
 xlabel('x-axis');
