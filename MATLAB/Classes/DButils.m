@@ -150,6 +150,9 @@ classdef DButils
             % mode 3: property and value match APPROXIMATELY :
             %           numeric properties: specify tolerance tol
             %           string properties: objects whose property contains string 'value' are selected
+            % mode 4+5: compare 2 properties (propertyName = {pN1, pN2}) 
+            % mode 4: value = constant difference +/-tol = pN1-pN2
+            % mode 5: value = constant ratio +/-tol = pN1/pN2
             
             switch mode
                 case 1
@@ -158,13 +161,17 @@ classdef DButils
                     indices = DButils.findRange(DB, propertyName, value(1), value(2));
                 case 3
                     indices = DButils.findSimilar(DB, propertyName, value, tol);
+                case 4
+                    indices = DButils.findConstDiff(DB, propertyName{1}, propertyName{2}, value, tol);
+                case 5
+                    indices = DButils.findConstRatio(DB, propertyName{1}, propertyName{2}, value, tol);
             end
             entries = DButils.getEntries(DB, indices);            
         end
         
         
         %********************************************************************
-        % sub fuctions for filtering
+        % sub functions for method filter
         %********************************************************************
         
         function entries = getEntries(DB, indices)
@@ -245,7 +252,53 @@ classdef DButils
                 [index, path] = DButils.findRange(DB, propertyName, value*(1-tol),  value*(1+tol));
             end
         end
+        
+        
+        function [index, path] = findConstRatio(DB, propertyName1, propertyName2, ratio, tol)
+            % returns indices and paths of DB entries with const ratio = pN1/pN2.
+            % ratio +/- tol
+            
+            path = cell(0,0);
+            index = [];
+            [~,N] = size(DB);
+            
+            for i=1:N % over all entries
+                currentValue1 = eval(sprintf('DB(%i).%s',i,propertyName1));
+                currentValue2 = eval(sprintf('DB(%i).%s',i,propertyName2));
+                currentRatio = currentValue1 / currentValue2;
+                
+                if ( currentRatio <= ratio*(1+tol) ) && (currentRatio >= ratio*(1-tol) )
+                    index(end+1,1) = i; 
+                    path{end+1,1} = DB(i).path;
+                end
+            end            
+            
+            
+        end
+        
+        
+        function [index, path] = findConstDiff(DB, propertyName1, propertyName2, diff, tol)
+            % returns indices and paths of DB entries with constant difference  diff = pN1 - pN2.
+            % diff +/- tol
+            
+            path = cell(0,0);
+            index = [];
+            [~,N] = size(DB);
+            
+            for i=1:N % over all entries
+                currentValue1 = eval(sprintf('DB(%i).%s',i,propertyName1));
+                currentValue2 = eval(sprintf('DB(%i).%s',i,propertyName2));
+                currentDiff = currentValue1 - currentValue2;
+                
+                if ( currentDiff <= diff*(1+tol) ) && (currentDiff >= diff*(1-tol) )
+                    index(end+1,1) = i; 
+                    path{end+1,1} = DB(i).path;
+                end
+            end            
+            
+        end
                
+        
         function cleaned = removeDuplicates(DB)
             % returns the DB with all Duplicates removed.
             % not suitable for large DBs
