@@ -1,0 +1,27 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: C:\Users\matthias\Documents\ETH\ITET\Gruppenarbeit\Documentation\LaTeX\Simulation_of_Quantum_Dots.aux
+A level-1 auxiliary file: Misc/Titlepage.aux
+The style file: plain.bst
+A level-1 auxiliary file: Chapters/DeclarationOfOriginality.aux
+Database file #1: Bibliography.bib
+Name 1 in "Craig S. Lent, Marshall A. Bowen, John D. Dow Robert S. Allgaier, Otto F. Sankey, and Eliza S. Ho" has a comma at the end for entry Lent1986
+while executing---line 1049 of file plain.bst
+Too many commas in name 1 of "Craig S. Lent, Marshall A. Bowen, John D. Dow Robert S. Allgaier, Otto F. Sankey, and Eliza S. Ho" for entry Lent1986
+while executing---line 1049 of file plain.bst
+Name 1 in "Deniz Bozyigit, Michael Jakob, Olesya Yarema, and Vanessa Wood" has a comma at the end for entry DLTS_paper
+while executing---line 1049 of file plain.bst
+Too many commas in name 1 of "Ludovico Cademartiri, Erica Montanari, Gianluca Calestani, Andrea Migliori, Antonietta Guagliardi and Geoffrey A. Ozin" for entry Cademartiri2006
+while executing---line 1049 of file plain.bst
+Too many commas in name 1 of "Ludovico Cademartiri, Erica Montanari, Gianluca Calestani, Andrea Migliori, Antonietta Guagliardi and Geoffrey A. Ozin" for entry Cademartiri2006
+while executing---line 1049 of file plain.bst
+Name 1 in "Craig S. Lent, Marshall A. Bowen, John D. Dow Robert S. Allgaier, Otto F. Sankey, and Eliza S. Ho" has a comma at the end for entry Lent1986
+while executing---line 1090 of file plain.bst
+Too many commas in name 1 of "Craig S. Lent, Marshall A. Bowen, John D. Dow Robert S. Allgaier, Otto F. Sankey, and Eliza S. Ho" for entry Lent1986
+while executing---line 1090 of file plain.bst
+Name 1 in "Deniz Bozyigit, Michael Jakob, Olesya Yarema, and Vanessa Wood" has a comma at the end for entry DLTS_paper
+while executing---line 1090 of file plain.bst
+Warning--empty journal in DLTS_paper
+Too many commas in name 1 of "Ludovico Cademartiri, Erica Montanari, Gianluca Calestani, Andrea Migliori, Antonietta Guagliardi and Geoffrey A. Ozin" for entry Cademartiri2006
+while executing---line 1090 of file plain.bst
+Too many commas in name 1 of "Ludovico Cademartiri, Erica Montanari, Gianluca Calestani, Andrea Migliori, Antonietta Guagliardi and Geoffrey A. Ozin" for entry Cademartiri2006
+while executing---line 1090 of file plain.bst
+(There were 10 error messages)

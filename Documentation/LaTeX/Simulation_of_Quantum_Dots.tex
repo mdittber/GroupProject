@@ -1,0 +1,88 @@
+\input{Misc/Header}
+%\usepackage{ETH light}
+%----------------------------------------------------------
+
+%\includeonly{Chapters/ProcessingQDots}
+
+\begin{document}
+
+\frontmatter
+\cleardoublepage\pdfbookmark{\titlepage}{Titlepage}
+\include{Misc/Titlepage}
+
+\cleardoublepage\pdfbookmark{\contentsname}{toc}		% Add Table of Contents to the PDF bookmarks
+\tableofcontents
+\newpage
+
+
+%\chapter{Preface}
+
+%\chapter{Introduction}
+
+
+
+\mainmatter
+
+\input{Chapters/QuantumDot}
+
+\input{Chapters/Simulations}
+
+\chapter{Conclusion / Summary}
+%%\acl{CQD}
+%%
+%	\begin{appendix}
+%		\chapter{Abbreviations}
+%%			
+%%
+%			\begin{acronym}[ARB]
+%%				%\setlength{\itemsep}{-\parsep}
+%				\acro{CQD}{Colloidal Quantum Dot}
+%				\acro{YTM}{Yield to Maturity, Endfälligkeitsrendite}
+%			\end{acronym}
+%	\end{appendix}
+	
+
+		
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%% Glossary - Begin %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\glossary{name={Colloidal Quantum Dots}, description={The Fermi level also known as the Fermi Energy
+						is the Energy at which the probability of finding an Electron/Hole is equal to 50\%. \newline
+						At equilibrium the Fermi Level must be flat throughout the entire structure.}}
+		
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%  Glossary - End %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\clearpage
+	\printglossary
+	
+	\clearpage
+	\phantomsection
+	\addcontentsline{toc}{chapter}{\indexname}
+	\printindex
+	
+	\clearpage
+	\phantomsection
+	\addcontentsline{toc}{chapter}{References}
+		\nocite{Klimov}
+		\nocite{DLTS_paper}
+		\nocite{Hines2003}
+		\nocite{Ip2012}
+		\nocite{Tang2011}
+		\nocite{Cademartiri2006}
+		\nocite{Efros2000}
+		\nocite{Lent1986}
+		\nocite{OMENmanual}
+	\bibliography{Bibliography}
+	\bibliographystyle{plain}
+	
+	\clearpage
+	\phantomsection
+	\addcontentsline{toc}{chapter}{List of Tables}
+	\listoftables
+	
+	
+	\backmatter
+	
+	\include{Chapters/DeclarationOfOriginality}
+	
+\end{document}
