@@ -1,4 +1,4 @@
-function plotEVAlongAxis(dots, pName, startPoint, direction, plotGrid, tolerance, NMod)
+function plotEVAlongAxis(dots, pName, startPoint, direction, plotGrid, tolerance, NMod, band)
     % plot the EVs of multiple Qdots along specified line.
     % pName is the for the plot relevant Qdot property.
     % set plotGrid = [indices] OR 'all' for visualisation of Qdot and specified line. 
@@ -15,19 +15,24 @@ function plotEVAlongAxis(dots, pName, startPoint, direction, plotGrid, tolerance
     scale = cell(1,Ndots);
     subset = cell(1,Ndots); 
     warn = [];
+    
     global config;
     
 % get EVs and param values for pName
     
     for k =1:Ndots
-         simPath = [config.simulations, dots(k).path];
-        %simPath = sprintf('Simulations/ID%s_%s/', dots(k).timestamp, dots(k).mat_name);
-
+        simPath = [config.simulations, dots(k).path];
+         
         LayerMatrix{k} = load([simPath, '/Layer_Matrix.dat']);
-%         CB_V = load([simPath, 'CB_V_0_0.dat']);
         
-        EV{k} = load([simPath, '/VB_V_0_0.dat']);
-        
+        % load EV (VB or CB as specified in band)
+        if isequal(band, 'VB')
+            EVfile = '/VB_V_0_0.dat';
+        else
+            EVfile = '/CB_V_0_0.dat';
+        end
+        EV{k} = load([simPath, EVfile]);
+
         pValue{1,k} = eval( sprintf('dots(%i).%s',k,pName) );
         
         tol(k) = dots(k).a0 * tolerance;
@@ -78,7 +83,8 @@ function plotEVAlongAxis(dots, pName, startPoint, direction, plotGrid, tolerance
         for k = 1:Ndots
             subset{k} = psi2{k}(selAtomInd{k},i); % psi2 for atoms on line for dot k and mode i
         end
-        plotNormal(subset, pName, pValue, scale, i);
+        plotTitle = sprintf('%s,Parameter: %s', band, pName);
+        plotNormal(subset, plotTitle, pValue, scale, i);
     end
 end
 
@@ -90,24 +96,22 @@ end
 function highlightAtoms(grid, atoms, startPoint, direction, plotid)
     % highlights atoms (containing indices of grid) in grid
     % optional plotting of a line
-    
-    [NAll,~] = size(grid);    
-    direction = direction/norm(direction);
-    
+
     figure(plotid); 
     hold on
     
 %plot all atoms in grid
-    for k =1:NAll
-        plot3(grid(k,1), grid(k,2), grid(k,3), 'ko')
-    end
-    
+    NMat = max(grid(:,4));
+    ColCode = grid(:,4)/NMat;
+
+    scatter3(grid(:,1), grid(:,2), grid(:,3), 50, ColCode);
+
 %plot only hitAtoms
-    for k =1:length(atoms)
-        plot3(grid(atoms(k),1), grid(atoms(k),2), grid(atoms(k),3), 'r*')
-    end
-        
-    t = [-1,1] * max(max(grid(:,1:3)));
+    scatter3(grid(atoms,1), grid(atoms,2), grid(atoms,3),50,'r','filled');
+
+% set and plot line    
+    direction = direction/norm(direction);
+    t = [-1,1] * max(max(grid(:,1:3))); % appropriate line length
     line = startPoint'*[1,1] + direction'*t;
 
     plot3(line(1,:), line(2,:), line(3,:), 'b-')
@@ -156,7 +160,7 @@ end
 
 
 
-function plotNormal(values, pName, pValue, scales, plotid)
+function plotNormal(values, plotTitle, pValue, scales, plotid)
     % plot and label multiple curves on normalized x-axis (0 to 1).
     % values: cell array (1,N) containing arrays of the values to be
     % plotted
@@ -185,7 +189,7 @@ function plotNormal(values, pName, pValue, scales, plotid)
     labels = cellfun( @(a,b) sprintf('ID %i: %s', a, mat2str(b)), IDs, pValue, 'UniformOutput', false);
 
     figure(plotid);
-    suptitle( strrep( sprintf('Parameter: %s', pName), '_','\_') );
+    suptitle( strrep( plotTitle, '_','\_') );
     hold on;
 
 % plot    

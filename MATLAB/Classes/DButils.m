@@ -4,10 +4,6 @@ classdef DButils
     
     methods(Static)
         
-        function cleanUp()
-            
-        end
-        
         function [DB, SimDirs] = createDB()
             % create the DB from simulation folders
             
@@ -29,6 +25,53 @@ classdef DButils
                 DB(i) = qdotObj;
             end
             
+        end
+        
+        function updateProperty(DIR, pName, value)
+        %% updateProperty(DIR, pName, value)
+        %   DIR     directory path relative to 'root/Simulations/'
+        %   pName   Qdot property in single quotes, i.e. 'OMENversion'
+        %   value   value that will be entered in the property
+        %            abs2rel changes the path of the Qdot to a path relative to
+        %            'root/Simulations' and moves the simulation set into the
+        %             right folder
+
+            global config;
+            ctrStatus = 0;
+            SimDirs = dir([config.simulations, DIR, '/ID*']);
+            [N,~] = size(SimDirs);
+
+            for i=1:N
+                load([config.simulations, DIR, '/', SimDirs(i).name, '/qdotObj.mat']);
+
+                %% Overwrite property
+
+                % Change path from absolute to relative
+                if strcmp(pName, 'path') && strcmp(value, 'abs2rel')
+                    newPath = ['ID', qdotObj.timestamp, '_', qdotObj.mat_name];
+                    eval( sprintf('qdotObj.%s = %s;',pName,'newPath') );
+                    save([config.simulations, DIR, '/', SimDirs(i).name, '/qdotObj.mat'], 'qdotObj');
+
+                    % Move simulation folder
+                    source = [config.simulations, DIR, '/',newPath];
+                    destination = [config.simulations, newPath];
+                    [status, msg, msgID] = movefile(source, destination,'f');
+                    ctrStatus = ctrStatus + status;
+                    if status == 0
+                        sprintf('Folder could not be moved from: \n   %s \n to: \n   \s', source, destination);
+                    end
+                    if i == N && ctrStatus == N
+                        rmdir([config.simulations, DIR]);
+                    end
+
+                % Change a property
+                else
+                    eval( sprintf('qdotObj.%s = %s;',pName,'value') );
+                    save([config.simulations, DIR, '/', SimDirs(i).name, '/qdotObj.mat'], 'qdotObj');
+                end
+
+            end
+            addpath(genpath(config.root));
         end
     
         function showSelParam(DB)
@@ -107,6 +150,9 @@ classdef DButils
             % mode 3: property and value match APPROXIMATELY :
             %           numeric properties: specify tolerance tol
             %           string properties: objects whose property contains string 'value' are selected
+            % mode 4+5: compare 2 properties (propertyName = {pN1, pN2}) 
+            % mode 4: value = constant difference +/-tol = pN1-pN2
+            % mode 5: value = constant ratio +/-tol = pN1/pN2
             
             switch mode
                 case 1
@@ -115,13 +161,17 @@ classdef DButils
                     indices = DButils.findRange(DB, propertyName, value(1), value(2));
                 case 3
                     indices = DButils.findSimilar(DB, propertyName, value, tol);
+                case 4
+                    indices = DButils.findConstDiff(DB, propertyName{1}, propertyName{2}, value, tol);
+                case 5
+                    indices = DButils.findConstRatio(DB, propertyName{1}, propertyName{2}, value, tol);
             end
             entries = DButils.getEntries(DB, indices);            
         end
         
         
         %********************************************************************
-        % sub fuctions for filtering
+        % sub functions for method filter
         %********************************************************************
         
         function entries = getEntries(DB, indices)
@@ -202,7 +252,53 @@ classdef DButils
                 [index, path] = DButils.findRange(DB, propertyName, value*(1-tol),  value*(1+tol));
             end
         end
+        
+        
+        function [index, path] = findConstRatio(DB, propertyName1, propertyName2, ratio, tol)
+            % returns indices and paths of DB entries with const ratio = pN1/pN2.
+            % ratio +/- tol
+            
+            path = cell(0,0);
+            index = [];
+            [~,N] = size(DB);
+            
+            for i=1:N % over all entries
+                currentValue1 = eval(sprintf('DB(%i).%s',i,propertyName1));
+                currentValue2 = eval(sprintf('DB(%i).%s',i,propertyName2));
+                currentRatio = currentValue1 / currentValue2;
+                
+                if ( currentRatio <= ratio*(1+tol) ) && (currentRatio >= ratio*(1-tol) )
+                    index(end+1,1) = i; 
+                    path{end+1,1} = DB(i).path;
+                end
+            end            
+            
+            
+        end
+        
+        
+        function [index, path] = findConstDiff(DB, propertyName1, propertyName2, diff, tol)
+            % returns indices and paths of DB entries with constant difference  diff = pN1 - pN2.
+            % diff +/- tol
+            
+            path = cell(0,0);
+            index = [];
+            [~,N] = size(DB);
+            
+            for i=1:N % over all entries
+                currentValue1 = eval(sprintf('DB(%i).%s',i,propertyName1));
+                currentValue2 = eval(sprintf('DB(%i).%s',i,propertyName2));
+                currentDiff = currentValue1 - currentValue2;
+                
+                if ( currentDiff <= diff*(1+tol) ) && (currentDiff >= diff*(1-tol) )
+                    index(end+1,1) = i; 
+                    path{end+1,1} = DB(i).path;
+                end
+            end            
+            
+        end
                
+        
         function cleaned = removeDuplicates(DB)
             % returns the DB with all Duplicates removed.
             % not suitable for large DBs
