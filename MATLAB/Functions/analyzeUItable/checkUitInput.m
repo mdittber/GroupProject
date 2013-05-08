@@ -30,7 +30,7 @@ function checkUitInput(CHK, M, pos)
                     config.cancelSim = 1;
                 end
             case 4  % # of Modes
-                if M < 4
+                if M < 1
                     setProgressInfo(['Cell(', num2str(pos(1)), ',', num2str(pos(2)), ') - Simulating less than 4 modes is not excepted by OMEN. Aborting Simulation!'], 2, gui_simulate, 't_progress');
                     config.cancelSim = 1;
                 elseif M > 20
