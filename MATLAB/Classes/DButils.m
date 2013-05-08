@@ -199,7 +199,7 @@ classdef DButils
             
             for i=1:N % over all entries
                 currentValue = eval(sprintf('DB(%i).%s',i,propertyName));
-                if isequaln(currentValue, value)                       
+                if isequal(currentValue, value)                       
                     index(end+1,1) = i; 
                     path{end+1,1} = DB(i).path;
                 end

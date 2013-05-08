@@ -12,7 +12,7 @@ default.first_atom              = 'cation';         %atom situated at [0 0 0]
 default.open_system             = 0;
 
 default.tb                      = 20;              	%tight-binding order
-default.dsp3                    = 0;             	%passivation energy [eV]
+default.dsp3                    = 30;             	%passivation energy [eV]
 
 default.n_of_modes              = 4;               %number of modes for bandstructure calculation
 

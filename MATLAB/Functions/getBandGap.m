@@ -1,4 +1,4 @@
-function [BGap, Radius, Volt, Mat] = getBandGap(QdotObj,SimDir)
+function [BGap, Radius, Volt, Mat] = getBandGap(QdotObj)
 %[BGap, Radius, Volt, Info] = getBandGap(QdotObj,SimDir)
 %   Input:  QdotObj     - Object that shall give the Band Gap
 %           SimDir      - Path where to find the object
@@ -27,8 +27,8 @@ function [BGap, Radius, Volt, Mat] = getBandGap(QdotObj,SimDir)
     end
     
     global config;
-    load([config.simulations, SimDir, '/CB_E_0_0.dat']);
-    load([config.simulations, SimDir, '/VB_E_0_0.dat']);
+    load([config.simulations, QdotObj.path, '/CB_E_0_0.dat']);
+    load([config.simulations, QdotObj.path, '/VB_E_0_0.dat']);
     minCB = min(CB_E_0_0);
     maxVB = max(VB_E_0_0);
     BGap  = minCB - maxVB;

@@ -4,12 +4,14 @@ function plotBandGap(DB)
     global config
 
     if nargin <1
-        [DB, ~] = DButils.createDB();
+        [DB, SimDirs] = DButils.createDB();
+    else
+        
     end
         
     [n,m] = size(DB);
     for i=1:m
-        [BGap(i), Radius(i,:), Volt(i), Mat(i)] = getBandGap(DB(i));
+        [BGap(i), Radius(i,:), Volt(i), Mat(i)] = getBandGap(DB(i),SimDirs(i).name);
     end
     
     Volt
