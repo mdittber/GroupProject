@@ -57,7 +57,7 @@ function wQdot = writeQdot(Mpar_row, row)
             
             
         case 3
-            default = Qdot('CdSe_CdS');
+            default = Qdot('CdS_CdSe');
 
             % Geometry
             [CHK,vGeo] = getUitInput(Mpar_row(2));

@@ -18,10 +18,12 @@ function [BGap, Radius, Volt, Mat] = getBandGap(QdotObj)
         Mat = 1;
     elseif strcmp(QdotObj.mat_name, 'PbSe_lent')
         Mat = 2;
-    elseif strcmp(QdotObj.mat_name, 'CdSe_CdS')
+    elseif strcmp(QdotObj.mat_name, 'CdS_CdSe')
         Mat = 3;
     elseif strcmp(QdotObj.mat_name, 'InGaAs')
         Mat = 4;
+    elseif strcmp(QdotObj.mat_name, 'PbS_lent')
+        Mat = 5;
     else
         Mat = 0.1;
     end

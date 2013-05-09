@@ -4,8 +4,7 @@ function checkUitInput(CHK, M, pos)
 %   correct or in a irregular range
 
     global config
-    M
-    CHK
+
     if CHK == 0
         setProgressInfo(['Cell(', num2str(pos(1)), ',', num2str(pos(2)), ') - ', M], 2, gui_simulate, 't_progress');
     else
@@ -31,7 +30,7 @@ function checkUitInput(CHK, M, pos)
                 end
             case 4  % # of Modes
                 if M < 1
-                    setProgressInfo(['Cell(', num2str(pos(1)), ',', num2str(pos(2)), ') - Simulating less than 4 modes is not excepted by OMEN. Aborting Simulation!'], 2, gui_simulate, 't_progress');
+                    setProgressInfo(['Cell(', num2str(pos(1)), ',', num2str(pos(2)), ') - Simulating less than 1 mode is not excepted by OMEN. Aborting Simulation!'], 2, gui_simulate, 't_progress');
                     config.cancelSim = 1;
                 elseif M > 20
                     setProgressInfo(['Cell(', num2str(pos(1)), ',', num2str(pos(2)), ') - Simulating more than 20 modes can take a long time!'], 2, gui_simulate, 't_progress');
