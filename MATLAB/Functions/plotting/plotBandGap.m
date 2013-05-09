@@ -12,15 +12,17 @@ function plotBandGap(DB)
         [BGap(i), Radius(i,:), Volt(i), Mat(i)] = getBandGap(DB(i));
     end
     
-    Volt
-    BGap
+    assignin('base','volt',Volt)
+    assignin('base','bgap',BGap)
+    assignin('base','rad',Radius(:,1))
+    Mat
     
     figure;
     hold on;
     [n,m] = size(Radius);
     if m == 1
         Col = Volt/1;%max(Volt)
-        S = 250*Mat;
+        S = 2*50*Mat;
         sVolt = round(sort(unique(Volt))*100)/100;
         sh = scatter(Radius(:,1),BGap,S,Col);
         xlabel('Radius of Quantum Dot in nm');
@@ -41,6 +43,8 @@ function plotBandGap(DB)
         set(hcb,'XTickMode','manual');
     end
 
+    r = [min(Radius(:,1)):0.01:max(Radius(:,1))]
+    plot(r,1./r.^2+0.5)
 % 
 %         title('Bandgap and energy levels of a XYZ quantum dot');
 %         %set(gca,'XTickLabel',[]);
