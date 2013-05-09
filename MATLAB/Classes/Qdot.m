@@ -60,9 +60,9 @@ classdef Qdot
                     defaultPbS_lentQdot;
                     obj = default;
                     
-                elseif strcmp( varargin{1}, 'CdSe_CdS')
+                elseif strcmp( varargin{1}, 'CdS_CdSe')
                     
-                    defaultCdSe_CdSQdot;
+                    defaultCdS_CdSeQdot;
                     obj = default;                
                 
                 elseif strcmp( varargin{1}, 'PbSe_allan')

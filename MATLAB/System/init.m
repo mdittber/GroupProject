@@ -18,7 +18,7 @@ elseif strcmp(getenv('USERNAME'), 'matthias')
 end
 
 config.system       = [config.root, 'MATLAB/System/'];
-config.log          = [config.root, 'SystemData'];
+config.matlab          = [config.root, 'MATLAB'];
 config.OMEN         = [config.root, 'OMEN_ethz-amd64'];
 config.simulations  = [config.root, 'Simulations/'];
 config.vOMEN        = '04May2013';
@@ -30,5 +30,5 @@ if exist(config.simulations) == 0
     mkdir(config.simulations)
 end
 
-addpath(genpath(config.root))
+addpath(genpath(config.matlab))
 cd(config.root)

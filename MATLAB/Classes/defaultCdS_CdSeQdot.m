@@ -2,7 +2,7 @@
 
 default = Qdot;
 
-default.mat_name                = 'CdSe_CdS';       %material_model
+default.mat_name                = 'CdS_CdSe';       %material_model
 
 default.lattice_type            = 'zincblende';
 
