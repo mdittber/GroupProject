@@ -79,7 +79,7 @@ global config;
 
             %schnitt 1: y,z plane
             subplot(2,2,3);            
-            title( sprintf('CV mode %i',i) );
+            title( sprintf('VB mode %i',i) );
             xlabel('x');
             ylabel('y');
             zlabel('z');
@@ -94,7 +94,7 @@ global config;
 
             %schnitt 2: x,y plane
             subplot(2,2,4);
-            title( sprintf('CV mode %i',i) );
+            title( sprintf('VB mode %i',i) );
             hold on
             xlabel('x');
             ylabel('y');
