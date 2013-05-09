@@ -1,3 +1,21 @@
+function QDBandgapPlot(Qdots)
+
+    global config;
+    [n,m] = size(Qdots)
+    
+    for i=1:max(n,m)
+        if mod(i,6) == 0
+            figure()%mod(i,6))
+            hold on;
+            title('Bandgaps of quantum dots')
+        end
+        subplot(2,3,mod(i,6))
+            load([config.simulations, Qdots(i).path, '/CB_E_0_0.dat']);
+            load([config.simulations, Qdots(i).path, '/VB_E_0_0.dat']);
+
+
+
+
 minCB = min(CB_E_0_0);
 maxVB = max(VB_E_0_0);
 BGhalf= (minCB-maxVB)/2;
@@ -21,3 +39,5 @@ ylabel('Energy in eV');
 %zlabel('z-axis');
 
 legend('CB levels', 'VB levels', 'Bandgap','Location', 'EastOutside');
+
+    end
