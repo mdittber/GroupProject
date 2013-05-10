@@ -102,7 +102,7 @@ classdef DButils
             % creates cell matrix from DB, containing selected properties
             % TODO not yet complete
             
-            [~,N] = size(DB);
+            N = length(DB);
             M = 2; % number of properties displayed
             
             matrix = cell(N,M);
@@ -114,7 +114,7 @@ classdef DButils
                 matrix{i,4} = DB(i).geometry(1).radius;
 				matrix{i,5} = mat2str(DB(i).geometry(1).coord);
 	
-                if size(DB(i).geometry,1) == 2
+                if length(DB(i).geometry) == 2
                 matrix{i,6} = DB(i).geometry(2).id;
 				matrix{i,7} = DB(i).geometry(2).type;
 				matrix{i,8} = DB(i).geometry(2).radius;
