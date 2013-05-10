@@ -11,6 +11,5 @@ function psi2 = EV2psi( EV , NOrb, NMod)
     for k = 1:NMod
         complEV(:,k)=EV(:,2*k-1)+1i*EV(:,2*k);
         psi2(:,k) = sum( reshape( abs( complEV(:,k) ).^2, NOrb, NAtom))';
-    end
-
+    end    
 end
