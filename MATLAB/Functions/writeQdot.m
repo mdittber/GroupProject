@@ -138,10 +138,11 @@ function wQdot = writeQdot(Mpar_row, row)
     % Voltage
     [CHK,vVolt] = getUitInput(Mpar_row(5));
     checkUitInput(CHK,vVolt,[row,5]);
-    default.NVD        = vVolt(3);			% number of drain voltages Vd=Vdmin:(Vdmax-Vdmin)/(NVD-1):Vdmax
-    default.Vdmin      = vVolt(1);			% absolute minimum drain potential
-    default.Vdmax      = vVolt(2);			% absolute maximum drain potential
+%     default.NVD        = vVolt(3);			% number of drain voltages Vd=Vdmin:(Vdmax-Vdmin)/(NVD-1):Vdmax
+%     default.Vdmin      = vVolt(1);			% absolute minimum drain potential
+%     default.Vdmax      = vVolt(2);			% absolute maximum drain potential
     
+    default.Efield = [vVolt(1), vVolt(2), vVolt(3)];
     
     %%********************************************************************
     %% TECHNICAL DATA

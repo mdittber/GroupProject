@@ -3,7 +3,7 @@
 
 global config;
 
-if strcmp(getenv('USERNAME'), 'gra13f2')
+if strcmp(getenv('USER'), 'gra13f2')
     config.root     = '/usr/zupo/stud7/gra13f2/GroupProject/';
     config.user     = getenv('USER');
     config.machine  = getenv('HOSTNAME');

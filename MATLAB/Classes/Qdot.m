@@ -28,6 +28,9 @@ classdef Qdot
         Vdmin
         Vdmax
         
+        %Efield in 10^9 V/m
+        Efield
+        
         directory
         
         no_mat
@@ -35,6 +38,9 @@ classdef Qdot
         no_oxide_mat
         
         geometry
+        
+        update_bs_target        
+        bs_target		
     end
     
     properties
@@ -109,7 +115,6 @@ classdef Qdot
                 obj.geometry(i)
             end
         end
-
         
     end
    

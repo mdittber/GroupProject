@@ -10,10 +10,10 @@ function dots = sweep(def_dot)
 
     p1 = sweepAndLockRadii(def_dot);
     
-%     voltage = [def_dot.Vdmin, def_dot.Vdmax, def_dot.NVD];
-%     p2 = paramSweep( voltage );
+    voltage = [def_dot.Vdmin, def_dot.Vdmax, def_dot.NVD];
+    p2 = paramSweep( voltage );
     
-    p2 = paramSweep( def_dot.Efield );
+    
     
     
     
@@ -50,15 +50,14 @@ function dots = sweep(def_dot)
         end
 
         %fill in the voltages
-%         dots(i).NVD = 1;
-%         dots(i).Vdmax = permMatrix(j,i);
-%         dots(i).Vdmin = permMatrix(j,i);
+        dots(i).NVD = 1;
+        dots(i).Vdmax = permMatrix(j,i);
+        dots(i).Vdmin = permMatrix(j,i);
         
         %set voltages
-        dots(i).Efield = permMatrix(j,i);
-        dots(i).NVD=1;
-        dots(i).Vdmax = permMatrix(j,i)*2*dots(i).geometry(nMat).radius;
-        dots(i).Vdmin = permMatrix(j,i)*2*dots(i).geometry(nMat).radius;
+%         dots(i).NVD=1;
+%         dots(i).Vdmax = permMatrix(j,i)*2*dots(i).geometry(nMat).radius;
+%         dots(i).Vdmin = permMatrix(j,i)*2*dots(i).geometry(nMat).radius;
         
     end
 end
