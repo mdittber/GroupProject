@@ -60,6 +60,7 @@ classdef Qdot
         machine
         path
         
+        simulationStatus = false;
     end
     
     
