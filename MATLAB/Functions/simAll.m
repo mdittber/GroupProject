@@ -59,6 +59,9 @@ function [dots, simSuccess] = simAll(def_dot)
 	% SAVE QDOT
         
         dots(i).timestamp = simTimestamp{i};
+        dots(i).user        = config.user;
+        dots(i).OMENversion = config.vOMEN;
+        dots(i).machine     = config.machine;
         
         QDOTNAME = 'qdotObj';  %name of mat-file in which the current qdot is saved
         qdotObj = dots(i);

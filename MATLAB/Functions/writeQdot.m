@@ -144,13 +144,6 @@ function wQdot = writeQdot(Mpar_row, row)
     
     default.Efield = [vVolt(1), vVolt(2), vVolt(3)];
     
-    %%********************************************************************
-    %% TECHNICAL DATA
-    %%********************************************************************
-    default.user        = config.user;
-    default.OMENversion = config.vOMEN;
-    default.machine     = config.machine;
-    
     
     %%********************************************************************
     %% WRITE CMD FILES AND SIMULATE
