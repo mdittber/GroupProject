@@ -1,52 +1,53 @@
-function writeCmdFile(qdot, filename, timestamp)
+function writeCmdFile(QDO, filename)
+% writeCmdFile(QDO, filename)
 % writes the cmdfile for qdot object into the current directory
 %********************************************************************
 
     file = fopen(filename,'w');
         
-    fprintf(file,'// Command file for OMEN. Timestamp: %s \n \n', timestamp);
+    fprintf(file,'// Command file for OMEN. \n \n');
             
-    printVar(file, 'mat_name',qdot.mat_name, 'material_model');
-    printVar(file, 'lattice_type',qdot.lattice_type, 'lattice');
+    printVar(file, 'mat_name',QDO.mat_name, 'material_model');
+    printVar(file, 'lattice_type',QDO.lattice_type, 'lattice');
     
-    printVar(file, 'a0',qdot.a0, 'lattice constant');
-    printVar(file, 'first_atom',qdot.first_atom, 'atom situated at [0 0 0]');
-    
-    
-    printVar(file, 'open_system',qdot.open_system, ' ');
-    printVar(file, 'tb',qdot.tb, 'tight-binding order');
-    printVar(file, 'dsp3',qdot.dsp3, 'passivation energy [eV]');
+    printVar(file, 'a0',QDO.a0, 'lattice constant');
+    printVar(file, 'first_atom',QDO.first_atom, 'atom situated at [0 0 0]');
     
     
-    printVar(file, 'n_of_modes',qdot.n_of_modes, 'number of modes');
-    printVar(file, 'max_bond_def',qdot.max_bond_def, 'maximum relative bond deformation (should only be changed if very large strain)');
+    printVar(file, 'open_system',QDO.open_system, ' ');
+    printVar(file, 'tb',QDO.tb, 'tight-binding order');
+    printVar(file, 'dsp3',QDO.dsp3, 'passivation energy [eV]');
     
     
-    printVar(file, 'x',qdot.x, 'transport direction');
-    printVar(file, 'y',qdot.y, 'direction of confinement');
-    printVar(file, 'z',qdot.z, 'direction of confinement');
+    printVar(file, 'n_of_modes',QDO.n_of_modes, 'number of modes');
+    printVar(file, 'max_bond_def',QDO.max_bond_def, 'maximum relative bond deformation (should only be changed if very large strain)');
+    
+    
+    printVar(file, 'x',QDO.x, 'transport direction');
+    printVar(file, 'y',QDO.y, 'direction of confinement');
+    printVar(file, 'z',QDO.z, 'direction of confinement');
     
     %printVar(file, 'CPU_per_vd_point',qdot.CPU_per_vd_point, '');
     
-    printVar(file, 'NVD',qdot.NVD, 'nr of drain voltages Vd=Vdmin:(Vdmax-Vdmin)/(NVD-1):Vdmax');
-    printVar(file, 'Vdmin',qdot.Vdmin, 'absolute minimum drain potential');
-    printVar(file, 'Vdmax',qdot.Vdmax, 'absolute maximum drain potential');
+    printVar(file, 'NVD',QDO.NVD, 'nr of drain voltages Vd=Vdmin:(Vdmax-Vdmin)/(NVD-1):Vdmax');
+    printVar(file, 'Vdmin',QDO.Vdmin, 'absolute minimum drain potential');
+    printVar(file, 'Vdmax',QDO.Vdmax, 'absolute maximum drain potential');
     
-    if qdot.update_bs_target==1;
-        printVar(file, 'update_bs_target', qdot.update_bs_target, ' ');
-        printVar(file, 'bs_target', qdot.bs_target, ' ');
+    if QDO.update_bs_target==1;
+        printVar(file, 'update_bs_target', QDO.update_bs_target, ' ');
+        printVar(file, 'bs_target', QDO.bs_target, ' ');
     end
     
 %     printVar(file, 'default_directory',qdot.default_directory, '');
 
-    printVar(file, 'no_mat',qdot.no_mat, 'nr of pieces that form the nanowire (channel+oxide0');
-    printVar(file, 'no_channel_mat',qdot.no_channel_mat, 'nr of pieces that form the nanowire channel');
-    printVar(file, 'no_oxide_mat',qdot.no_oxide_mat, 'nr of pieces that form the oxide around the wire');
+    printVar(file, 'no_mat',QDO.no_mat, 'nr of pieces that form the nanowire (channel+oxide0');
+    printVar(file, 'no_channel_mat',QDO.no_channel_mat, 'nr of pieces that form the nanowire channel');
+    printVar(file, 'no_oxide_mat',QDO.no_oxide_mat, 'nr of pieces that form the oxide around the wire');
     
     
-    printGeometry(file,qdot);
+    printGeometry(file,QDO);
     
-    if qdot.update_bs_target==1                        
+    if QDO.update_bs_target==1                        
         cmds = sprintf(['/* Commands */ \n\n'...
                         'command(1) = Write_Layer_Matrix;\n'...
                         'command(2) = Write_Hamiltonian_Matrix;\n'...

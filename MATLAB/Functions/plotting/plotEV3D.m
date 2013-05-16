@@ -1,15 +1,16 @@
-function plotEV3D(dots, band, NMod)
+function plotEV3D(QDOA, band, NMod)
+% plotEV3D(QDOA, band, NMod)
 % Plot wavefn of qdotObjs. 
+% Color code: red = high probability density, blue = low.
 % up to NMod modes, 
 % for band = 'CB' or 'VB'
 
-
 global config;
 
-    for k =1:length(dots)
+    for k =1:length(QDOA)
         
         % load Layer_Matrix and EVs
-        simPath = [config.simulations, dots(k).path];
+        simPath = [config.simulations, QDOA(k).path];
         LayerMatrix = load([simPath, '/Layer_Matrix.dat']);
         if isequal(band, 'CB')
             EV = load([simPath, '/CB_V_0_0.dat']);
@@ -33,7 +34,7 @@ global config;
             h=colormap;
        
             figure(100+10*k+i);
-            suptitle( strrep(sprintf('plot ID: %i, ID: %s, mat: %s', k, dots(k).timestamp, dots(k).mat_name ),'_','\_') );
+            suptitle( strrep(sprintf('plot ID: %i, ID: %s, mat: %s \n color code: probability density high - low: red - blue', k, QDOA(k).timestamp, QDOA(k).mat_name ),'_','\_') );
        
             psi = psi2(:,i);
             psi=psi/max(psi)*length(h);
@@ -48,7 +49,6 @@ global config;
             xlabel('x');
             ylabel('y');
             zlabel('z');     
-            
         end
     end
 end

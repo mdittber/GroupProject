@@ -1,10 +1,11 @@
-function plotEVAlongAxis(dots, pName, startPoint, direction, plotGrid, tolerance, NMod, band)
-    % plot the EVs of multiple Qdots along specified line.
-    % pName is the for the plot relevant Qdot property.
-    % set plotGrid = [indices] OR 'all' for visualisation of Qdot and specified line. 
-    % tolerance in %/100 of a0. (for latticetype 'zincblende': will be /2)
+function plotEVAlongAxis(QDOA, propertyName, startPoint, direction, plotGrid, tolerance, NMod, band)
+% plotEVAlongAxis(QDOA, propertyName, startPoint, direction, plotGrid, tolerance, NMod, band)
+% plot the EVs of multiple Qdots along specified line.
+% propertyName is the for the plot relevant Qdot property.
+% set plotGrid = [indices] OR 'all' for visualisation of Qdot and specified line. 
+% tolerance in %/100 of a0. (for latticetype 'zincblende': will be /2)
     
-    Ndots = length(dots); 
+    Ndots = length(QDOA); 
     
     pValue = cell(1,Ndots);
     LayerMatrix = cell(1,Ndots);
@@ -21,7 +22,7 @@ function plotEVAlongAxis(dots, pName, startPoint, direction, plotGrid, tolerance
 % get EVs and param values for pName
     
     for k =1:Ndots
-        simPath = [config.simulations, dots(k).path];
+        simPath = [config.simulations, QDOA(k).path];
          
         LayerMatrix{k} = load([simPath, '/Layer_Matrix.dat']);
         
@@ -33,10 +34,10 @@ function plotEVAlongAxis(dots, pName, startPoint, direction, plotGrid, tolerance
         end
         EV{k} = load([simPath, EVfile]);
 
-        pValue{1,k} = eval( sprintf('dots(%i).%s',k,pName) );
+        pValue{1,k} = eval( sprintf('dots(%i).%s',k,propertyName) );
         
-        tol(k) = dots(k).a0 * tolerance;
-        if strcmp(dots(k).lattice_type, 'zincblende')
+        tol(k) = QDOA(k).a0 * tolerance;
+        if strcmp(QDOA(k).lattice_type, 'zincblende')
             tol(k) = tol(k)/2;
         end
     end
@@ -83,7 +84,7 @@ function plotEVAlongAxis(dots, pName, startPoint, direction, plotGrid, tolerance
         for k = 1:Ndots
             subset{k} = psi2{k}(selAtomInd{k},i); % psi2 for atoms on line for dot k and mode i
         end
-        plotTitle = sprintf('%s,Parameter: %s', band, pName);
+        plotTitle = sprintf('%s,Parameter: %s', band, propertyName);
         plotNormal(subset, plotTitle, pValue, scale, i);
     end
 end

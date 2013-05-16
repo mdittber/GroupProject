@@ -1,9 +1,11 @@
-function [dots, simSuccess] = simAll(def_dot)
-
+function [QDOA, simSuccess] = simAll(QDOG)
+% [QDOA, simSuccess] = simAll(QDOG)
 % CREATE OMEN CMD FILE FOR EVERY PARAMETER COMBINATION
 % PERFORMS OMEN SIMULATION FOR ALL CMD FILES
 %
-% returns cell matrix with entries for DB
+% returns:
+% QDOA: array of qdot objs
+% simSuccess(Ind)= true/false, concerning simulation of QDOA(Ind)
 %
 % creates a folder for each simulation, containing:
 % Simulation Data created by OMEN
@@ -15,19 +17,21 @@ function [dots, simSuccess] = simAll(def_dot)
 % PERFORM SWEEP
 %********************************************************************
 		    
-    dots = sweep(def_dot); %create array of qdots with all parameters
-    N = length(dots);
+    QDOA = sweep(QDOG); %create array of qdots with all parameters
+    N = length(QDOA);
 
     
 % DEFINITIONS
 %********************************************************************
 	global config;
     
+    returnDir = pwd;
+    
     cd(config.simulations);
     
     simSuccess = zeros(N,1); %each element changed to 1 if corresponding simulation is successfull
     
-    mat = def_dot.mat_name; %matrial
+    mat = QDOG.mat_name; %matrial
     
     status = (-1)*ones(N,1); %status of each simulation. returned zero if sucessful
     
@@ -56,25 +60,11 @@ function [dots, simSuccess] = simAll(def_dot)
         mkdir(SIMDIR);
         cd(SIMDIR);
         
-	% SAVE QDOT
-        
-        dots(i).timestamp = simTimestamp{i};
-        dots(i).user        = config.user;
-        dots(i).OMENversion = config.vOMEN;
-        dots(i).machine     = config.machine;
-        
-        QDOTNAME = 'qdotObj';  %name of mat-file in which the current qdot is saved
-        qdotObj = dots(i);
-        qdotObj.timestamp = simTimestamp{i};
-        qdotObj.path      = SIMDIR;
-        
-        save( QDOTNAME, 'qdotObj');
-        
 	% WRITE CMD FILE
             
         CMDFILENAME = 'qdot_cmd'; 
         
-        writeCmdFile(dots(i), CMDFILENAME,  simTimestamp{i} ); %write the cmdfiles
+        writeCmdFile(QDOA(i), CMDFILENAME); %write the cmdfiles
 			
 	% SIMULATE WITH OMEN
         
@@ -85,9 +75,27 @@ function [dots, simSuccess] = simAll(def_dot)
 
         singleTime = toc(t2);
 		
-		simSuccess(i) = checkSuccess( status(i), SIMDIR, consoleOut{i} );
+        
+	% SET DATA
+        
+        QDOA(i).timestamp = simTimestamp{i};
+        QDOA(i).user        = config.user;
+        QDOA(i).OMENversion = config.vOMEN;
+        QDOA(i).machine     = config.machine;
+        QDOA(i).path        = SIMDIR;
+    
+    % CHECK SUCCESS
+    
+        simSuccess(i) = checkSuccess( status(i), QDOA(i));
+        QDOA(i).simulationStatus = simSuccess(i);
+
+    % SAVE QDO
+
+        QDONAME = 'QDO';  %name of mat-file in which the current qdot is saved
+        QDO = QDOA(i);        
+        save(QDONAME, 'QDO');        
 		
-	%WRITE LOGFILE OF THIS SIMULATIONS
+	% WRITE LOGFILE OF THIS SIMULATIONS
 
         simlogFile = ['simlog_' simTimestamp{i} '.txt'];
         simlogfid = fopen(simlogFile, 'w');
@@ -134,7 +142,7 @@ function [dots, simSuccess] = simAll(def_dot)
         failed = find( simSuccess == 0 );
         fprintf(logfid, 'Attempt to simulate %i qdots. \n', N);
         fprintf(logfid, 'Simulation failed for indices %s \n\n', sprintf('%d, ',failed));
-        setProgressInfo('Some simulations FAILED!', 2, gui_simulate, 't_progress');
+        %setProgressInfo('Some simulations FAILED!', 2, gui_simulate, 't_progress');
     else 
         fprintf(logfid, 'All %i simulations terminated normally! \n\n', N);
     end
@@ -146,23 +154,27 @@ function [dots, simSuccess] = simAll(def_dot)
     
     fclose(logfid);
     
-    cd ..;
+    cd(returnDir);
 
 
 end
 
 
-function check = checkSuccess(status, dir, consoleOut)
+function check = checkSuccess(status, QDO)
 
 % check if the OMEN simulation was successful, returns 1 or 0
-% consoleOut: console output of OMEN
 % status: status returned by unix function
-% check status and if LayerMatrix is created.
+% check status and if VB and/or CB files are created.
 
-	if (status == 0) && ( exist( [dir '/VB_V_0_0.dat'], 'file') ~= 0 )
-		check = 1;
-	else
-		check = 0;
+check = 0;
+
+	if (status == 0) % terminated normally
+        VB = exist( [QDO.path '/VB_V_0_0.dat'], 'file') ~= 0 ;
+        CB = exist( [QDO.path '/CB_V_0_0.dat'], 'file') ~= 0 ;
+        if (QDO.update_bs_target == 0) && CB && VB
+            check = 1;
+        elseif (QDO.update_bs_target == 1) && (CB || VB)
+            check = 1;
+        end
     end
-
 end

@@ -1,8 +1,9 @@
-function plotEV3Dmax(dots, band, probLim, NMod)
+function plotEV3Dmax(QDOA, band, probLim, NMod)
+% plotEV3Dmax(QDOA, band, probLim, NMod)
 % Plot wavefn of qdotObj:
-% yellow appear atoms where wavfn is largest:
-% sum( psi( all yellow atoms ) )< probLim(1)
-% red appear atoms where wavfn is large:
+% red appear atoms where probability density is largest:
+% sum( psi( all red atoms ) )< probLim(1)
+% yellow appear atoms where probability density is large:
 % probLim(1) < sum( psi( all yellow and red atoms ) ) < probLim(2)
 % band = 'CB' or 'VB'
 % NMod = number of modes to be plotted
@@ -10,16 +11,18 @@ function plotEV3Dmax(dots, band, probLim, NMod)
 
 global config;
 
-    for k =1:length(dots)
+    for k =1:length(QDOA)
 
-        simPath = [config.simulations, dots(k).path];
+        simPath = [config.simulations, QDOA(k).path];
         %simPath = sprintf('Simulations/ID%s_%s/', dots(k).timestamp, dots(k).mat_name);
 
         LayerMatrix = load([simPath, '/Layer_Matrix.dat']);
         if isequal(band, 'CB')
             EV = load([simPath, '/CB_V_0_0.dat']);
+            plotid = 1;
         elseif isequal(band, 'VB')
             EV = load([simPath, '/VB_V_0_0.dat']);
+            plotid = 2;
         end
         
         [NAtom,~] = size(LayerMatrix);            
@@ -36,8 +39,8 @@ global config;
     % PLOT
         for i=1:NMod,
            
-            figure(200+10*k+i);
-            suptitle( strrep(sprintf('plot ID: %i, ID: %s, mat: %s', k, dots(k).timestamp, dots(k).mat_name ),'_','\_') );
+            figure(1000*plotid+100*k+i);
+            suptitle( strrep(sprintf('plot ID: %i, ID: %s, mat: %s', k, QDOA(k).timestamp, QDOA(k).mat_name ),'_','\_') );
             title( sprintf('VB mode %i',i) );            
 
             psi = psi2(:,i);
@@ -53,14 +56,14 @@ global config;
             while probSum < probLim(1)                
                 ind = sInd(IA);
                 probSum = probSum + psi( ind );
-                plot3(LayerMatrix(ind,1),LayerMatrix(ind,2),LayerMatrix(ind,3),'ko','MarkerSize',8,'MarkerFaceColor','y');       
+                plot3(LayerMatrix(ind,1),LayerMatrix(ind,2),LayerMatrix(ind,3),'ko','MarkerSize',8,'MarkerFaceColor','r');       
 
                 IA=IA+1;
             end
             while probSum < probLim(2)                
                 ind = sInd(IA);
                 probSum = probSum + psi( ind );
-                plot3(LayerMatrix(ind,1),LayerMatrix(ind,2),LayerMatrix(ind,3),'ko','MarkerSize',8,'MarkerFaceColor','r');       
+                plot3(LayerMatrix(ind,1),LayerMatrix(ind,2),LayerMatrix(ind,3),'ko','MarkerSize',8,'MarkerFaceColor','y');       
 
                 IA=IA+1;
             end

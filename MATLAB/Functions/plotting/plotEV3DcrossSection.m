@@ -1,15 +1,14 @@
-function plotEV3DcrossSection(dots, NMod)
-% Plot wavefn of qdotObj.
-% Plotnr: abcd: 
-% a:(1,2)=(CB,VB)
-% b: (1,2) = (crosssection y,z ; crosssection x,y)
-% cd: mode number
+function plotEV3DcrossSection(QDOA, NMod)
+% plotEV3DcrossSection(QDOA, NMod)
+% Plot wavefn of qdotObjs 
+% 2 cross sections for VB and CB modes in one figure
+% new figures for new modes
 
 global config;
 
-    for k =1:length(dots)
+    for k =1:length(QDOA)
 
-        simPath = [config.simulations, dots(k).path];
+        simPath = [config.simulations, QDOA(k).path];
         %simPath = sprintf('Simulations/ID%s_%s/', dots(k).timestamp, dots(k).mat_name);
 
         LayerMatrix = load([simPath, '/Layer_Matrix.dat']);
@@ -36,7 +35,7 @@ global config;
        
         % PLOT CONDUCTION BAND
             figure(100+10*k+i);
-            suptitle( strrep(sprintf('plot ID: %i, ID: %s, mat: %s', k, dots(k).timestamp, dots(k).mat_name ),'_','\_') );
+            suptitle( strrep(sprintf('plot ID: %i, ID: %s, mat: %s', k, QDOA(k).timestamp, QDOA(k).mat_name ),'_','\_') );
        
             psi = psiCB2(:,i);
             

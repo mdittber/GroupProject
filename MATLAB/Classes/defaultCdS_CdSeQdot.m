@@ -29,6 +29,7 @@ default.Vdmin                   = 0.0;				%absolute minimum drain potential
 default.Vdmax                   = 0.0;				%absolute maximum drain pote
 default.directory               = [];
 
+
 %GEOMETRY
 
 default.no_mat                  = 2;				%number of pieces that form the nanowire (channel + oxide)

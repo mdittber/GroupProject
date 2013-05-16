@@ -29,8 +29,6 @@ classdef Qdot
         Vdmin
         Vdmax
         
-
-        
         directory
         
         no_mat
@@ -46,10 +44,10 @@ classdef Qdot
     
     properties
         % internal parameters
-        permutateRadius
+        permutateRadii =0;
         
         %Efield in 10^9 V/m
-        Efield
+        Efield =0;
     end
     
     properties

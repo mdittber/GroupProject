@@ -1,51 +1,75 @@
-function dots = sweep(def_dot)
-
-% Takes a default qdot object with scalar sweep parameters 
-% entered in the form [min,max,steps].
+function QDOA = sweep(QDOG)
+% QDOA = sweep(QDOG)
+% Takes a generic qdot object 
+% with scalar sweep parameters entered in the form [min,max,steps].
 % returns array of qdots with all parameter combinations
 % supportes sweep parameters: radius(1), radius(2), Voltage
 %********************************************************************
    
-    nMat = def_dot.no_mat;
+    nMat = QDOG.no_mat;
 
-    p1 = sweepAndLockRadii(def_dot);
+    if QDOG.permutateRadii == 1
+    % PERMUTATE RADII
+        
+        p1 = paramSweep( QDOG.geometry(1).radius);
+        p2 = paramSweep( QDOG.geometry(2).radius);
+        p3 = paramSweep( QDOG.Efield );
+            
+
+    % CREATE PERMUTATION MATRIX with all parameter combinations
+    % collumn i of permMatrix contains parameters for qdot(i)
+
+        permMatrix = zeros( rows(p1)+rows(p2)+rows(p3), cols(p1)*cols(p2)*cols(p3) );
+
+        % Assign values to the permutation matrix 
+        Ind = 1;
+        for IA = 1:cols(p1)
+            for IB = 1:cols(p2)
+                for IC = 1:cols(p3)
+                    permMatrix(:,Ind) = [ p1(:,IA); p2(:,IB); p3(:,IC)];
+                    Ind = Ind+1;
+                end
+            end
+        end
+        
+    else
+    % DO NOT PERMUTATE RADII
     
+        p1 = sweepAndLockRadii(QDOG);
+        p3 = paramSweep( QDOG.Efield );
+            
 %     voltage = [def_dot.Vdmin, def_dot.Vdmax, def_dot.NVD];
 %     p2 = paramSweep( voltage );
-    
-    p2 = paramSweep( def_dot.Efield );
-    
-    
-    
-% CREATE PERMUTATION MATRIX with all parameter combinations
-% collumn i of permMatrix contains parameters for qdot(i)
-    
-    permMatrix = zeros( rows(p1)+rows(p2), cols(p1)*cols(p2) );
-    
-	% Assign values to the permutation matrix 
-    
-	l = 1;
-    for i = 1:cols(p1)
-        for k = 1:cols(p2)
-        permMatrix(:,l) = [ p1(:,i); p2(:,k)];
-        l=l+1;
+
+    % CREATE PERMUTATION MATRIX with all parameter combinations
+    % collumn i of permMatrix contains parameters for qdot(i)
+
+        permMatrix = zeros( rows(p1)+rows(p3), cols(p1)*cols(p3) );
+
+        % Assign values to the permutation matrix 
+        Ind = 1;
+        for IA = 1:cols(p1)
+            for IB = 1:cols(p3)
+            permMatrix(:,Ind) = [ p1(:,IA); p3(:,IB)];
+            Ind=Ind+1;
+            end
         end
     end
-    
+
     N = cols(permMatrix); %Number of permutations
-   
-    dots( N ) = Qdot; %initialize N qdots
-    
-    
+
+    QDOA( N ) = Qdot; %initialize N qdots
+
+
 % ASSIGN VALUES TO NEW QDOTS
-    
+
     for i = 1:N
-        dots(i) = def_dot;
+        QDOA(i) = QDOG;
         j = 1;
-        
+
         % fill in the radii
         for k = 1:nMat
-            dots(i).geometry(k).radius = permMatrix(k,i);
+            QDOA(i).geometry(k).radius = permMatrix(k,i);
             j=k+1;
         end
 
@@ -53,14 +77,15 @@ function dots = sweep(def_dot)
 %         dots(i).NVD = 1;
 %         dots(i).Vdmax = permMatrix(j,i);
 %         dots(i).Vdmin = permMatrix(j,i);
-        
+
         %set voltages
-        dots(i).Efield = permMatrix(j,i);
-        dots(i).NVD=1;
-        dots(i).Vdmax = permMatrix(j,i)*2*dots(i).geometry(nMat).radius;
-        dots(i).Vdmin = permMatrix(j,i)*2*dots(i).geometry(nMat).radius;
-        
+        QDOA(i).Efield = permMatrix(j,i);
+        QDOA(i).NVD=1;
+        QDOA(i).Vdmax = permMatrix(j,i)*2*QDOA(i).geometry(nMat).radius;
+        QDOA(i).Vdmin = permMatrix(j,i)*2*QDOA(i).geometry(nMat).radius;
+
     end
+    
 end
 
 
@@ -102,15 +127,15 @@ function p12 = lock(a1,a2)
 end
 
 
-function radiiMatrix = sweepAndLockRadii(def_dot)
+function radiiMatrix = sweepAndLockRadii(QDOG)
 %sweep each radius and lock it with the radii from the qdot. 
 
-    nMat = def_dot.no_mat;
+    nMat = QDOG.no_mat;
     
-    radiiMatrix = paramSweep( def_dot.geometry(1).radius );
+    radiiMatrix = paramSweep( QDOG.geometry(1).radius );
     
     for i = 2:nMat
-        r = paramSweep( def_dot.geometry(i).radius );     
+        r = paramSweep( QDOG.geometry(i).radius );     
         radiiMatrix = lock( radiiMatrix , r);
     end
 end
