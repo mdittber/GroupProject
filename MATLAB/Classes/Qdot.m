@@ -1,9 +1,10 @@
 classdef Qdot
 
-	% Parameters for a structure to be simulated by OMEN
+	% 
 	%********************************************************************	
     
-	properties
+	properties 
+        %Parameters for a structure to be simulated by OMEN
         mat_name
         
 		lattice_type
@@ -28,8 +29,7 @@ classdef Qdot
         Vdmin
         Vdmax
         
-        %Efield in 10^9 V/m
-        Efield
+
         
         directory
         
@@ -41,10 +41,19 @@ classdef Qdot
         
         update_bs_target        
         bs_target		
+    
     end
     
     properties
+        % internal parameters
+        permutateRadius
         
+        %Efield in 10^9 V/m
+        Efield
+    end
+    
+    properties
+        % technical properties
         user
         timestamp
         OMENversion

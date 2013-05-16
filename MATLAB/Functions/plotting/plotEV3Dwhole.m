@@ -38,7 +38,7 @@ global config;
             psi = psi2(:,i);
             psi=psi/max(psi)*length(h);
             
-            title( sprintf('VB mode %i',i) );            
+            title( sprintf('%s mode %i',band,i) );            
             hold on
             
             for IA=1:length(LayerMatrix(:,1)),
