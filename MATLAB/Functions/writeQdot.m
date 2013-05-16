@@ -19,111 +19,111 @@ function wQdot = writeQdot(Mpar_row, row)
     
     switch vMat(1)
         case 1
-            default = Qdot('PbSe_allan');
+            QDO = Qdot('PbSe_allan');
             
             % Geometry
             [CHK,vGeo] = getUitInput(Mpar_row(2));
             checkUitInput(CHK,vGeo,[row,2]);
             switch vGeo(1)
                 case 1
-                    default.geometry(1).type = 'sphere';
+                    QDO.geometry(1).type = 'sphere';
                 case 2
-                    default.geometry(1).type = 'quboid';
+                    QDO.geometry(1).type = 'quboid';
             end
             
             % Radius            
             [CHK,vRadius]= getUitInput(Mpar_row(3));
             checkUitInput(CHK,vRadius,[row,3]);
-            default.geometry(1).radius = vRadius;
+            QDO.geometry(1).radius = vRadius;
             
             
         case 2
-            default = Qdot('PbSe_lent');
+            QDO = Qdot('PbSe_lent');
             
             % Geometry
             [CHK,vGeo] = getUitInput(Mpar_row(2));
             checkUitInput(CHK,vGeo,[row,2]);
             switch vGeo(1)
                 case 1
-                    default.geometry(1).type = 'sphere';
+                    QDO.geometry(1).type = 'sphere';
                 case 2
-                    default.geometry(1).type = 'quboid';
+                    QDO.geometry(1).type = 'quboid';
             end
             
             % Radius
             [CHK,vRadius]= getUitInput(Mpar_row(3));
             checkUitInput(CHK,vRadius,[row,3]);
-            default.geometry(1).radius = vRadius;
+            QDO.geometry(1).radius = vRadius;
             
             
         case 3
-            default = Qdot('CdS_CdSe');
+            QDO = Qdot('CdS_CdSe');
 
             % Geometry
             [CHK,vGeo] = getUitInput(Mpar_row(2));
             checkUitInput(CHK,vGeo,[row,2]);
             switch vGeo(1)
                 case 1
-                    default.geometry(1).type = 'sphere';
+                    QDO.geometry(1).type = 'sphere';
                 case 2
-                    default.geometry(1).type = 'quboid';
+                    QDO.geometry(1).type = 'quboid';
             end
             switch vGeo(2)
                 case 1
-                    default.geometry(2).type = 'sphere';
+                    QDO.geometry(2).type = 'sphere';
                 case 2
-                    default.geometry(2).type = 'quboid';
+                    QDO.geometry(2).type = 'quboid';
             end
             
             % Radii
             [CHK,vRadius]= getUitInput(Mpar_row(3));
             checkUitInput(CHK,vRadius,[row,3]);
-            default.geometry(1).radius = vRadius(1,:);
-            default.geometry(2).radius = vRadius(2,:);
+            QDO.geometry(1).radius = vRadius(1,:);
+            QDO.geometry(2).radius = vRadius(2,:);
             
             
         case 4
-            default = Qdot('ZnSe_CdSe');
+            QDO = Qdot('ZnSe_CdSe');
 
             % Geometry
             [CHK,vGeo] = getUitInput(Mpar_row(2));
             checkUitInput(CHK,vGeo,[row,2]);
             switch vGeo(1)
                 case 1
-                    default.geometry(1).type = 'sphere';
+                    QDO.geometry(1).type = 'sphere';
                 case 2
-                    default.geometry(1).type = 'quboid';
+                    QDO.geometry(1).type = 'quboid';
             end
             switch vGeo(2)
                 case 1
-                    default.geometry(2).type = 'sphere';
+                    QDO.geometry(2).type = 'sphere';
                 case 2
-                    default.geometry(2).type = 'quboid';
+                    QDO.geometry(2).type = 'quboid';
             end
             
             % Radii
             [CHK,vRadius]= getUitInput(Mpar_row(3));
             checkUitInput(CHK,vRadius,[row,3]);
-            default.geometry(1).radius = vRadius(1,:);
-            default.geometry(2).radius = vRadius(2,:);
+            QDO.geometry(1).radius = vRadius(1,:);
+            QDO.geometry(2).radius = vRadius(2,:);
             
         case 5
-            default = Qdot('PbS_lent');
+            QDO = Qdot('PbS_lent');
             
             % Geometry
             [CHK,vGeo] = getUitInput(Mpar_row(2));
             checkUitInput(CHK,vGeo,[row,2]);
             switch vGeo(1)
                 case 1
-                    default.geometry(1).type = 'sphere';
+                    QDO.geometry(1).type = 'sphere';
                 case 2
-                    default.geometry(1).type = 'quboid';
+                    QDO.geometry(1).type = 'quboid';
             end
             
             % Radius
             [CHK,vRadius]= getUitInput(Mpar_row(3));
             checkUitInput(CHK,vRadius,[row,3]);
-            default.geometry(1).radius = vRadius;
+            QDO.geometry(1).radius = vRadius;
             
         otherwise
     end
@@ -132,7 +132,7 @@ function wQdot = writeQdot(Mpar_row, row)
     % Number of modes for bandstructure calculation
     [CHK,vModes] = getUitInput(Mpar_row(4));
     checkUitInput(CHK,vModes,[row,4]);
-    default.n_of_modes = vModes;
+    QDO.n_of_modes = vModes;
     
     
     % Voltage
@@ -142,14 +142,14 @@ function wQdot = writeQdot(Mpar_row, row)
 %     default.Vdmin      = vVolt(1);			% absolute minimum drain potential
 %     default.Vdmax      = vVolt(2);			% absolute maximum drain potential
     
-    default.Efield = [vVolt(1), vVolt(2), vVolt(3)];
+    QDO.Efield = [vVolt(1), vVolt(2), vVolt(3)];
     
     
     %%********************************************************************
     %% WRITE CMD FILES AND SIMULATE
     %%********************************************************************
     if config.cancelSim == 0
-        wQdot = default;
-        simAll(default);
+        wQdot = QDO;
+        simAll(QDO);
     end
 end

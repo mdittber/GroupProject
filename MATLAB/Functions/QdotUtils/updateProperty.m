@@ -13,15 +13,15 @@
     [N,~] = size(SimDirs);
 
     for i=1:N
-        load([config.simulations, DIR, '/', SimDirs(i).name, '/qdotObj.mat']);
+        load([config.simulations, DIR, '/', SimDirs(i).name, '/QDO.mat']);
 
         %% Overwrite property
 
         % Change path from absolute to relative
         if strcmp(pName, 'path') && strcmp(value, 'abs2rel')
-            newPath = ['ID', qdotObj.timestamp, '_', qdotObj.mat_name];
-            eval( sprintf('qdotObj.%s = %s;',pName,'newPath') );
-            save([config.simulations, DIR, '/', SimDirs(i).name, '/qdotObj.mat'], 'qdotObj');
+            newPath = ['ID', QDO.timestamp, '_', qdotObj.mat_name];
+            eval( sprintf('QDO.%s = %s;',pName,'newPath') );
+            save([config.simulations, DIR, '/', SimDirs(i).name, '/QDO.mat'], 'QDO');
 
             % Move simulation folder
             source = [config.simulations, DIR, '/',newPath];
@@ -37,8 +37,8 @@
 
         % Change a property
         else
-            eval( sprintf('qdotObj.%s = %s;',pName,'value') );
-            save([config.simulations, DIR, '/', SimDirs(i).name, '/qdotObj.mat'], 'qdotObj');
+            eval( sprintf('QDO.%s = %s;',pName,'value') );
+            save([config.simulations, DIR, '/', SimDirs(i).name, '/QDO.mat'], 'QDO');
         end
 
     end

@@ -7,7 +7,7 @@ function gui_db(varargin)
         gui_database2;
         sort_gui_database(2);
     elseif nargin == 1
-        setappdata(0,'USER_DATABASE',varargin{1})
+        setappdata(0,'USER_QDOA',varargin{1})
         gui_database3;
         sort_gui_database(3);
     else

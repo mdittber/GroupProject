@@ -1,4 +1,4 @@
-function [BGap, Radius, Volt, Mat] = getBandGap(QdotObj)
+function [BGap, Radius, Volt, Mat] = getBandGap(QDO)
 %[BGap, Radius, Volt, Info] = getBandGap(QdotObj,SimDir)
 %   Input:  QdotObj     - Object that shall give the Band Gap
 %           SimDir      - Path where to find the object
@@ -7,30 +7,31 @@ function [BGap, Radius, Volt, Mat] = getBandGap(QdotObj)
 %           Volt        - Applied Voltage
 %           Mat         - Material name
 
-    [n,m] = size(QdotObj.geometry);
+    [n,m] = size(QDO.geometry);
     Radius = zeros(max(n,m),1);
     for i=1:max(n,m)
-        Radius(i) = QdotObj.geometry(i).radius;
+        Radius(i) = QDO.geometry(i).radius';
     end
-    Volt = QdotObj.Vdmin;
+    Radius = Radius';
+    Volt = QDO.Vdmin;
     
-    if strcmp(QdotObj.mat_name, 'PbSe_allan')
+    if strcmp(QDO.mat_name, 'PbSe_allan')
         Mat = 1;
-    elseif strcmp(QdotObj.mat_name, 'PbSe_lent')
+    elseif strcmp(QDO.mat_name, 'PbSe_lent')
         Mat = 2;
-    elseif strcmp(QdotObj.mat_name, 'CdS_CdSe')
+    elseif strcmp(QDO.mat_name, 'CdS_CdSe')
         Mat = 3;
-    elseif strcmp(QdotObj.mat_name, 'InGaAs')
+    elseif strcmp(QDO.mat_name, 'InGaAs')
         Mat = 4;
-    elseif strcmp(QdotObj.mat_name, 'PbS_lent')
+    elseif strcmp(QDO.mat_name, 'PbS_lent')
         Mat = 5;
     else
         Mat = 0.1;
     end
     
     global config;
-    load([config.simulations, QdotObj.path, '/CB_E_0_0.dat']);
-    load([config.simulations, QdotObj.path, '/VB_E_0_0.dat']);
+    load([config.simulations, QDO.path, '/CB_E_0_0.dat']);
+    load([config.simulations, QDO.path, '/VB_E_0_0.dat']);
     minCB = min(CB_E_0_0);
     maxVB = max(VB_E_0_0);
     BGap  = minCB - maxVB;

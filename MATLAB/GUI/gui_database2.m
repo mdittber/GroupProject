@@ -80,8 +80,8 @@ function uitable_CreateFcn(hObject, eventdata, handles)
 % handles    empty - handles not created until after all CreateFcns called
 %myDB
 
-DB = DButils.createDB();
-Mpar = DButils.createMatrix(DB);
+QDOA = getQDOA();
+Mpar = QDOA2Matrix(QDOA);
 [n,m] = size(Mpar);
 edit  = cell(n,2);
 edit(:,1) = {false};
@@ -139,13 +139,13 @@ else
     for k=1:n
         if isequal(Data{k,1},true)
             ID = Data{k,20};
-            path = [config.simulations, ID, '/qdotObj.mat'];
+            path = [config.simulations, ID, '/QDO.mat'];
             load(path);
-            DB(l) = qdotObj;
+            QDOA(l) = QDO;
             l = l+1;
         end
     end
-    plotBandGap(DB);
+    plotBandGap(QDOA);
 end
 
 % --- Executes when entered data in editable cell(s) in uitable.
@@ -175,7 +175,7 @@ function pb_export_Callback(hObject, eventdata, handles)
 % hObject    handle to pb_export (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-disp('Exporting Database...');
+disp('Exporting QDOA...');
 Data = get(handles.uitable,'data');
 if sum(cell2mat(Data(:,1))) == 0
     disp('Nothing to export!');
@@ -186,12 +186,12 @@ else
     for k=1:n
         if isequal(Data{k,1},true)
             ID = Data{k,20};
-            path = [config.simulations, ID, '/qdotObj.mat'];
+            path = [config.simulations, ID, '/QDO.mat'];
             load(path);
-            DB(l) = qdotObj;
+            QDOA(l) = QDO;
             l = l+1;
         end
     end
-    assignin('base','ExportedDB',DB);
-    disp('Export done! Qdot Array available in workspace as: ExportedDB');
+    assignin('base','ExportedQDOA',QDOA);
+    disp('Export done! QDOA available in workspace as: ExportedQDOA');
 end

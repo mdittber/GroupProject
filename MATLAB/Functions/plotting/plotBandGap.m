@@ -1,16 +1,16 @@
-function plotBandGap(DB)
+function plotBandGap(QDOA)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
     global config
 
     if nargin <1
-        [DB, ~] = DButils.createDB();
+        [QDOA, ~] = getQDOA();
     end
         
-    [n,m] = size(DB);
-    Radius = zeros(length(DB),2);
+    [n,m] = size(QDOA);
+    Radius = zeros(length(QDOA),2);
     for i=1:m
-        [BGap(i), Radius(i,:), Volt(i), Mat(i)] = getBandGap(DB(i));
+        [BGap(i), Radius(i,:), Volt(i), Mat(i)] = getBandGap(QDOA(i));
     end
     
     Col = Volt;
@@ -30,7 +30,7 @@ function plotBandGap(DB)
             caxis(hcb,[min(Volt), max(Volt)]);
             xlabel(hcb, 'Voltage in V');
             set(hcb,'XTickMode','manual');
-            stitle = DB(idx(1)).mat_name;
+            stitle = QDOA(idx(1)).mat_name;
             title(stitle,'interpreter','none');
             hold on;
             r = [min(Radius(:,1)):0.01:max(Radius(:,1))];
@@ -57,7 +57,7 @@ function plotBandGap(DB)
                 hcb = colorbar('Location','SouthOutside','XTickLabel',BGap(idxV));
                 xlabel(hcb, 'Band Gap in eV');
                 set(hcb,'XTickMode','manual');
-                stitle = [DB(idxV(1)).mat_name, ', El field = ', num2str(Volt(idxV(l)))];
+                stitle = [QDOA(idxV(1)).mat_name, ', El field = ', num2str(Volt(idxV(l)))];
                 title(stitle,'interpreter','none');
             end
             end
