@@ -4,12 +4,15 @@
 
 global config;
 
-QDOA = getQDOA()
+%get sim folders
+SimDirs = dir([config.simulations '/ID*']);
+[N,~] = size(SimDirs);
 
-for k=1:length(QDOA)
-    path = [config.simulations, QDOA(k).path, '/qdotObj.mat'];
+
+for k=1:N
+    path = [config.simulations, SimDirs(k).name, '/qdotObj.mat'];
     load(path);
     QDO = qdotObj;
-    save([config.simulations, QDOA(k).path, '/QDO.mat'],'QDO');
+    save([config.simulations, SimDirs(k).name, '/QDO.mat'],'QDO');
     delete(path);
 end
