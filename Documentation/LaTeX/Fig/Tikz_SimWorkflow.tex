@@ -1,0 +1,31 @@
+% Define block styles
+\tikzstyle{decision} = [diamond, draw, fill=blue!20, 
+    text width=3cm, text badly centered, node distance=3cm, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill={blue!25!black}, text=white,
+    minimum text width=8cm, text left, minimum height=4em]
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
+    minimum height=2cm]
+
+\begin{figure}
+	\begin{tikzpicture}[node distance = 3cm, auto]
+    \node [block] (A) {function gui\_simulate};
+    \node [block, below of=A] (B) {function simProcedure()};
+		\node [block, below of=B] (C) {writeQdot()};
+		\node [block, below of=C] (D) {simAll()};
+		\node [block, left of=D] (G) {sweep()};
+		\node [block, below of=D] (E) {checkSuccess()};
+		\node [decision, right of=D] (F) {for \# Simulation sets};
+    \path [line] (A) -- (B);
+    \path [line] (B) -- (C);
+    \path [line] (C) -- (D);
+    \path [line] (D) -- (E);
+    \path [line] (E) -| (F);
+    \path [line] (F) |- (C);
+    %\path [line, bend right=50] (D) -- (G);
+    %\path [line, bend left=50] (G) -- (D);
+    %\draw[to] (G) to[bend right=30] node[midway,above] {Qdot} (D);
+    %\draw[to] (D) to[bend right=30] node[midway,above] {Qdot permutations} (G);
+	\end{tikzpicture}
+	\caption{Function calls during simulation procedure}
+\end{figure}

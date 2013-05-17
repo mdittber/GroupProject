@@ -1,40 +1,46 @@
 \input{Misc/Header}
-%\usepackage{ETH light}
-%----------------------------------------------------------
+%\includeonly{Misc/Titlepage, Chapters/OMEN_MATLAB, Chapters/matlab,Chapters/QnA}
 
-%\includeonly{Chapters/ProcessingQDots}
+\newacronym{GUI}{GUI}{Graphical User Interface}
+\newacronym{CQD}{CQD}{Colloidal Quantum Dot}
 
 \begin{document}
-
-\frontmatter
-\include{Misc/Titlepage}
-
-\cleardoublepage\pdfbookmark{\contentsname}{toc}		% Add Table of Contents to the PDF bookmarks
-\tableofcontents
-\newpage
-
-
-%\chapter{Preface}
-
-%\chapter{Introduction}
-
-
-
-\mainmatter
-
-
-		
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%% Glossary - Begin %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\frontmatter
+	\include{Misc/Titlepage}
 	
-	\glossary{name={Colloidal Quantum Dots}, description={The Fermi level also known as the Fermi Energy
+	\cleardoublepage\pdfbookmark{\contentsname}{toc}		% Add Table of Contents to the PDF bookmarks
+	\tableofcontents
+	\newpage
+
+
+	\mainmatter
+
+	%\include{Chapters/QuantumDot}
+	\include{Chapters/OMEN_MATLAB}
+	%\include{Fig/Tikz_SimWorkflow}
+	\include{Chapters/matlab}
+	%\include{Chapters/Simulations}
+	
+
+	\begin{appendix}
+		\include{Chapters/QnA}
+	\end{appendix}
+		
+%	%%%%%%%%%%%%%%%%%%%%%%%%%%%% Glossary - Begin %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	
+	\newglossaryentry{ccqd}{name={Colloidal Quantum Dots}, description={The Fermi level also known as the Fermi Energy
 						is the Energy at which the probability of finding an Electron/Hole is equal to 50\%. \newline
 						At equilibrium the Fermi Level must be flat throughout the entire structure.}}
-		
-	
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%  Glossary - End %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-	\clearpage
-	\printglossary
+%		
+%	
+%	%%%%%%%%%%%%%%%%%%%%%%%%%%%  Glossary - End %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%	\clearpage
+%	\phantomsection
+%	\addcontentsline{toc}{chapter}{Glossary}
+	\printglossaries
+	%\printglossary[type=\acronymtype]
+	%\printglossary[type=main]
 	
 	\clearpage
 	\phantomsection
@@ -56,14 +62,14 @@
 	\bibliography{Bibliography}
 	\bibliographystyle{plain}
 	
-	\clearpage
-	\phantomsection
-	\addcontentsline{toc}{chapter}{List of Tables}
-	\listoftables
+%	\clearpage
+%	\phantomsection
+%	\addcontentsline{toc}{chapter}{List of Tables}
+%	\listoftables
 	
 	
 	\backmatter
-	
+		
 	\include{Chapters/DeclarationOfOriginality}
 	
 \end{document}
