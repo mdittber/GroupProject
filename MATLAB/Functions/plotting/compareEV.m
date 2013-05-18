@@ -6,7 +6,6 @@ function compareEV(QDOA, band, NMod, tol, propertyName, showGrid)
 
     [Ndir,~] = size(directions);
 
-
     for k =1:Ndir
         for i=1:NMod       
             figure(i);
@@ -15,5 +14,4 @@ function compareEV(QDOA, band, NMod, tol, propertyName, showGrid)
         end
         plotEVAlongAxis(QDOA, propertyName,[0 0 0], directions(k,:), showGrid, tol, NMod, band);
     end
-
 end

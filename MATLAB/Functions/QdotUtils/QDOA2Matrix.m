@@ -1,6 +1,6 @@
 function matrix = QDOA2Matrix(QDOA)
 % matrix = QDOA2Matrix(QDOA)
-% creates cell matrix from Qdot obj array, containing selected properties
+% creates cell matrix from QDOA, containing selected properties
 
     N = length(QDOA);
     M = 2; % number of properties displayed

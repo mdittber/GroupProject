@@ -22,7 +22,7 @@ function varargout = gui_simulate(varargin)
 
 % Edit the above text to modify the response to help gui_simulate
 
-% Last Modified by GUIDE v2.5 25-Apr-2013 17:57:45
+% Last Modified by GUIDE v2.5 18-May-2013 18:54:11
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -86,6 +86,9 @@ add = str2double(get(handles.e_addrow,'String'));
 add = round(add);
 B = cell(n+add,m);
 B(:) = {''};
+% Default values
+%  B(:,2) = {'1'};
+%  B(:,6) = {'0'};
 B(1:n,:) = A;
 set(handles.uitable1,'data',B);
 
@@ -127,17 +130,6 @@ simProcedure(Mpar_raw);
 
 
 
-% --- Executes on button press in pb_cancelsim.
-function pb_cancelsim_Callback(hObject, eventdata, handles)
-% hObject    handle to pb_cancelsim (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-global config;
-config.cancelSim = 1;
-setProgressInfo('Canceling Simulation Procedure!', gui_simulate, 't_progress')
-
-
-
 % --- Executes during object creation, after setting all properties.
 function uitable1_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to uitable1 (see GCBO)
@@ -146,6 +138,9 @@ function uitable1_CreateFcn(hObject, eventdata, handles)
 % --- Executes when entered data in editable cell(s) in uitable1.
 A = get(hObject,'data');
 A(:) = {''};
+% Default values
+%  A(:,2) = {'1'};
+%  A(:,6) = {'0'};
 set(hObject,'data',A);
 
 
@@ -184,9 +179,25 @@ end
 
 
 
-% --- Executes on button press in pb_clear.
-function pb_clear_Callback(hObject, eventdata, handles)
-% hObject    handle to pb_clear (see GCBO)
+% --------------------------------------------------------------------
+function m_clearTable_Callback(hObject, eventdata, handles)
+% hObject    handle to m_clearTable (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 uitable1_CreateFcn(handles.uitable1, eventdata, handles)
+
+
+% --------------------------------------------------------------------
+function m_help_Callback(hObject, eventdata, handles)
+% hObject    handle to m_help (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+open('TOMmanual.pdf')
+
+
+% --------------------------------------------------------------------
+function m_gui_db_Callback(hObject, eventdata, handles)
+% hObject    handle to m_gui_db (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+gui_db();

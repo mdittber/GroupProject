@@ -3,41 +3,33 @@ function simProcedure(Mpar_raw)
 %   Gets the raw data cell array from the GUI table
 %   checks if all entries are valid and reformats the
 %   data that can be used to generate OMEN CMD files
-
-    global config;
     
     %% Delete empty rows from the UI table
     Mpar = delEmptyRows(Mpar_raw);
     [n,m] = size(Mpar);
+    TotNerror = 0;
     
-    %% Check for invalid entries
     if n==0
-        setProgressInfo('No entries to start the simulation', 2, gui_simulate, 't_progress')
+        setProgressInfo('No entries to start the simulation', 2, gui_simulate, 't_progress');
     else
-        for i=1:n
-            %% Write data from UI table into Qdot objects and write Cmd files
-            setProgressInfo(['(', int2str(i), '/', int2str(n), ') Creating OMEN Cmd file(s).'], 1, gui_simulate, 't_progress')
-            writeQdot(Mpar(i,:),i)
-            
-            %% Stop iterations when Cancel Simulation Button was hit
-            if config.cancelSim == 1
-                break;
+        %% Check  data from UI table and write them into Qdot objects
+        for k=1:n
+            setProgressInfo(['(', int2str(k), '/', int2str(n), ') Creating generic QDOA.'], 1, gui_simulate, 't_progress');
+            [QDOA(k), Nerror] = writeQdot(Mpar(k,:),k);
+            TotNerror = TotNerror + Nerror;
+        end
+        
+        %% Write Cmd files and start simulation if all data are correct
+        if TotNerror == 0
+            setProgressInfo('Input parameters okay!', 1, gui_simulate, 't_progress');
+            for k=1:n
+                setProgressInfo(['(', int2str(k), '/', int2str(n), ') Creating OMEN Cmd file(s).'], 1, gui_simulate, 't_progress');
+                %simAll(QDOA(k));
             end
-            
-            setProgressInfo(['(', int2str(i), '/', int2str(n), ') Simulation succesful!'], 1, gui_simulate, 't_progress')
+            setProgressInfo('Simulation Procedure done!', 1, gui_simulate, 't_progress');
+            setProgressInfo('hline', 0, gui_simulate, 't_progress');
+        else
+            setProgressInfo(['At least ', num2str(TotNerror), ' errors to be corrected. Cannot start simulation!'], 2, gui_simulate, 't_progress');
         end
     end
-    
-    if config.cancelSim == 0
-        setProgressInfo('Simulation Procedure done!', 1, gui_simulate, 't_progress')
-        setProgressInfo('hline', 0, gui_simulate, 't_progress')
-    else
-    
-    %% Clean up Simulations folder if simulations failed
-    
-    % # Simualations failed OR all Simulations ran successfully
-    setProgressInfo('Simulation FAILED!', 1, gui_simulate, 't_progress')
-    setProgressInfo('hline', 0, gui_simulate, 't_progress')
-    end
-    config.cancelSim = 0;
 end

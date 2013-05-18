@@ -1,6 +1,6 @@
 function [cleanedQDOA, duplicatesQDOA] = removeDuplicates(QDOA)
-% cleanedQDOA = removeDuplicates(QDOA, removeFolder)
-% returns the QDOA with all Duplicates removed.
+% [cleanedQDOA, duplicatesQDOA] = removeDuplicates(QDOA)
+% returns the QDOA with all duplicates removed.
 
     N = length(QDOA);
     duplicatesInd = [];
@@ -25,5 +25,4 @@ function [cleanedQDOA, duplicatesQDOA] = removeDuplicates(QDOA)
     
     duplicatesQDOA = QDOA(duplicatesInd);
     cleanedQDOA = QDOA(cleanedInd);
-    
-end  
+end

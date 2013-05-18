@@ -1,6 +1,6 @@
 function plotEV3DcrossSection(QDOA, NMod)
 % plotEV3DcrossSection(QDOA, NMod)
-% Plot wavefn of qdotObjs 
+% Plot wavefn of QDOA 
 % 2 cross sections for VB and CB modes in one figure
 % new figures for new modes
 

@@ -1,5 +1,5 @@
 function delProgressInfo(fObject, hObject)
-%delProgressInfo(msg, fObject, hObject)
+%delProgressInfo(fObject, hObject)
 %   fObject:    figure, where the information
 %               will be displayed (gui_simulate,...)
 %   hObject:    Tag (as string) of the object in the figure,

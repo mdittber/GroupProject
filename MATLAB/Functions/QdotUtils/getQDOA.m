@@ -1,6 +1,6 @@
 function [QDOA, SimDirs] = getQDOA()
 % [QDOA, SimDirs] = getQDOA()
-% create array of QdotObj from all simulation folders
+% creates an array of QDO from all simulation folders
 
     %get sim folders
     global config;            
@@ -19,5 +19,4 @@ function [QDOA, SimDirs] = getQDOA()
         load([config.simulations, SimDirs(i).name, '/QDO.mat']);
         QDOA(i) = QDO;
     end
-
 end

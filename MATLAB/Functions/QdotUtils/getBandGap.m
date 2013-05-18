@@ -1,7 +1,7 @@
 function [BGap, Radius, Volt, Mat] = getBandGap(QDO)
-%[BGap, Radius, Volt, Info] = getBandGap(QdotObj,SimDir)
-%   Input:  QdotObj     - Object that shall give the Band Gap
-%           SimDir      - Path where to find the object
+%[BGap, Radius, Volt, Mat] = getBandGap(QDO)
+%   Input:  QDO         - Quantum Dot Object in which Band Gap you are
+%                         interested in
 %   Output: BGap        - Band Gap in eV
 %           Radius      - Inner and Outer Radius of the Qdot
 %           Volt        - Applied Voltage

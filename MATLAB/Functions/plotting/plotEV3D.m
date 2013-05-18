@@ -1,6 +1,6 @@
 function plotEV3D(QDOA, band, NMod)
 % plotEV3D(QDOA, band, NMod)
-% Plot wavefn of qdotObjs. 
+% Plot wavefn of QDOA. 
 % Color code: red = high probability density, blue = low.
 % up to NMod modes, 
 % for band = 'CB' or 'VB'

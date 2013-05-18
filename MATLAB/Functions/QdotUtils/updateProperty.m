@@ -1,11 +1,11 @@
- function updateProperty(DIR, pName, value)
-%% updateProperty(DIR, pName, value)
-%   DIR     directory path relative to 'root/Simulations/'
-%   pName   Qdot property in single quotes, i.e. 'OMENversion'
-%   value   value that will be entered in the property
-%            abs2rel changes the path of the Qdot to a path relative to
-%            'root/Simulations' and moves the simulation set into the
-%             right folder
+ function updateProperty(DIR, propertyName, value)
+%% updateProperty(DIR, propertyName, value)
+%   DIR             directory path relative to 'root/Simulations/'
+%   propertyName    Qdot property in single quotes, i.e. 'OMENversion'
+%   value           value that will be entered in the property
+%                   abs2rel changes the path of the Qdot to a path relative to
+%                   'root/Simulations' and moves the simulation set into the
+%                   right folder
 
     global config;
     ctrStatus = 0;
@@ -18,9 +18,9 @@
         %% Overwrite property
 
         % Change path from absolute to relative
-        if strcmp(pName, 'path') && strcmp(value, 'abs2rel')
+        if strcmp(propertyName, 'path') && strcmp(value, 'abs2rel')
             newPath = ['ID', QDO.timestamp, '_', qdotObj.mat_name];
-            eval( sprintf('QDO.%s = %s;',pName,'newPath') );
+            eval( sprintf('QDO.%s = %s;',propertyName,'newPath') );
             save([config.simulations, DIR, '/', SimDirs(i).name, '/QDO.mat'], 'QDO');
 
             % Move simulation folder
@@ -37,7 +37,7 @@
 
         % Change a property
         else
-            eval( sprintf('QDO.%s = %s;',pName,'value') );
+            eval( sprintf('QDO.%s = %s;',propertyName,'value') );
             save([config.simulations, DIR, '/', SimDirs(i).name, '/QDO.mat'], 'QDO');
         end
 

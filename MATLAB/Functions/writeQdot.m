@@ -1,10 +1,8 @@
-function wQdot = writeQdot(Mpar_row, row)
-%wQdot = writeQdot(Mpar_row, row)
-%   Writes the Qdots from a parameter set (given by UI table) and passes it
-%   to the further simulation procedure: writing Cmd files, starting the
-%   OMEN simulation.
+function [QDO, Nerror] = writeQdot(Mpar_row, row)
+%[QDO, Nerror] = writeQdot(Mpar_row, row)
+%   Writes the QDO from a parameter set (given by UI table)
 
-    global config;
+    Nerror = 0;
 
     %%********************************************************************
     %% Parameters
@@ -15,7 +13,7 @@ function wQdot = writeQdot(Mpar_row, row)
     
     % Convert and check the UI table string into a matrix
     [CHK,vMat] = getUitInput(Mpar_row(1));
-    checkUitInput(CHK,vMat,[row,1]);
+    Nerror = checkUitInput(CHK,vMat,[row,1],Nerror);
     
     switch vMat(1)
         case 1
@@ -23,7 +21,7 @@ function wQdot = writeQdot(Mpar_row, row)
             
             % Geometry
             [CHK,vGeo] = getUitInput(Mpar_row(2));
-            checkUitInput(CHK,vGeo,[row,2]);
+            Nerror = checkUitInput(CHK,vGeo,[row,2],Nerror);
             switch vGeo(1)
                 case 1
                     QDO.geometry(1).type = 'sphere';
@@ -33,7 +31,7 @@ function wQdot = writeQdot(Mpar_row, row)
             
             % Radius            
             [CHK,vRadius]= getUitInput(Mpar_row(3));
-            checkUitInput(CHK,vRadius,[row,3]);
+            Nerror = checkUitInput(CHK,vRadius,[row,3],Nerror);
             QDO.geometry(1).radius = vRadius;
             
             
@@ -42,7 +40,7 @@ function wQdot = writeQdot(Mpar_row, row)
             
             % Geometry
             [CHK,vGeo] = getUitInput(Mpar_row(2));
-            checkUitInput(CHK,vGeo,[row,2]);
+            Nerror = checkUitInput(CHK,vGeo,[row,2],Nerror);
             switch vGeo(1)
                 case 1
                     QDO.geometry(1).type = 'sphere';
@@ -52,7 +50,7 @@ function wQdot = writeQdot(Mpar_row, row)
             
             % Radius
             [CHK,vRadius]= getUitInput(Mpar_row(3));
-            checkUitInput(CHK,vRadius,[row,3]);
+            Nerror = checkUitInput(CHK,vRadius,[row,3],Nerror);
             QDO.geometry(1).radius = vRadius;
             
             
@@ -61,7 +59,7 @@ function wQdot = writeQdot(Mpar_row, row)
 
             % Geometry
             [CHK,vGeo] = getUitInput(Mpar_row(2));
-            checkUitInput(CHK,vGeo,[row,2]);
+            Nerror = checkUitInput(CHK,vGeo,[row,2],Nerror);
             switch vGeo(1)
                 case 1
                     QDO.geometry(1).type = 'sphere';
@@ -77,7 +75,7 @@ function wQdot = writeQdot(Mpar_row, row)
             
             % Radii
             [CHK,vRadius]= getUitInput(Mpar_row(3));
-            checkUitInput(CHK,vRadius,[row,3]);
+            Nerror = checkUitInput(CHK,vRadius,[row,3],Nerror);
             QDO.geometry(1).radius = vRadius(1,:);
             QDO.geometry(2).radius = vRadius(2,:);
             
@@ -87,7 +85,7 @@ function wQdot = writeQdot(Mpar_row, row)
 
             % Geometry
             [CHK,vGeo] = getUitInput(Mpar_row(2));
-            checkUitInput(CHK,vGeo,[row,2]);
+            Nerror = checkUitInput(CHK,vGeo,[row,2],Nerror);
             switch vGeo(1)
                 case 1
                     QDO.geometry(1).type = 'sphere';
@@ -103,7 +101,7 @@ function wQdot = writeQdot(Mpar_row, row)
             
             % Radii
             [CHK,vRadius]= getUitInput(Mpar_row(3));
-            checkUitInput(CHK,vRadius,[row,3]);
+            Nerror = checkUitInput(CHK,vRadius,[row,3],Nerror);
             QDO.geometry(1).radius = vRadius(1,:);
             QDO.geometry(2).radius = vRadius(2,:);
             
@@ -112,7 +110,7 @@ function wQdot = writeQdot(Mpar_row, row)
             
             % Geometry
             [CHK,vGeo] = getUitInput(Mpar_row(2));
-            checkUitInput(CHK,vGeo,[row,2]);
+            Nerror = checkUitInput(CHK,vGeo,[row,2]);
             switch vGeo(1)
                 case 1
                     QDO.geometry(1).type = 'sphere';
@@ -122,7 +120,7 @@ function wQdot = writeQdot(Mpar_row, row)
             
             % Radius
             [CHK,vRadius]= getUitInput(Mpar_row(3));
-            checkUitInput(CHK,vRadius,[row,3]);
+            Nerror = checkUitInput(CHK,vRadius,[row,3],Nerror);
             QDO.geometry(1).radius = vRadius;
             
         otherwise
@@ -131,25 +129,21 @@ function wQdot = writeQdot(Mpar_row, row)
     
     % Number of modes for bandstructure calculation
     [CHK,vModes] = getUitInput(Mpar_row(4));
-    checkUitInput(CHK,vModes,[row,4]);
+    Nerror = checkUitInput(CHK,vModes,[row,4],Nerror);
     QDO.n_of_modes = vModes;
     
     
     % Voltage
     [CHK,vVolt] = getUitInput(Mpar_row(5));
-    checkUitInput(CHK,vVolt,[row,5]);
-%     default.NVD        = vVolt(3);			% number of drain voltages Vd=Vdmin:(Vdmax-Vdmin)/(NVD-1):Vdmax
-%     default.Vdmin      = vVolt(1);			% absolute minimum drain potential
-%     default.Vdmax      = vVolt(2);			% absolute maximum drain potential
+    Nerror = checkUitInput(CHK,vVolt,[row,5],Nerror);
+%     QDO.NVD        = vVolt(3);			% number of drain voltages Vd=Vdmin:(Vdmax-Vdmin)/(NVD-1):Vdmax
+%     QDO.Vdmin      = vVolt(1);			% absolute minimum drain potential
+%     QDO.Vdmax      = vVolt(2);			% absolute maximum drain potential
     
     QDO.Efield = [vVolt(1), vVolt(2), vVolt(3)];
     
-    
-    %%********************************************************************
-    %% WRITE CMD FILES AND SIMULATE
-    %%********************************************************************
-    if config.cancelSim == 0
-        wQdot = QDO;
-        simAll(QDO);
-    end
+    % Permutation
+    [CHK,vPermutate] = getUitInput(Mpar_row(6));
+    Nerror = checkUitInput(CHK,vPermutate,[row,6],Nerror);
+    QDO.simulationStatus = logical(vPermutate);
 end

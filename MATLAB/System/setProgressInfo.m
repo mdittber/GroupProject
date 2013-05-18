@@ -1,5 +1,5 @@
 function setProgressInfo(msg, opt, fObject, hObject)
-%setProgessInfo(msg, fObject, hObject)
+%setProgessInfo(msg, opt, fObject, hObject)
 %   msg:        string that should be displayed
 %               type 'hline' for a horizontal line
 %   opt:        opt = 0     Horizontal line

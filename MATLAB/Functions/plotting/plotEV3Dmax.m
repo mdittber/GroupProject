@@ -1,6 +1,6 @@
 function plotEV3Dmax(QDOA, band, probLim, NMod)
 % plotEV3Dmax(QDOA, band, probLim, NMod)
-% Plot wavefn of qdotObj:
+% Plot wavefn of QDOA:
 % red appear atoms where probability density is largest:
 % sum( psi( all red atoms ) )< probLim(1)
 % yellow appear atoms where probability density is large:

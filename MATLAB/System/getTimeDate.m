@@ -7,6 +7,7 @@ function timestamp = getTimeDate(option)
 %   option=2: for log entries yyyy/mm/dd hh:mm:ss
 %   option=3: for DB entries yyyymmddhhmmss
 %   option=4: output including milliseconds yyyymmddhhmmssfff
+%   option=5: output including milliseconds yyyymmdd-hhmm-ssfff
 
     switch option
         case 1
