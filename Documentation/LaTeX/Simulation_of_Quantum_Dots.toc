@@ -1,0 +1,28 @@
+\contentsline {chapter}{\numberline {1}Simulations with {\scshape TOM }}{1}{chapter.2}
+\contentsline {section}{\numberline {1.1}Installing the Software}{1}{section.6}
+\contentsline {section}{\numberline {1.2}Using {\scshape TOM }}{1}{section.7}
+\contentsline {subsection}{\numberline {1.2.1}Running a simulation}{1}{subsection.8}
+\contentsline {subsection}{\numberline {1.2.2}Display simulation information}{3}{subsection.15}
+\contentsline {subsection}{\numberline {1.2.3}Visualization}{3}{subsection.17}
+\contentsline {subsection}{\numberline {1.2.4}Additional tools}{4}{subsection.21}
+\contentsline {section}{\numberline {1.3}Maintaining {\scshape TOM }}{4}{section.22}
+\contentsline {subsection}{\numberline {1.3.1}General Structure}{4}{subsection.23}
+\contentsline {chapter}{\numberline {2}MATLAB}{5}{chapter.42}
+\contentsline {section}{\numberline {2.1}Install}{5}{section.43}
+\contentsline {section}{\numberline {2.2}User}{5}{section.44}
+\contentsline {section}{\numberline {2.3}Maintainer}{5}{section.45}
+\contentsline {subsection}{\numberline {2.3.1}Basic concepts}{5}{subsection.46}
+\contentsline {subsection}{\numberline {2.3.2}GUI}{5}{subsection.51}
+\contentsline {subsection}{\numberline {2.3.3}Simulation}{5}{subsection.52}
+\contentsline {subsection}{\numberline {2.3.4}Database}{6}{subsection.57}
+\contentsline {subsubsection}{Getting the parameters from all simulations}{6}{section*.58}
+\contentsline {subsubsection}{Filtering}{6}{section*.59}
+\contentsline {subsection}{\numberline {2.3.5}Plotting}{7}{subsection.65}
+\contentsline {subsubsection}{Plotting the eigenenergies}{7}{section*.66}
+\contentsline {subsubsection}{Plotting the wavefunction}{7}{section*.67}
+\contentsline {chapter}{\numberline {A}Q \& A}{9}{appendix.68}
+\contentsline {paragraph}{Why is opening gui\_db is not possible?}{9}{section*.69}
+\contentsline {paragraph}{Why does the simulation not stop, when I hit \emph {Cancel Simulation}?}{9}{section*.70}
+\contentsline {chapter}{Declaration of Originality}{11}{appendix*.73}
+\contentsline {chapter}{Index}{11}{section*.71}
+\contentsline {chapter}{References}{11}{section*.72}
