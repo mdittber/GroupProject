@@ -2,6 +2,13 @@
 ## Eclipse
 #################
 
+*.glo
+*.idx
+*.log
+*.out
+*.gz
+*.aux
+
 HIDE*
 OMEN/
 Papers_References/
