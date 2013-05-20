@@ -2,6 +2,9 @@
 ## Eclipse
 #################
 
+*.toc
+*.acn
+*.ist
 *.glo
 *.idx
 *.log

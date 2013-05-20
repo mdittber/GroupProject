@@ -9,11 +9,13 @@ Parameters for the simulation are stored and passed as arguments to functions as
 To instantiate a QDO, one can call the constructor with no arguments, which will create an empty QDO. Alternatively, a string with the material name can be passed as an argument, in which case the new QDO object will be constructed based on parameters defined in an external file, located in the folder \textit{Classes}.
 The class Qdot provides some methods for basic displaying of some selected parameters, such as \textit{getSelParams}.\\
 
-%\begin{EXAMPLE}  
-Creating a Qdot object based on default parameters and setting the radius to 4\\
-myQdot = Qdot('CdS\_CdSe');\\
-myQdot.geometry(2).radius = 4;\\
-%\end{EXAMPLE}
+\begin{EXAMPLE}
+Creating a \textit{Qdot} object based on default parameters and set the radius to 4
+\begin{verbatim}
+myQdot = Qdot('CdS_CdSe');
+myQdot.geometry(2).radius = 4;
+\end{verbatim}
+\end{EXAMPLE}
 
 
 
@@ -39,11 +41,13 @@ Returned to the calling function is the QDOA as well as a vector indicating the 
 \\\\
 Note that it is not strictly necessary to start the simulations using the GUI. The QDOG containing the desired parameters can also be created with standard MATLAB syntax, and passed subsequently to the function \textit{simAll.m}, as is shown in the following example.\\
 \\
-%\begin{EXAMPLE} 
-myQdot = Qdot('PbS\_lent');  creating a Qdot object with default parameters \\
-myQdot.geometry.radius = [1.5 3 4]; changing the parameter radius\\
-simAll(myQdot);  4 simulations with radii 1.5, 2, 2.5, 3 will be performed\\
-%\end{EXAMPLE}
+\begin{EXAMPLE} \end{EXAMPLE}
+\begin{tabular}{ll}
+myQdot = Qdot('PbS\_lent'); &  \\
+myQdot.geometry.radius = [1.5 3 4]; 	& changing the parameter radius\\
+simAll(myQdot); & 4 simulations with radii 1.5, 2, 2.5, 3 will be performed\\
+\end{tabular} 
+
 
 
 
@@ -69,15 +73,15 @@ The following filtering modes are available:\\
 \end{itemize}
 The last two modes are especially interesting for selecting QDOs with two or more materials, to find the objects with a specified shell-thickness.\\
 \\
-%\begin{EXAMPLE}
-myQDOA = getQDOA;\\
-\%filter for radius = 3.5 \\
+\begin{EXAMPLE}\end{EXAMPLE}
+\\myQDOA = getQDOA;\\
+filter for radius = 3.5 \\
 filtered = filterQDOA( QDOA, 'geometry(1).radius',  3.5, 1, 0);\\
-\%filter for constant difference of 0.7nm between radius of material 1 and radius of material 2, within a tolerance of +/- 10\%\\
+filter for constant difference of 0.7nm between radius of material 1 and radius of material 2, within a tolerance of +/- 10\%\\
 filtered = filterQDOA( QDOA, \{'geometry(1).radius', 'geometry(2).radius'\}, 0.7, 4, 0.1 );\\
-\%filter for material containing Pb:\\
+filter for material containing Pb:\\
 filteres = filterQDOA( QDOA, 'mat\_name', 'Pb', 2, 0);\\
-%\end{EXAMPLE}
+
 
 \subsection{Plotting}
 
