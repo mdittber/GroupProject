@@ -1,13 +1,13 @@
 function plotEvsField(QDOA)
 % plotEvsField(QDOA)
 % Plot Energylevels againts applied electric field
-% Degeneracy (within +/-0.002) is shown
+% Degeneracy (precision 0.005) is shown
 
 global config;
 N= length(QDOA);
 
-fields = cell2mat( {QDOA(:).Efield} );
-xspace = max(fields) - min(fields);
+xAxis = cell2mat( {QDOA(:).Efield} );
+xspace = max(xAxis) - min(xAxis);
 DegSpaceing = 0.005*xspace;
 if DegSpaceing < 0.001
     DegSpaceing = 0.001;
@@ -19,11 +19,11 @@ for k =1:N
     CBpath = [config.simulations QDOA(k).path '/CB_E_0_0.dat'];
     if exist( CBpath ) > 0
         CBE = load(CBpath);
-        plotDegEnergy(CBE, QDOA(k).Efield, DegSpaceing);
+        plotDegEnergy(CBE, xAxis(k), DegSpaceing);
     end
     if exist( VBpath ) > 0
         VBE = load(VBpath);
-        plotDegEnergy(VBE, QDOA(k).Efield, DegSpaceing);
+        plotDegEnergy(VBE, xAxis(k), DegSpaceing);
     end
 
 end
@@ -32,10 +32,12 @@ end
 
 function plotDegEnergy(E,x,DegSpaceing)
     L = length(E);
+    precision = 0.005;
+    roundedE = round(E/precision)*precision;
     x = ones(L,1).*x;
     
     for i=2:L            
-        if abs( E(i)-E(i-1) ) <0.002
+        if roundedE(i)==roundedE(i-1)
             x(i) = x(i-1)+DegSpaceing;
         end
     end
