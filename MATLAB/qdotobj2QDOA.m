@@ -11,8 +11,10 @@ SimDirs = dir([config.simulations '/ID*']);
 
 for k=1:N
     path = [config.simulations, SimDirs(k).name, '/qdotObj.mat'];
+    if exist(path)>0
     load(path);
     QDO = qdotObj;
     save([config.simulations, SimDirs(k).name, '/QDO.mat'],'QDO');
     delete(path);
+    end
 end
