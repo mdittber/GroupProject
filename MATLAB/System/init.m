@@ -18,17 +18,15 @@ elseif strcmp(getenv('USERNAME'), 'matthias')
 end
 
 config.system       = [config.root, 'MATLAB/System/'];
-config.matlab       = [config.root, 'MATLAB'];
+config.log          = [config.root, 'SystemData'];
 config.OMEN         = [config.root, 'OMEN_ethz-amd64'];
+config.experimentalData = [config.root, 'ExperimentalData/'];
 config.simulations  = [config.root, 'Simulations/'];
 config.vOMEN        = '04May2013';
-
-% Is = 1 if simulation is aborted otherwise = 0
-config.cancelSim    = 0;
 
 if exist(config.simulations) == 0
     mkdir(config.simulations)
 end
 
-addpath(genpath(config.matlab))
+addpath(genpath(config.root))
 cd(config.root)
