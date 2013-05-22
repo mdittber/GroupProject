@@ -25,7 +25,8 @@ for k =1:N
         VBE = load(VBpath);
         plotDegEnergy(VBE, xAxis(k), DegSpaceing);
     end
-
+    xlabel('e-field');
+    ylabel('Energy');
 end
 
 end

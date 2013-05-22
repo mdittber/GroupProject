@@ -18,8 +18,7 @@
 		Creating a \textit{Qdot} object based on default parameters and set the radius to 4
 		\begin{lstlisting}[frame=none]
 			myQdot = Qdot('CdS_CdSe');
-			myQdot.geometry(2).radius = 4;
-		\end{lstlisting}
+			myQdot.geometry(2).radius = 4;\end{lstlisting}
 	\end{EXAMPLE}
 \subsection{GUI}
 %GUI
@@ -62,8 +61,19 @@
 	QdotUtils}. The basic principle is to get all all parameters which were simulated, which can then be displayed in the GUI, filtered, deleted and so on.
 	
 	\subsubsection{Getting the parameters from all simulations}
-		\lstinline{function getQDOA()}\\\\
+		\lstinline{function QDOA = getQDOA()}\\\\
 		This is done by loading the QDOs of all performed simulations from their folders, and storing them in a QDOA. 
+	\subsubsection{Deleting simulation data}
+		\lstinline{function deleteSimData(QDOA)}\\\\
+		Besides the possibility of deleting simulation data manually, an easy and fast way is using the function \textit{deleteSimData.m}. 
+		The simulation folders for all elements in QDOA will be deleted permanently. Combined with a filter function, it thus becomes very easy to 
+		delete the desired simulation data.
+	\subsubsection{Remove duplicates}
+		\lstinline{function [cleaned, duplicates] = removeDuplicates(QDOA)}\\\\
+		It is well possible that, after performing many simulations, one has multiple simulations of exactly the same parameters. In this case one may 
+		want to delete the duplicates, which can be done by the above function. The function returns a QDOA with the duplicates removed, as well as 
+		a QDOA with only the duplicates. Note that this function does not delete the simulation data of the duplicates from the disk. For this purpose one 
+		can use the function \textit{deleteSimData.m} subsequently.
 	\subsubsection{Filtering}
 		%FILTERING
 		\lstinline{function filtered = filterQDOA(QDOA, propertyName, value, mode, tol)}\\\\
