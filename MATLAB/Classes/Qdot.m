@@ -37,7 +37,7 @@ classdef Qdot
         
         geometry
         
-        update_bs_target        
+        update_bs_target   =0;     
         bs_target		
     
     end

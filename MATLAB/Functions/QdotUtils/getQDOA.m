@@ -15,8 +15,11 @@ function [QDOA, SimDirs] = getQDOA()
     QDOA(N) = Qdot;
 
     %load data into DB 
-    for i=1:N    
-        load([config.simulations, SimDirs(i).name, '/QDO.mat']);
-        QDOA(i) = QDO;
+    for i=1:N   
+        path =[config.simulations, SimDirs(i).name, '/QDO.mat'];
+        if exist(path) >0
+            load(path);
+            QDOA(i) = QDO;
+        end    
     end
 end

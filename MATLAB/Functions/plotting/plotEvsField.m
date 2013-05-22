@@ -32,7 +32,7 @@ end
 
 function plotDegEnergy(E,x,DegSpaceing)
     L = length(E);
-    precision = 0.005;
+    precision = 0.01;
     roundedE = round(E/precision)*precision;
     x = ones(L,1).*x;
     
