@@ -26,7 +26,6 @@ function simProcedure(Mpar_raw)
                 setProgressInfo(['(', int2str(k), '/', int2str(n), ') Creating OMEN Cmd file(s).'], 1, gui_simulate, 't_progress');
                 simAll(QDOG(k));
             end
-            setProgressInfo('Simulation Procedure done!', 1, gui_simulate, 't_progress');
             setProgressInfo('hline', 0, gui_simulate, 't_progress');
         else
             setProgressInfo(['At least ', num2str(TotNerror), ' errors to be corrected. Cannot start simulation!'], 2, gui_simulate, 't_progress');

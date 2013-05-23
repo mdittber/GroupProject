@@ -20,11 +20,16 @@ function Nerror = checkUitInput(CHK, M, pos, Nerror)
                 end
             case 3  % Radius
                 maxR = max(M(:,1:2));
+                [n,m] = size(M);
                 if maxR > 5
                     setProgressInfo(['Cell(', num2str(pos(1)), ',', num2str(pos(2)), ') - Simulating Radii > 5nm can take a long time!'], 2, gui_simulate, 't_progress');
                 end
                 if min(M(:,3)) < 1
                     setProgressInfo(['Cell(', num2str(pos(1)), ',', num2str(pos(2)), ') - Radius Sweep has to be positive integer!'], 2, gui_simulate, 't_progress');
+                    Nerror = Nerror + 1;
+                end
+                if m ~= 3
+                    setProgressInfo(['Cell(', num2str(pos(1)), ',', num2str(pos(2)), ') - Radius vector has to have exactly 3 columns!'], 2, gui_simulate, 't_progress');
                     Nerror = Nerror + 1;
                 end
             case 4  % # of Modes
@@ -35,8 +40,13 @@ function Nerror = checkUitInput(CHK, M, pos, Nerror)
                     setProgressInfo(['Cell(', num2str(pos(1)), ',', num2str(pos(2)), ') - Simulating more than 20 modes can take a long time!'], 2, gui_simulate, 't_progress');
                 end
             case 5  % E-Field / Voltage
+                [n,m] = size(M);
                 if min(M(:,3)) < 1
                     setProgressInfo(['Cell(', num2str(pos(1)), ',', num2str(pos(2)), ') - E-Field Sweep has to be positive integer!'], 2, gui_simulate, 't_progress');
+                    Nerror = Nerror + 1;
+                end
+                if m ~= 3
+                    setProgressInfo(['Cell(', num2str(pos(1)), ',', num2str(pos(2)), ') - E-Field vector has to have exactly 3 columns!'], 2, gui_simulate, 't_progress');
                     Nerror = Nerror + 1;
                 end
             case 6 % update_bs_target

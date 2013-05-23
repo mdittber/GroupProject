@@ -17,7 +17,7 @@ function setProgressInfo(msg, opt, fObject, hObject)
 
     switch opt
         case 0
-            new = repmat('*',1,59);
+            new = repmat('*',1,80);
         case 1
             new = [getTimeDate(2), ': ', msg];
         case 2

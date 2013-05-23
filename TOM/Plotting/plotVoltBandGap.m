@@ -5,7 +5,7 @@ function plotVoltBandGap(QDOA)
 
     % For no function parameter plot whole database
     if nargin < 1
-        [QDOA,~] = getQDOA();
+        QDOA = getQDOA();
     end
     
     N = length(QDOA);

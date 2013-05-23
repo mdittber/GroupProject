@@ -51,7 +51,7 @@ function [QDOA, simSuccess] = simAll(QDOG)
         %print message
         fprintf(1, '\nSTART SIMULATION %i \n',i);
         message = sprintf('Start simulation %i',i);
-        setProgressInfo(message, 2, gui_simulate, 't_progress');
+        setProgressInfo(message, 1, gui_simulate, 't_progress');
         
         %timestamp for this simulation
         simTimestamp{i} = getTimeDate(5);
@@ -105,7 +105,7 @@ function [QDOA, simSuccess] = simAll(QDOG)
         if  simSuccess(i) == 1  %simulation successful 
             fprintf(simlogfid, 'Simulation SUCCESSFUL.\n');
             fprintf(1, '\nEND OF SIMULATION %i: SUCCESSFUL.\n', i);
-            setProgressInfo('SUCCESSFUL', 2, gui_simulate, 't_progress');
+            setProgressInfo('SUCCESSFUL', 1, gui_simulate, 't_progress');
         else
             fprintf(simlogfid, 'Simulation FAILED.\n');
             fprintf(1, '\nEND OF SIMULATION %i: FAILED.\n',i);
@@ -149,7 +149,7 @@ function [QDOA, simSuccess] = simAll(QDOG)
         setProgressInfo('Some simulations FAILED!', 2, gui_simulate, 't_progress');
     else %all sim successful
         fprintf(logfid, 'All %i simulations terminated normally! \n\n', N);
-        setProgressInfo('All simulations SUCCESSFUL!', 2, gui_simulate, 't_progress');
+        setProgressInfo('All simulations SUCCESSFUL!', 1, gui_simulate, 't_progress');
     end
     
     fprintf(logfid, 'CONSOLE OUTPUT OF EVERY SIMULATION: \n\n');

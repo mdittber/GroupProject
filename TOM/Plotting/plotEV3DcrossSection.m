@@ -20,14 +20,14 @@ global config;
         NOrb = n/NAtom; %nr of orbitals
 
         if nargin < 2
-            NMod = m/2; %default: nr of modes = all modes
+            NMod = 1:m/2; %default: nr of modes = all modes
         end
 
         % convert EV to probability (psi^2) for requested modes
         psiCB2 = EV2psi(CB_V, NOrb, NMod);
         psiVB2 = EV2psi(VB_V, NOrb, NMod);
 
-        for i=1:NMod,
+        for i=NMod,
 %             plot3DunitCell( Layer_Matrix, psiCB2(:,i), sprintf('CB mode %i',i), 1000+(i-1))
 %             plot3DunitCell( Layer_Matrix, psiVB2(:,i), sprintf('VB mode %i',i), 1000+(i-1))
 

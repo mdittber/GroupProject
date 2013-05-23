@@ -12,7 +12,7 @@ function plotAbs(EDOA)
             xWL = EDOA(k).abs(:,1);
             yPL = EDOA(k).abs(:,2);
             plot(xWL,yPL,color(k));
-            entries{k} = [EDOA(k).mat_name, ' - ', num2str(EDOA(k).type)];
+            entries{k} = [EDOA(k).mat_name, ' - ', num2str(EDOA(k).type), ' Diameter in nm: ', num2str(EDOA(k).size)];
         end
     end
     xlabel('Wavelength in nm');

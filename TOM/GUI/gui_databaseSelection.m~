@@ -1,35 +1,35 @@
-function varargout = gui_databaseAll(varargin)
-% GUI_DATABASEALL MATLAB code for gui_databaseAll.fig
-%      GUI_DATABASEALL, by itself, creates a new GUI_DATABASEALL or raises the existing
+function varargout = gui_databaseSelection(varargin)
+% GUI_DATABASESELECTION MATLAB code for gui_databaseSelection.fig
+%      GUI_DATABASESELECTION, by itself, creates a new GUI_DATABASESELECTION or raises the existing
 %      singleton*.
 %
-%      H = GUI_DATABASEALL returns the handle to a new GUI_DATABASEALL or the handle to
+%      H = GUI_DATABASESELECTION returns the handle to a new GUI_DATABASESELECTION or the handle to
 %      the existing singleton*.
 %
-%      GUI_DATABASEALL('CALLBACK',hObject,eventData,handles,...) calls the local
-%      function named CALLBACK in GUI_DATABASEALL.M with the given input arguments.
+%      GUI_DATABASESELECTION('CALLBACK',hObject,eventData,handles,...) calls the local
+%      function named CALLBACK in GUI_DATABASESELECTION.M with the given input arguments.
 %
-%      GUI_DATABASEALL('Property','Value',...) creates a new GUI_DATABASEALL or raises the
+%      GUI_DATABASESELECTION('Property','Value',...) creates a new GUI_DATABASESELECTION or raises the
 %      existing singleton*.  Starting from the left, property value pairs are
-%      applied to the GUI before gui_databaseAll_OpeningFcn gets called.  An
+%      applied to the GUI before gui_databaseSelection_OpeningFcn gets called.  An
 %      unrecognized property name or invalid value makes property application
-%      stop.  All inputs are passed to gui_databaseAll_OpeningFcn via varargin.
+%      stop.  All inputs are passed to gui_databaseSelection_OpeningFcn via varargin.
 %
 %      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
 %      instance to run (singleton)".
 %
 % See also: GUIDE, GUIDATA, GUIHANDLES
 
-% Edit the above text to modify the response to help gui_databaseAll
+% Edit the above text to modify the response to help gui_databaseSelection
 
-% Last Modified by GUIDE v2.5 23-May-2013 17:20:20
+% Last Modified by GUIDE v2.5 23-May-2013 17:01:23
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
                    'gui_Singleton',  gui_Singleton, ...
-                   'gui_OpeningFcn', @gui_databaseAll_OpeningFcn, ...
-                   'gui_OutputFcn',  @gui_databaseAll_OutputFcn, ...
+                   'gui_OpeningFcn', @gui_databaseSelection_OpeningFcn, ...
+                   'gui_OutputFcn',  @gui_databaseSelection_OutputFcn, ...
                    'gui_LayoutFcn',  [] , ...
                    'gui_Callback',   []);
 if nargin && ischar(varargin{1})
@@ -44,27 +44,27 @@ end
 end
 
 
-% --- Executes just before gui_databaseAll is made visible.
-function gui_databaseAll_OpeningFcn(hObject, eventdata, handles, varargin)
+% --- Executes just before gui_databaseSelection is made visible.
+function gui_databaseSelection_OpeningFcn(hObject, eventdata, handles, varargin)
 % This function has no output args, see OutputFcn.
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-% varargin   command line arguments to gui_databaseAll (see VARARGIN)
+% varargin   command line arguments to gui_databaseSelection (see VARARGIN)
 
-% Choose default command line output for gui_databaseAll
+% Choose default command line output for gui_databaseSelection
 handles.output = hObject;
 
 % Update handles structure
 guidata(hObject, handles);
 
-% UIWAIT makes gui_databaseAll wait for user response (see UIRESUME)
+% UIWAIT makes gui_databaseSelection wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 end
 
 
 % --- Outputs from this function are returned to the command line.
-function varargout = gui_databaseAll_OutputFcn(hObject, eventdata, handles) 
+function varargout = gui_databaseSelection_OutputFcn(hObject, eventdata, handles) 
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -82,8 +82,8 @@ function uitable_CreateFcn(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
-    QDOA = getQDOA();
-    Mpar = QDOA2Matrix(QDOA);
+    USER_QDOA = getappdata(0,'USER_QDOA');
+    Mpar = QDOA2Matrix(USER_QDOA);
     [n,m] = size(Mpar);
     edit  = cell(n,2);
     edit(:,1) = {false};
@@ -112,8 +112,8 @@ function uitable_CellEditCallback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
     if eventdata.Indices(2) == 2 && strcmp(eventdata.NewData,'Simulation set (path)')
-        set(handles.t_status,'string','Opening Simulation folder!');
         global config;
+        set(handles.t_status,'string','Opening Simulation folder!');
         Data = get(handles.uitable, 'data');
         row  = eventdata.Indices(1);
         col  = eventdata.Indices(2);
@@ -319,7 +319,7 @@ function m_sort_Callback(hObject, eventdata, handles)
 % hObject    handle to m_sort (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-    sort_gui_database(0);
+    sort_gui_database(1);
 end
 
 % --------------------------------------------------------------------
@@ -327,7 +327,7 @@ function m_filter_Callback(hObject, eventdata, handles)
 % hObject    handle to m_filter (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-    filter_gui_database(0);
+    filter_gui_database(1);
 end
 
 % --------------------------------------------------------------------
@@ -366,7 +366,7 @@ function m_EvsField_Callback(hObject, eventdata, handles)
     QDOA = getSelection(hObject, eventdata, handles);
     if isempty(QDOA) == 0
         plotEvsField(QDOA)
-        set(handles.t_status,'string','Energy vs E-Field');
+        set(handles.t_status,'string','*******************');
     end
 end
 
@@ -434,14 +434,4 @@ function m_3D_VB_Callback(hObject, eventdata, handles)
         plotEV3D(QDOA, 'VB', defaultNMod);
         set(handles.t_status,'string','3D Wavefunction plotted');
     end
-end
-
-
-% --------------------------------------------------------------------
-function m_allVvsBGap_Callback(hObject, eventdata, handles)
-% hObject    handle to m_allVvsBGap (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-    plotVoltBandGap;
-    set(handles.t_status,'string','Voltage vs Band Gap plotted');
 end

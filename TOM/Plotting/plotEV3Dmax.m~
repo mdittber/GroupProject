@@ -30,17 +30,17 @@ global config;
         NOrb = n/NAtom; %nr of orbitals
 
         if nargin < 4
-            NMod = m/2; %default: nr of modes = all modes
+            NMod = 1:m/2; %default: nr of modes = all modes
         end
 
     % convert EV to probability (psi^2) for requested modes
         psi2 = EV2psi(EV, NOrb, NMod);
         
     % PLOT
-        for i=1:NMod,
+        for i=NMod,
            
             figure(1000*plotid+100*k+i);
-            suptitle( strrep(sprintf('plot ID: %i, ID: %s, mat: %s', k, QDOA(k).timestamp, QDOA(k).mat_name ),'_','\_') );
+            suptitle( strrep(sprintf('plot ID: %i, ID: %s, mat: %s, Efield: %g', k, QDOA(k).timestamp, QDOA(k).mat_name, QDOA(k).Efield ),'_','\_') );
             title( sprintf('VB mode %i',i) );            
 
             psi = psi2(:,i);

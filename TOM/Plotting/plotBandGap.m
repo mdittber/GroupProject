@@ -34,9 +34,9 @@ function plotBandGap(QDOA)
             title(stitle,'interpreter','none');
             hold on;
             
-            % Fit r^-2 dependence to data points
+            % Fit r^-2 dependence to data points where Volt=0
             r = [min(Radius(:,1)):0.01:max(Radius(:,1))];
-            [A,B] = BandGapFitting(Radius(idx,1),BGap(idx));
+            [A,B] = BandGapFitting(Radius(idx,1),BGap(idx),Volt(idx));
             f = @(x) A+B*x.^-2;
             plot(r,f(r),'-r');
             xpos = max(Radius(:,1));
@@ -47,7 +47,7 @@ function plotBandGap(QDOA)
             'FontSize',10);
         end
     end
-
+    
     for k=1:nMat
         if cMat(k) == 3
             idx = find(Mat == cMat(k));
@@ -64,11 +64,11 @@ function plotBandGap(QDOA)
                 xlabel('Inner radius of Quantum Dot in nm');
                 ylabel('Outer radius of Quantum Dot in nm');
                 axis([0 max(Radius(:,1)) 0 max(Radius(:,2))]);
-                cBGap = round(sort(unique(BGap(idxV))/max(BGap(idxV))*100)/100)
+                cBGap = round(sort(unique(BGap(idxV))/max(BGap(idxV))*100)/100);
                 hcb = colorbar('Location','SouthOutside','XTickLabel',cBGap);
                 xlabel(hcb, 'Band Gap in eV');
                 set(hcb,'XTickMode','manual');
-                stitle = [QDOA(idxV(1)).mat_name, ', El field = ', num2str(Volt(idxV(l)))];
+                stitle = [QDOA(idxV(1)).mat_name, ', Voltage in V = ', num2str(Volt(idxV(1)))];
                 title(stitle,'interpreter','none');
             end
         end

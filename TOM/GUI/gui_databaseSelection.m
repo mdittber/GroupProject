@@ -22,7 +22,7 @@ function varargout = gui_databaseSelection(varargin)
 
 % Edit the above text to modify the response to help gui_databaseSelection
 
-% Last Modified by GUIDE v2.5 18-May-2013 19:08:09
+% Last Modified by GUIDE v2.5 23-May-2013 17:21:22
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -271,13 +271,6 @@ function m_3D_Callback(hObject, eventdata, handles)
 % hObject    handle to m_3D (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-    QDOA = getSelection(hObject, eventdata, handles);
-    if isempty(QDOA) == 0
-        defaultNMod = 4;
-        plotEV3D(QDOA, 'CB', defaultNMod)
-        plotEV3D(QDOA, 'VB', defaultNMod)
-        set(handles.t_status,'string','3D Wavefunction plotted');
-    end
 end
 
 
@@ -300,14 +293,6 @@ function m_3Dhigh_Callback(hObject, eventdata, handles)
 % hObject    handle to m_3Dhigh (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-    QDOA = getSelection(hObject, eventdata, handles);
-    if isempty(QDOA) == 0
-        defaultNMod = 4;
-        probLim = 0.7;
-        plotEV3Dmax(QDOA, 'CB', probLim, defaultNMod)
-        plotEV3Dmax(QDOA, 'VB', probLim, defaultNMod)
-        set(handles.t_status,'string','High probability 3D Wavefunction plotted');
-    end
 end
 
 
@@ -326,4 +311,137 @@ function m_gui_simulate_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
     gui_simulate;
+end
+
+
+% --------------------------------------------------------------------
+function m_sort_Callback(hObject, eventdata, handles)
+% hObject    handle to m_sort (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+    sort_gui_database(1);
+end
+
+% --------------------------------------------------------------------
+function m_filter_Callback(hObject, eventdata, handles)
+% hObject    handle to m_filter (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+    filter_gui_database(1);
+end
+
+% --------------------------------------------------------------------
+function m_removeDuplicates_Callback(hObject, eventdata, handles)
+% hObject    handle to m_removeDuplicates (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+    QDOA = getSelection(hObject, eventdata, handles);
+        if isempty(QDOA) == 0
+            [cleanedQDOA, duplicatesQDOA] = removeDuplicates(QDOA);
+            deleteSimData(duplicatesQDOA);
+            uitable_CreateFcn(handles.uitable, eventdata, handles);
+            set(handles.t_status,'string','Duplicates removed - Table reloaded.');
+        end
+end
+
+% --------------------------------------------------------------------
+function m_delete_Callback(hObject, eventdata, handles)
+% hObject    handle to m_delete (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+    QDOA = getSelection(hObject, eventdata, handles);
+        if isempty(QDOA) == 0
+            deleteSimData(QDOA);
+            uitable_CreateFcn(handles.uitable, eventdata, handles);
+            set(handles.t_status,'string','Selected simulatiuon data deleted - Table reloaded.');
+        end
+end
+
+
+% --------------------------------------------------------------------
+function m_EvsField_Callback(hObject, eventdata, handles)
+% hObject    handle to m_EvsField (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+    QDOA = getSelection(hObject, eventdata, handles);
+    if isempty(QDOA) == 0
+        plotEvsField(QDOA)
+        set(handles.t_status,'string','Energy vs E-Field');
+    end
+end
+
+% --------------------------------------------------------------------
+function m_VvsBGap_Callback(hObject, eventdata, handles)
+% hObject    handle to m_VvsBGap (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+    QDOA = getSelection(hObject, eventdata, handles);
+    if isempty(QDOA) == 0
+        plotVoltBandGap(QDOA);
+        set(handles.t_status,'string','Voltage vs Band Gap plotted');
+    end
+end
+
+% --------------------------------------------------------------------
+function m_3Dhigh_CB_Callback(hObject, eventdata, handles)
+% hObject    handle to m_3Dhigh_CB (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+    QDOA = getSelection(hObject, eventdata, handles);
+    if isempty(QDOA) == 0
+        defaultNMod = 4;
+        probLim = [0.2,0.5];
+        plotEV3Dmax(QDOA, 'CB', probLim, defaultNMod);
+        set(handles.t_status,'string','High probability 3D Wavefunction plotted');
+    end
+end
+
+% --------------------------------------------------------------------
+function m_3Dhigh_VB_Callback(hObject, eventdata, handles)
+% hObject    handle to m_3Dhigh_VB (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+    QDOA = getSelection(hObject, eventdata, handles);
+    if isempty(QDOA) == 0
+        defaultNMod = 4;
+        probLim = [0.2,0.5];
+        plotEV3Dmax(QDOA, 'VB', probLim, defaultNMod);
+        set(handles.t_status,'string','High probability 3D Wavefunction plotted');
+    end
+end
+
+% --------------------------------------------------------------------
+function m_3D_CB_Callback(hObject, eventdata, handles)
+% hObject    handle to m_3D_CB (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+    QDOA = getSelection(hObject, eventdata, handles);
+    if isempty(QDOA) == 0
+        defaultNMod = 4;
+        plotEV3D(QDOA, 'CB', defaultNMod);
+        set(handles.t_status,'string','3D Wavefunction plotted');
+    end
+end
+
+% --------------------------------------------------------------------
+function m_3D_VB_Callback(hObject, eventdata, handles)
+% hObject    handle to m_3D_VB (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+    QDOA = getSelection(hObject, eventdata, handles);
+    if isempty(QDOA) == 0
+        defaultNMod = 4;
+        plotEV3D(QDOA, 'VB', defaultNMod);
+        set(handles.t_status,'string','3D Wavefunction plotted');
+    end
+end
+
+
+% --------------------------------------------------------------------
+function m_allVvsBGap_Callback(hObject, eventdata, handles)
+% hObject    handle to m_allVvsBGap (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+    plotVoltBandGap;
+    set(handles.t_status,'string','Voltage vs Band Gap plotted');
 end

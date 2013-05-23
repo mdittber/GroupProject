@@ -13,17 +13,17 @@
 
     switch mode
         case 1
-            indices = DButils.find(QDOA, propertyName, value);
+            indices = find(QDOA, propertyName, value);
         case 2
-            indices = DButils.findRange(QDOA, propertyName, value(1), value(2));
+            indices = findRange(QDOA, propertyName, value(1), value(2));
         case 3
-            indices = DButils.findSimilar(QDOA, propertyName, value, tol);
+            indices = findSimilar(QDOA, propertyName, value, tol);
         case 4
-            indices = DButils.findConstDiff(QDOA, propertyName{1}, propertyName{2}, value, tol);
+            indices = findConstDiff(QDOA, propertyName{1}, propertyName{2}, value, tol);
         case 5
-            indices = DButils.findConstRatio(QDOA, propertyName{1}, propertyName{2}, value, tol);
+            indices = findConstRatio(QDOA, propertyName{1}, propertyName{2}, value, tol);
     end
-    entries = DButils.getEntries(QDOA, indices);            
+    entries = getEntries(QDOA, indices);            
 end
 
 
@@ -55,7 +55,7 @@ function [index, path] = find(QDOA, propertyName, value)
     [~,N] = size(QDOA);
 
     for i=1:N % over all entries
-        currentValue = eval(sprintf('DB(%i).%s',i,propertyName));
+        currentValue = eval(sprintf('QDOA(%i).%s',i,propertyName));
         if isequal(currentValue, value)                       
             index(end+1,1) = i; 
             path{end+1,1} = QDOA(i).path;
@@ -73,7 +73,7 @@ function [index,path] = findRange(QDOA, propertyName, min, max)
     [~,N] = size(QDOA);
 
     for i=1:N % over all entries
-        currentValue = eval( sprintf('DB(%i).%s',i,propertyName));
+        currentValue = eval( sprintf('QDOA(%i).%s',i,propertyName));
         if (currentValue <= max ) && ( currentValue >= min )
             index(end+1,1) = i; 
             path{end+1,1} = QDOA(i).path;
@@ -88,7 +88,7 @@ function [index,path] = findSimilar(QDOA, propertyName, value, tol)
     % For scalar doubles specify tol:  tolerance in percent/100
     % for chars: all strings CONTAINING value will be returned 
 
-    firstValue = eval( sprintf('DB(%i).%s',1,propertyName)); %read the first value to determine the datatype of the property
+    firstValue = eval( sprintf('QDOA(%i).%s',1,propertyName)); %read the first value to determine the datatype of the property
 
     if ischar( firstValue )
 
@@ -97,7 +97,7 @@ function [index,path] = findSimilar(QDOA, propertyName, value, tol)
         [~,N] = size(QDOA);
 
         for i=1:N % over all entries
-            currentValue = eval( sprintf('DB(%i).%s',i,propertyName));
+            currentValue = eval( sprintf('QDOA(%i).%s',i,propertyName));
             if regexp(currentValue, value, 'once')
                 index(end+1,1) = i; 
                 path{end+1,1} = QDOA(i).path;
@@ -120,8 +120,8 @@ function [index, path] = findConstRatio(QDOA, propertyName1, propertyName2, rati
     [~,N] = size(QDOA);
 
     for i=1:N % over all entries
-        currentValue1 = eval(sprintf('DB(%i).%s',i,propertyName1));
-        currentValue2 = eval(sprintf('DB(%i).%s',i,propertyName2));
+        currentValue1 = eval(sprintf('QDOA(%i).%s',i,propertyName1));
+        currentValue2 = eval(sprintf('QDOA(%i).%s',i,propertyName2));
         currentRatio = currentValue1 / currentValue2;
 
         if ( currentRatio <= ratio*(1+tol) ) && (currentRatio >= ratio*(1-tol) )
@@ -143,8 +143,8 @@ function [index, path] = findConstDiff(QDOA, propertyName1, propertyName2, diff,
     [~,N] = size(QDOA);
 
     for i=1:N % over all entries
-        currentValue1 = eval(sprintf('DB(%i).%s',i,propertyName1));
-        currentValue2 = eval(sprintf('DB(%i).%s',i,propertyName2));
+        currentValue1 = eval(sprintf('QDOA(%i).%s',i,propertyName1));
+        currentValue2 = eval(sprintf('QDOA(%i).%s',i,propertyName2));
         currentDiff = currentValue1 - currentValue2;
 
         if ( currentDiff <= diff*(1+tol) ) && (currentDiff >= diff*(1-tol) )
