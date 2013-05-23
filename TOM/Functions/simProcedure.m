@@ -15,7 +15,7 @@ function simProcedure(Mpar_raw)
         %% Check  data from UI table and write them into Qdot objects
         for k=1:n
             setProgressInfo(['(', int2str(k), '/', int2str(n), ') Creating generic QDOA.'], 1, gui_simulate, 't_progress');
-            [QDOA(k), Nerror] = writeQdot(Mpar(k,:),k);
+            [QDOG(k), Nerror] = writeQdot(Mpar(k,:),k);
             TotNerror = TotNerror + Nerror;
         end
         
@@ -24,8 +24,7 @@ function simProcedure(Mpar_raw)
             setProgressInfo('Input parameters okay!', 1, gui_simulate, 't_progress');
             for k=1:n
                 setProgressInfo(['(', int2str(k), '/', int2str(n), ') Creating OMEN Cmd file(s).'], 1, gui_simulate, 't_progress');
-                assignin('base','qdog',QDOA(k));
-                simAll(QDOA(k));
+                simAll(QDOG(k));
             end
             setProgressInfo('Simulation Procedure done!', 1, gui_simulate, 't_progress');
             setProgressInfo('hline', 0, gui_simulate, 't_progress');

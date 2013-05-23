@@ -9,7 +9,7 @@ function Nerror = checkUitInput(CHK, M, pos, Nerror)
     else
         switch pos(2)
             case 1  % Material
-                if M<1 || M>5
+                if M<1 || M>4
                     setProgressInfo(['Cell(', num2str(pos(1)), ',', num2str(pos(2)), ') - Material index out of range!'], 2, gui_simulate, 't_progress');
                     Nerror = Nerror + 1;
                 end
@@ -34,12 +34,22 @@ function Nerror = checkUitInput(CHK, M, pos, Nerror)
                 elseif M > 20
                     setProgressInfo(['Cell(', num2str(pos(1)), ',', num2str(pos(2)), ') - Simulating more than 20 modes can take a long time!'], 2, gui_simulate, 't_progress');
                 end
-            case 5  % Voltage
+            case 5  % E-Field / Voltage
                 if min(M(:,3)) < 1
-                    setProgressInfo(['Cell(', num2str(pos(1)), ',', num2str(pos(2)), ') - Voltage Sweep has to be positive integer!'], 2, gui_simulate, 't_progress');
+                    setProgressInfo(['Cell(', num2str(pos(1)), ',', num2str(pos(2)), ') - E-Field Sweep has to be positive integer!'], 2, gui_simulate, 't_progress');
                     Nerror = Nerror + 1;
                 end
-            case 6 % Permutation
+            case 6 % update_bs_target
+                if M < 0 || M > 1
+                    setProgressInfo(['Cell(', num2str(pos(1)), ',', num2str(pos(2)), ') - Only update_bs_target mode 0 or 1 possible!'], 2, gui_simulate, 't_progress');
+                    Nerror = Nerror + 1;
+                end
+            case 7 % bs_target
+                if length(M) > 1
+                    setProgressInfo(['Cell(', num2str(pos(1)), ',', num2str(pos(2)), ') - bs_target cannot be a vector!'], 2, gui_simulate, 't_progress');
+                    Nerror = Nerror + 1;
+                end
+            case 8 % Permutate
                 if length(M) > 1
                     setProgressInfo(['Cell(', num2str(pos(1)), ',', num2str(pos(2)), ') - Permutation mode cannot be a vector/matrix!'], 2, gui_simulate, 't_progress');
                     Nerror = Nerror + 1;

@@ -21,12 +21,8 @@ function [BGap, Radius, Volt, Mat] = getBandGap(QDO)
         Mat = 2;
     elseif strcmp(QDO.mat_name, 'CdS_CdSe')
         Mat = 3;
-    elseif strcmp(QDO.mat_name, 'InGaAs')
-        Mat = 4;
     elseif strcmp(QDO.mat_name, 'PbS_lent')
-        Mat = 5;
-    else
-        Mat = 0.1;
+        Mat = 4;
     end
     
     global config;

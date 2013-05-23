@@ -81,31 +81,6 @@ function [QDO, Nerror] = writeQdot(Mpar_row, row)
             
             
         case 4
-            QDO = Qdot('ZnSe_CdSe');
-
-            % Geometry
-            [CHK,vGeo] = getUitInput(Mpar_row(2));
-            Nerror = checkUitInput(CHK,vGeo,[row,2],Nerror);
-            switch vGeo(1)
-                case 1
-                    QDO.geometry(1).type = 'sphere';
-                case 2
-                    QDO.geometry(1).type = 'quboid';
-            end
-            switch vGeo(2)
-                case 1
-                    QDO.geometry(2).type = 'sphere';
-                case 2
-                    QDO.geometry(2).type = 'quboid';
-            end
-            
-            % Radii
-            [CHK,vRadius]= getUitInput(Mpar_row(3));
-            Nerror = checkUitInput(CHK,vRadius,[row,3],Nerror);
-            QDO.geometry(1).radius = vRadius(1,:);
-            QDO.geometry(2).radius = vRadius(2,:);
-            
-        case 5
             QDO = Qdot('PbS_lent');
             
             % Geometry
@@ -133,17 +108,31 @@ function [QDO, Nerror] = writeQdot(Mpar_row, row)
     QDO.n_of_modes = vModes;
     
     
-    % Voltage
-    [CHK,vVolt] = getUitInput(Mpar_row(5));
-    Nerror = checkUitInput(CHK,vVolt,[row,5],Nerror);
+    % E-Field
+    [CHK,vEField] = getUitInput(Mpar_row(5));
+    Nerror = checkUitInput(CHK,vEField,[row,5],Nerror);
 %     QDO.NVD        = vVolt(3);			% number of drain voltages Vd=Vdmin:(Vdmax-Vdmin)/(NVD-1):Vdmax
 %     QDO.Vdmin      = vVolt(1);			% absolute minimum drain potential
 %     QDO.Vdmax      = vVolt(2);			% absolute maximum drain potential
+    QDO.Efield = [vEField(1), vEField(2), vEField(3)];
     
-    QDO.Efield = [vVolt(1), vVolt(2), vVolt(3)];
     
-    % Permutation
-    [CHK,vPermutate] = getUitInput(Mpar_row(6));
-    Nerror = checkUitInput(CHK,vPermutate,[row,6],Nerror);
+    % update_bs_target
+    [CHK,vUpdate_bs] = getUitInput(Mpar_row(6));
+    Nerror = checkUitInput(CHK,vUpdate_bs,[row,6],Nerror);
+    QDO.update_bs_target = vUpdate_bs;
+    
+    
+    if vUpdate_bs
+    % bs_target
+    [CHK,vbs_target] = getUitInput(Mpar_row(7));
+    Nerror = checkUitInput(CHK,vbs_target,[row,7],Nerror);
+    QDO.update_bs_target = vUpdate_bs;
+    end
+    
+    
+    % Permute
+    [CHK,vPermutate] = getUitInput(Mpar_row(8));
+    Nerror = checkUitInput(CHK,vPermutate,[row,8],Nerror);
     QDO.permutateRadii = logical(vPermutate);
 end

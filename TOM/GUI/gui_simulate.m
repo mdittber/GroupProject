@@ -22,7 +22,7 @@ function varargout = gui_simulate(varargin)
 
 % Edit the above text to modify the response to help gui_simulate
 
-% Last Modified by GUIDE v2.5 18-May-2013 18:54:11
+% Last Modified by GUIDE v2.5 23-May-2013 15:25:47
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -71,49 +71,6 @@ function varargout = gui_simulate_OutputFcn(hObject, eventdata, handles)
 
 % Get default command line output from handles structure
 varargout{1} = handles.output;
-
-
-
-% --- Executes on button press in pb_addrow.
-function pb_addrow_Callback(hObject, eventdata, handles)
-% hObject    handle to pb_addrow (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-A = get(handles.uitable1,'data');
-[n,m] = size(A);
-add = str2double(get(handles.e_addrow,'String'));
-add = round(add);
-B = cell(n+add,m);
-B(:) = {''};
-% Default values
-%  B(:,2) = {'1'};
-%  B(:,6) = {'0'};
-B(1:n,:) = A;
-set(handles.uitable1,'data',B);
-
-
-
-function e_addrow_Callback(hObject, eventdata, handles)
-% hObject    handle to e_addrow (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-pb_addrow_Callback(hObject, eventdata, handles)
-% Hints: get(hObject,'String') returns contents of e_addrow as text
-%        str2double(get(hObject,'String')) returns contents of e_addrow as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function e_addrow_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to e_addrow (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
 
 
 
@@ -201,3 +158,19 @@ function m_gui_db_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 gui_db();
+
+
+% --------------------------------------------------------------------
+function m_addrows_Callback(hObject, eventdata, handles)
+% hObject    handle to m_addrows (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+A = get(handles.uitable1,'data');
+[n,m] = size(A);
+B = cell(n+5,m);
+B(:) = {''};
+% Default values
+%  B(:,2) = {'1'};
+%  B(:,6) = {'0'};
+B(1:n,:) = A;
+set(handles.uitable1,'data',B);
