@@ -50,7 +50,7 @@ function [QDOA, simSuccess] = simAll(QDOG)
 		
         %print message
         fprintf(1, '\nSTART SIMULATION %i \n',i);
-        message = sprintf('Start simulation %i',i);
+        message = sprintf('SIMULATION %i',i);
         setProgressInfo(message, 2, gui_simulate, 't_progress');
         
         %timestamp for this simulation
@@ -109,7 +109,7 @@ function [QDOA, simSuccess] = simAll(QDOG)
         else
             fprintf(simlogfid, 'Simulation FAILED.\n');
             fprintf(1, '\nEND OF SIMULATION %i: FAILED.\n',i);
-            setProgressInfo('FAILED', 2, gui_simulate, 't_progress');
+            setProgressInfo('FAILED!', 2, gui_simulate, 't_progress');
         end
 
         fprintf(simlogfid, 'elapsed time %f \n\nConsole output for simulation: %s \n\n' , singleTime, simTimestamp{i});
