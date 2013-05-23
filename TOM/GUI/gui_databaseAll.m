@@ -22,7 +22,7 @@ function varargout = gui_databaseAll(varargin)
 
 % Edit the above text to modify the response to help gui_databaseAll
 
-% Last Modified by GUIDE v2.5 23-May-2013 17:20:20
+% Last Modified by GUIDE v2.5 23-May-2013 21:01:48
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -353,7 +353,7 @@ function m_delete_Callback(hObject, eventdata, handles)
         if isempty(QDOA) == 0
             deleteSimData(QDOA);
             uitable_CreateFcn(handles.uitable, eventdata, handles);
-            set(handles.t_status,'string','Selected simulatiuon data deleted - Table reloaded.');
+            set(handles.t_status,'string','Selected simulation data deleted - Table reloaded.');
         end
 end
 
@@ -444,4 +444,15 @@ function m_allVvsBGap_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
     plotVoltBandGap;
     set(handles.t_status,'string','Voltage vs Band Gap plotted');
+end
+
+
+% --------------------------------------------------------------------
+function m_removeFailed_Callback(hObject, eventdata, handles)
+% hObject    handle to m_removeFailed (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+    removeFailed();
+    uitable_CreateFcn(handles.uitable, eventdata, handles);
+    set(handles.t_status,'string','Failed simulations deleted - Table reloaded.');
 end

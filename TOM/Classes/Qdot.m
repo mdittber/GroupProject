@@ -46,7 +46,7 @@ classdef Qdot
         % internal parameters
         permutateRadii =0;
         
-        %Efield in 10^9 V/m
+        % Efield in 10^9 V/m
         Efield =0;
     end
     
@@ -58,7 +58,11 @@ classdef Qdot
         machine
         path
         
-        simulationStatus = false;
+        % simulationStatus
+        %  0 simulation failed
+        %  1 simulation succesful
+        %  2 simualtion running
+        simulationStatus = 2;
     end
     
     
@@ -99,5 +103,4 @@ classdef Qdot
         end
         
     end
-   
 end

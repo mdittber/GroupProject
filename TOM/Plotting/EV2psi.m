@@ -1,4 +1,4 @@
-function psi2 = EV2psi( EV , NOrb, NMod)
+function psi2 = EV2psi(EV, NOrb, NMod)
     % psi2 = EV2psi(EV , NOrb, NMod)
     % compute psi^2 from eigenvector from OMEN, for NMod modes
     % EV: collumns: mode1,realpart || mode2,immag.part || mode2,realpart...
