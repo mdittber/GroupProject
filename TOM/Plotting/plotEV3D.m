@@ -36,7 +36,8 @@ global config;
         for i=NMod,
             h=colormap;
        
-            figure(100+10*k+i);
+%             figure(100+10*k+i);
+            figure
             suptitle( strrep(sprintf('plot ID: %i, mat: %s, mode-Id: %i, E-level: %g \n color code: probability density high - low: red - blue', k, QDOA(k).mat_name, i, E(i) ),'_','\_') );
        
             psi = psi2(:,i);

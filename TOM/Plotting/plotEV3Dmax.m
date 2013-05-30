@@ -42,7 +42,8 @@ global config;
     % PLOT
         for i=NMod,
            
-            figure(1000*plotid+100*k+i);
+%             figure(1000*plotid+100*k+i);
+            figure
             suptitle( strrep(sprintf('plotID: %i, mat: %s, Efield: %g, ModNr: %i, E-Level: %g eV', k, QDOA(k).mat_name, QDOA(k).Efield, i, E(i)),'_','\_') );
             title( sprintf('VB mode %i',i) );            
 
