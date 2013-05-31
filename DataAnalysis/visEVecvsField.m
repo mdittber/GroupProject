@@ -1,24 +1,28 @@
 %plot EV to show shift with Efield
-dots = cell(1,1);
-dots{1} = v{6}(2:2); 
-
+clear dots
+%dots{1} = v{7}(:); 
+dots = ExportedQDOA;
+%dots{3} = v{11}(:);
 
 %target mode: plot EV closest to bandedge
 
-for k =1:length(dots)
-    
-    for i=1:length( dots{k} )
+% for k =1:length(dots)
+%     
+%     for i=1:length( dots{k} )
         
-        [~,~,CBind, VBind] = splitCBVBE(dots{k}(i));
-        
-        Nmod = [(VBind-1):VBind, CBind:(CBind+1)];
-        
-        plotEV3Dmax(dots{k}(i),'CB',[0.2,0.5],Nmod)
+%        [~,~,CBind, VBind] = splitCBVBE(dots{k}(i));        
+%        Nmod = [(VBind-1):VBind, CBind:(CBind+1)];
 
-        
-    end
+        Nmod = 1:8;%[(40-6-16+1):(40-6)];        
+%         plotEV3Dmax(dots{k}(i),'CB',[0.2,0.6],Nmod);
 
-end
+        plotEV3D(dots,'VB',Nmod);
+        plotEV3D(dots,'CB',Nmod);
+
+%         
+%     end
+% 
+% end
 
 
 

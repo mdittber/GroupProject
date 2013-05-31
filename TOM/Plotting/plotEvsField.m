@@ -26,14 +26,16 @@ for k =1:N
         plotDegEnergy(VBE, xAxis(k), DegSpaceing);
     end
     xlabel('e-field in V/nm');
+%     xlabel('Degeneracy');
     ylabel('Energy in eV');
+     
 end
 
 end
 
 function plotDegEnergy(E,x,DegSpaceing)
     L = length(E);
-    precision = 0.005;
+    precision = 0.001;
     roundedE = round(E/precision)*precision;
     x = ones(L,1).*x;
     
@@ -44,4 +46,5 @@ function plotDegEnergy(E,x,DegSpaceing)
     end
     hold on;
     plot(x, E, '.b');
+    title(sprintf('precision %g',precision));
 end
