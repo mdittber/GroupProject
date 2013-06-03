@@ -2,6 +2,10 @@
 ## Latex
 #################
 
+*.lot
+*.bbl
+*.glo
+*.blg
 *converted-to.pdf
 *.toc
 *.acn
