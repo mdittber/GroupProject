@@ -6,37 +6,38 @@
 %MAINTAINER
 \subsection{Basic concepts}
 %BASIC CONCEPTS
-Parameters for the simulation are stored and passed as arguments to functions as objects of the class \textit{Qdot}, further refered to as QDO. The class provides properties for all parameters neccessarry for the simulation, as well as properties for administrative purposes, such as the specific simulation folder. Parameters relating to the geometry are stored in an object of subclass \textit{Geometry}. Since more than one material is possible, the geometry property is often an array of objects of class Geometry. To instantiate a QDO, one can call the constructor with no arguments, which will create an empty QDO. Alternatively, a string with the material name can be passed as an argument, in which case the new QDO will be constructed based on parameters defined in an external file, located in the folder \textit{Classes}. The class Qdot provides some methods for basic displaying of some selected parameters, such as \textit{getSelParams}.\\
+Parameters for the simulation are stored and passed as arguments to functions as objects of the class \textit{Qdot} and are further refered to as QDO. The class provides properties for all neccessarry simulation parameters, as well as properties for administrative purposes, such as the specific simulation folder. Parameters relating to the geometry of the QD are stored in an object of the subclass \textit{Geometry}. Since QDs with more than one material are possible, the geometry property is often an array of objects of class Geometry. To instantiate a QDO, one can call the constructor with no arguments, which will create an empty QDO. Alternatively, a string with the material name can be passed as an argument, in which case the new QDO will be constructed based on parameters defined in an external file, located in the folder \textit{Classes}. The class Qdot provides some methods for basic displaying of some selected parameters, such as \textit{getSelParams}.\\
 
 \begin{EXAMPLE}
 Creating a \textit{Qdot} object based on default parameters and set the radius to 4
 \begin{lstlisting}[frame=none]
-	myQdot = Qdot('CdS_CdSe');
+	myQdot = Qdot(`CdS_CdSe');
 	myQdot.geometry(2).radius = 4;\end{lstlisting}
 \end{EXAMPLE}
 \subsection{GUI}
 %GUI
 \subsection{Simulation}
 %SIMULATION
-The simulation parameters from the GUI are passed to the functions which will then start the simulation with OMEN. The parameters are stored in QDOs. Since it is often desirable to simulate over a range of parameters, some parameters (i.e. the radii and e-field) are at this stage not scalars, but a vectors, containing starting value, end value and number of steps in between. Such a generic QDO,  is further refered to as QDOG.\\
+The simulation parameters entered in the GUI are passed to a function, which will then start the simulation with OMEN. The parameters are stored in QDOs. Since it is often desirable to simulate over a range of parameters, some parameters (i.e. the radii and electric field) are at this stage not scalars, but vectors, containing starting value, end value and number of steps in between. Such a generic QDO is further refered to as QDOG.\\
 
 The QDOG is passed to the function \textit{simAll.m}, which will simulate all desired parameter combinations, by performing the following steps:
 \begin{enumerate}
-	\item An array of QDOs (QDOA) with all combinations of the parameter is created in the function \textit{sweep.m} from QDOG. Supported sweep parameters are radius and electric field. This could easily be extended to other parameters by modifying the function \textit{sweep.m}.
-	\item The elements in the QDOA are then simulated one after the other, and all data saved in seperate folders, called ID\textit{timestamp\_material}: 
-	\item The OMEN command-file \textit{qdot\_cmd} is written, using the function \textit{writeCmdFile.m}.
-	\item The OMEN simulation will be started using the MATLAB function \textit{unix}, which calls the operating system to execute the specified command.
-	\item A logfile is written, recording the duration and the success of the simulation as well as the console output of OMEN. The success of the simulation is checked by inspecting whether the desired files were created.
+	\item An array of QDOs (QDOA) with all combinations of the parameter is created in the function \textit{sweep.m} from the QDOG. Supported sweep parameters are currently radius and electric field. This could easily be extended to other parameters by modifying the function \textit{sweep.m}.
+	\item The elements in the QDOA are then simulated one after the other, and all generated data is saved in seperate folders, named ID\textit{timestamp\_material}: 
+	\begin{enumerate}
+		\item The OMEN command-file \textit{qdot\_cmd} is written, using the function \textit{writeCmdFile.m}.
+		\item The OMEN simulation will be started using the MATLAB function \textit{unix}, which calls the operating system, to execute the specified command.
+		\item A logfile is written, recording the duration and the success of the simulation, as well as the console output of OMEN. The success of the simulation is checked by inspecting whether the desired files were created.
+	\end{enumerate}
+\item After the simulation of all elements in the QDOA, an additional logfile is written, and saved in the folder \textit{log}. It gives information about the success of all simulations, and thus provides an easy way to check if (and which) simulations failed.
+\item Returned to the calling function is the QDOA, as well as a vector indicating the success of every simulation.
 \end{enumerate}
-After the simulation of all elements in the QDOA, an additional logfile is written, and saved in the folder \textit{log}. It gives information about the success of all simulations, and thus provides an easy way to check if and which simulations failed.\\
-
-Returned to the calling function is the QDOA as well as a vector indicating the success of every simulation.\\
 
 Note that it is not strictly necessary to start the simulations using the GUI. The QDOG containing the desired parameters can also be created with standard MATLAB syntax, and passed subsequently to the function \textit{simAll.m}, as is shown in the following example.\\
 
 \begin{EXAMPLE} Simulate PbS  quantum dots with radii 1.5, 2, 2.5, 3nm. 
 \begin{lstlisting}[frame = none]
-	myQdot = Qdot('PbS_lent');
+	myQdot = Qdot(`PbS_lent');
 	myQdot.geometry.radius = [1.5 3 4]; 
 	simAll(myQdot);\end{lstlisting}
 \end{EXAMPLE}
@@ -44,7 +45,7 @@ Note that it is not strictly necessary to start the simulations using the GUI. T
 
 \subsection{Database}
 %DATABASE
-In order to know which parameter sets already have been simulated, there are some useful tools, which can be found in the folder \textit{Functions/DataUtils}. The basic principle is to get all all parameters which were simulated, which can then be displayed in the GUI, filtered, deleted and so on.
+In order to know which parameter sets have already been simulated, there are some useful tools, which can be found in the folder \textit{Functions/DataUtils}. The basic principle is to get all parameters which were simulated, which can then be displayed in the GUI, filtered, deleted and so on.
 
 \subsubsection{Getting the parameters from all simulations}
 
@@ -61,7 +62,7 @@ Besides the possibility of deleting simulation data manually, an easy and fast w
 \subsubsection{Remove duplicates}
 \lstinline{function [cleaned, duplicates] = removeDuplicates(QDOA)}\\
 
-It is well possible that, after performing many simulations, one has multiple simulations of exactly the same parameters. In this case one may want to delete the duplicates, which can be done by the above function. The function returns a QDOA with the duplicates removed, as well as a QDOA with only the duplicates. Note that this function does not delete the simulation data of the duplicates from the disk. For this purpose one can use the function \textit{deleteSimData.m} subsequently.
+It is possible that, after performing many simulations, one has multiple simulations of exactly the same parameters. In this case one may want to delete the duplicates, which can be done by the above function. The function returns a QDOA with the duplicates removed, as well as a QDOA containing only the duplicates. Note that this function does not delete the simulation data of the duplicates from the disk. For this purpose one can use the function \textit{deleteSimData.m} subsequently.
 
 \subsubsection{Filtering}
 %FILTERING
@@ -70,12 +71,12 @@ It is well possible that, after performing many simulations, one has multiple si
 The filtering can be applied to any QDOA, and returns a subset of this array, matching specified criteria. The argument \textit{propertyName} specifies the \textit{Qdot} property which is compared to \textit{value}. The filter criteria are specified by selecting a mode of filtering. The following filtering modes are available:
 
 \begin{enumerate}
-	\item the property exactly matches \textit{value}.
-	\item the property lies within a range of values, specified by a vector: \textit{value} = [min max]
-	\item the property approximately matches \textit{value}. For numeric properties this is specified using a tolerance. For string properties the \textit{value} should be a substring of the property.
-	\item filter for a constant difference between two properties. The property names are specified in a cell array: \textit{propertyName} 
+	\item The property exactly matches \textit{value}.
+	\item The property lies within a range of values, specified by a vector: \textit{value} = [min max]
+	\item The property approximately matches \textit{value}. For numeric properties this is specified using a tolerance. For string properties the \textit{value} should be a substring of the property.
+	\item Filter for a constant difference between two properties. The property names are specified in a cell array: \textit{propertyName} 
 	= \{\textit{propertyName1, propertyName2}\}
-	\item filter for a constant ratio between two properties.
+	\item Filter for a constant ratio between two properties.
 \end{enumerate}
 The last two modes are especially interesting for selecting QDOs with two or more materials, to find the objects with a specified shell-thickness.\\
 
@@ -88,14 +89,15 @@ The last two modes are especially interesting for selecting QDOs with two or mor
 	\end{itemize}
 	\begin{lstlisting}[frame = none]
 	myQDOA = getQDOA;
-	sel1=filterQDOA(myQDOA,'geometry(1).radius',3.5,1,0);
-	sel2=filterQDOA(myQDOA,{'geometry(1).radius','geometry(2).radius'}, 0.7, 4, 0.1);
-	sel3=filterQDOA(myQDOA,'mat_name','Pb',2,0); \end{lstlisting}
+	sel1=filterQDOA(myQDOA,`geometry(1).radius',3.5,1,0);
+	sel2=filterQDOA(myQDOA,{`geometry(1).radius',`geometry(2).radius'}, 0.7, 4, 0.1);
+	sel3=filterQDOA(myQDOA,`mat_name',`Pb',2,0); \end{lstlisting}
 \end{EXAMPLE}
 \subsection{Plotting}
 %PLOTTING
 Here follows a short description of functions which can be used for basic visualisation of the data obtained by the OMEN simulation. For a more detailed description, please refer to the code.
-\textit{Note:} These functions are based on the directory structure created by the simulation function \textit{simAll.m}, i.e. to work properly, the simulation data, as well as the corresponding QDO must be located in their own folder, with the folder name specified in Qdot.path property.
+
+\textit{Note:} These functions are based on the directory structure created by the simulation function \textit{simAll.m}. Therefor, the simulation data, as well as the corresponding QDO, must be located in their own folder, with the folder name specified in the Qdot.path property.
 
 \subsubsection{Plotting the eigenenergies}
 %PLOTTING ENERGY LEVELS
@@ -118,13 +120,13 @@ in one window.\\
 
 \lstinline{function plotEV3Dmax(QDOA, band, probLim, NMod)}\\
 
-Again very similar to the \textit{plotEV3D}, but the color code is simplified. The atoms with very high probability densities are red, the ones with high probability yellow, the rest transparent. The color is determined in the following way: The sum of the probabilities of all red atoms is smaller than a probability value specified in \textit{probLim}. An analogous argument is applied for the yellow marked atoms.\\
-This function makes it a lot easier to see how the wave function roughly looks like and changes from one mode to the next.\\
+Again very similar to the \textit{plotEV3D}, but the color code is simplified. The atoms with very high probability densities are red, the ones with high probability yellow, the rest transparent. The color is determined in the following way: The sum of the probabilities of all red locations is smaller than a probability value specified in \textit{probLim(1)}. An analogous argument is applied for the yellow marked atoms.\\
+This function makes it a lot easier to see how the wave function roughly looks like and how it changes from one mode to the next.\\
 
 \lstinline{function plotEVAlongAxis(QDOA, propertyName, startPoint, direction, plotGrid, tolerance, NMod, band)}\\
 
-Plot the probability density along an arbitrary axis through the crystal. The data for all elements of QDOA is plotted in the same plot, thus making it easier to compare quantum dots with different parameters. The axis is specified through \textit{startPoint} and \textit{direction}, including a tolerance, which is  the maximum distance which an atom can deviate from the specified line. Depending on the direction, the tolerance has to be adjusted to include  a sufficient number of atoms. To check this, it is useful to specify the input argument gridPlot, which will plot the atoms, the chosen axis, and highlight  the atoms on the line in red. However, this function is probably only suitable for large quantum dots. Furthermore an averaging over neighbouring atoms  would be recommendable.\\
+Plot the probability density along an arbitrary axis through the crystal. The data for all elements of QDOA is plotted in the same plot, thus making it easier to compare quantum dots with different parameters. The axis is specified through \textit{startPoint} and \textit{direction}, including a tolerance, which is  the maximum distance which an atom can deviate from the specified line. Depending on the direction, the tolerance has to be adjusted to include  a sufficient number of atoms. To check this, it is useful to specify the input argument \textit{gridPlot}, which will plot the atoms, the chosen axis, and highlight  the atoms on the line in red. However, this function is probably only suitable for large QDs. Furthermore an averaging over neighbouring atoms  would be recommendable.\\ 
  
 \lstinline{function compareEV(QDOA, band, NMod, tol, propertyName, showGrid)}\\
 
-Plots the same as \textit{plotEVAlongAxis}, but for three different directions (x,y,z axis), and arranges them in subplots in one figure.
+Plots the same as \textit{plotEVAlongAxis}, but for three different directions (x, y, z-axis), and arranges them in subplots in one figure.

@@ -1,0 +1,39 @@
+\chapter{Simulation Parameters}
+\label{A}
+
+The parameters which were used for the simulation of PbS QDs are listed in table~\ref{table:SimParams}. For detailed description of the \omen parameters, refer to the \omen manual~\cite{OMENmanual}.
+\begin{table}
+\centering
+\begin{tabular}{l l l}
+	% \hline
+	OMEN parameter & Value & Description\\
+	\hline
+	\\
+	mat\_name		& PbS\_lent	& Material \\
+	a0				& 0.5936	& Lattice constant \\
+	lattice\_type	& rocksalt	& Crystal structure \\
+	dsp3 			& 30		& Passication energy (surface) [eV] \\
+	tb				& 20		& Tight-binding order \\
+	first\_atom 	& cation 	& Atom situated at  coordinates [0 0 0] \\
+	open\_system 	& 0 		& 0 for a closed system\\
+	max\_bond\_def 	& 0.1 		& Maximum relative bond deformation \\
+	n\_of\_modes	& 20		& Number of modes \\
+	Vdmin			& 			& Minumum voltage applied on structure [V] \\
+	Vdmax			& 			& Maximum voltage applied on structure [V] \\
+	NVD				& 1			& Number of different voltages \\
+	x				& [1 0 0]	& \\
+	y				& [0 1 0] 	& \\
+	z				& [0 0 1]	& \\
+	no\_mat 		& 1			& Number of pieces forming the structure\\
+	no\_channel\_mat& 1			&  \\
+	no\_oxide\_mat 	& 0			&  \\
+	mat\_type(1)	& sphere	& Geometry of material 1 \\
+	mat\_cs(1)		& yes		& \\
+	mat\_id(1)		& 1			& Material 1 \\
+	mat\_coord(1,1)	& [0 0 0]	& Center of material 1 structure \\
+	mat\_radius(1)	& 			& Radius of material 1 [nm] \\\\
+	% \hline
+\end{tabular}
+\caption{Simulation parameters for OMEN. Where no value is specified, simulations for different values were performed.}
+\label{table:SimParams}
+\end{table}
