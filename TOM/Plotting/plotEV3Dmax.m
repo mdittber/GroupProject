@@ -20,11 +20,11 @@ global config;
         if isequal(band, 'CB')
             EV = load([simPath, '/CB_V_0_0.dat']);
             E = load([simPath, '/CB_E_0_0.dat']);
-            plotid = 1;
+%             plotid = 1;
         elseif isequal(band, 'VB')
             EV = load([simPath, '/VB_V_0_0.dat']);
             E = load([simPath, '/VB_E_0_0.dat']);
-            plotid = 2;
+%             plotid = 2;
         end
         
         [NAtom,~] = size(LayerMatrix);            
