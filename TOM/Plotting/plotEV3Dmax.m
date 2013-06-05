@@ -1,12 +1,12 @@
-function plotEV3Dmax(QDOA, band, probLim, NMod)
-% plotEV3Dmax(QDOA, band, probLim, NMod)
+function plotEV3Dmax(QDOA, band, probLim, Mod)
+% plotEV3Dmax(QDOA, band, probLim, Mod)
 % Plot wavefn of QDOA:
 % red appear atoms where probability density is largest:
 % sum( psi( all red atoms ) )< probLim(1)
 % yellow appear atoms where probability density is large:
 % probLim(1) < sum( psi( all yellow and red atoms ) ) < probLim(2)
 % band = 'CB' or 'VB'
-% NMod = number of modes to be plotted
+% for Modes specified in vector 
 
 
 global config;
@@ -33,14 +33,14 @@ global config;
         AllMod = m/2;
 
         if nargin < 4
-            NMod = 1:m/2; %default: nr of modes = all modes
+            Mod = 1:m/2; %default: nr of modes = all modes
         end
 
     % convert EV to probability (psi^2) for requested modes
         psi2 = EV2psi(EV, NOrb, AllMod);
         
     % PLOT
-        for i=NMod,
+        for i=Mod,
            
 %             figure(1000*plotid+100*k+i);
             figure

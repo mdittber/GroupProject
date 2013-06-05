@@ -1,8 +1,8 @@
-function plotEV3D(QDOA, band, NMod)
-% plotEV3D(QDOA, band, NMod)
+function plotEV3D(QDOA, band, Mod)
+% plotEV3D(QDOA, band, Mod)
 % Plot wavefn of QDOA. 
 % Color code: red = high probability density, blue = low.
-% up to NMod modes, 
+% for Modes specified in vector 
 % for band = 'CB' or 'VB'
 
 global config;
@@ -26,14 +26,14 @@ global config;
         AllMod = m/2;
 
         if nargin < 3
-            NMod = 1:m/2; %default: nr of modes = all modes
+            Mod = 1:m/2; %default: nr of modes = all modes
         end
 
         % convert EV to probability (psi^2) for requested modes
         psi2 = EV2psi(EV, NOrb, AllMod);
    
     % PLOT 
-        for i=NMod,
+        for i=Mod,
             h=colormap;
        
 %             figure(100+10*k+i);

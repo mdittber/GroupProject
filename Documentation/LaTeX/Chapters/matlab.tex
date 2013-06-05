@@ -107,9 +107,9 @@ Plot the energy levels for every QDO in QDOA against the applied electric field.
 
 \subsubsection{Plotting the probability density}
 %PLOTTING WAVEFUNCTIONS
-These functions all take an array of \textit{Qdot} objects (QDOA) as an input. Additionally, the number of eigenmodes to be displayed has to be specified, as well as the band (conduction or valence band). The visualisation will then be done for every one these objects, and for all specified eigenmodes. The most useful function is probably \textit{plotEV3Dmax.m}\\
+These functions all take an array of \textit{Qdot} objects (QDOA) as an input. Additionally, it has to be specified which eigenmodes should be displayed, as well as the band (conduction or valence band). The visualisation will then be done for every one these objects, and for all specified eigenmodes. The most useful function is probably \textit{plotEV3Dmax.m}\\
 
-\lstinline{function plotEV3D(QDOA, band, NMod) }\\
+\lstinline{function plotEV3D(QDOA, band, Mod) }\\
 
 Plot the atoms of the quantum dot, their color indicating the probability density of an electron or hole. Red corresponds to high, blue to low probability.\\
 
@@ -118,7 +118,7 @@ Plot the atoms of the quantum dot, their color indicating the probability densit
 This function produces similar plots to the above, but it plots two cross sections of the quantum dot, for valence and conduction band respectively, 
 in one window.\\
 
-\lstinline{function plotEV3Dmax(QDOA, band, probLim, NMod)}\\
+\lstinline{function plotEV3Dmax(QDOA, band, probLim, Mod)}\\
 
 Again very similar to the \textit{plotEV3D}, but the color code is simplified. The atoms with very high probability densities are red, the ones with high probability yellow, the rest transparent. The color is determined in the following way: The sum of the probabilities of all red locations is smaller than a probability value specified in \textit{probLim(1)}. An analogous argument is applied for the yellow marked atoms.\\
 This function makes it a lot easier to see how the wave function roughly looks like and how it changes from one mode to the next.\\
