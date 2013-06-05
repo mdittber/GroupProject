@@ -41,16 +41,16 @@
   >
 ]>
 <requests version="1.0">
-  <internal package="biblatex" priority="9" active="0">
+  <internal package="biblatex" priority="9" active="1">
     <generic>latex</generic>
     <provides type="dynamic">
-      <file>Simulation_of_Quantum_Dots.aux</file>
-      <file>Simulation_of_Quantum_Dots-blx.bib</file>
+      <file>Simulation_of_Quantum_Dots.bcf</file>
     </provides>
     <requires type="dynamic">
       <file>Simulation_of_Quantum_Dots.bbl</file>
     </requires>
     <requires type="static">
+      <file>blx-dm.def</file>
       <file>blx-compat.def</file>
       <file>biblatex.def</file>
       <file>numeric.bbx</file>
@@ -60,15 +60,14 @@
       <file>english.lbx</file>
     </requires>
   </internal>
-  <external package="biblatex" priority="5" active="0">
-    <generic>bibtex</generic>
+  <external package="biblatex" priority="5" active="1">
+    <generic>biber</generic>
     <cmdline>
-      <binary>bibtex</binary>
-      <option>-min-crossrefs 2</option>
+      <binary>biber</binary>
       <infile>Simulation_of_Quantum_Dots</infile>
     </cmdline>
     <input>
-      <file>Simulation_of_Quantum_Dots.aux</file>
+      <file>Simulation_of_Quantum_Dots.bcf</file>
     </input>
     <output>
       <file>Simulation_of_Quantum_Dots.bbl</file>
@@ -77,14 +76,10 @@
       <file>Simulation_of_Quantum_Dots.bbl</file>
     </provides>
     <requires type="dynamic">
-      <file>Simulation_of_Quantum_Dots.aux</file>
-      <file>Simulation_of_Quantum_Dots-blx.bib</file>
+      <file>Simulation_of_Quantum_Dots.bcf</file>
     </requires>
     <requires type="editable">
       <file>Bibliography.bib</file>
-    </requires>
-    <requires type="static">
-      <file>biblatex.bst</file>
     </requires>
   </external>
 </requests>
