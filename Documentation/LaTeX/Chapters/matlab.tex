@@ -18,7 +18,7 @@ Creating a \textit{Qdot} object based on default parameters and set the radius t
 %GUI
 \subsection{Simulation}
 %SIMULATION
-The simulation parameters from the GUI are passed to the functions which will then start the simulation with OMEN. The parameters are stored in QDOs. Since it is often desirable to simulate over a range of parameters, some parameters (i.e. the radii and e-field) are at this stage not scalars, but a vectors, containing starting value, end value and number of steps in between. Such a generic QDO,  is further refered to as QDOG.\\
+The simulation parameters from the GUI are passed to the functions which will then start the simulation with OMEN. The parameters are stored in QDOs. Since it is often desirable to simulate over a range of parameters, some parameters (i.e. the radii and e-field) are at this stage not scalars, but vectors, containing starting value, end value and number of steps in between. Such a generic QDO,  is further refered to as QDOG.\\
 
 The QDOG is passed to the function \textit{simAll.m}, which will simulate all desired parameter combinations, by performing the following steps:
 \begin{enumerate}

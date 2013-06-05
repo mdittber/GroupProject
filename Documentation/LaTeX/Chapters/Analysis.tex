@@ -1,6 +1,6 @@
 \chapter{Analysis of PbS QD simulation data}
 
-In this chapter we will take a look at the simulation data. The parameters used for the simulation can be found in appendix ~\ref{APPENDIX}. We will make a brief analysis of the energy levels and wave function of PbS QDs and draw some conclusions.\\
+In this chapter we will take a look at the simulation data. The parameters used for the simulation can be found in appendix~\ref{A}. We will make a brief analysis of the energy levels and wave function of PbS QDs and draw some conclusions.\\
 
 \begin{REMARK} 
 There are a few practical aspects to note concerning the simulation of PbS QDs with \omen: Since \omen will consider in its calculation 18 orbitals for the atoms, one must keep in mind that the simulation uses significantly more computing resources than a simulation of, for instance, a CdSe-CdS QD. Especially the memory usage during the calculation can easily exceed 10GB for larger QDs. The size of the generated simulation data for one QD can also amount to more than a few 100MB. It has to be kept in mind that number of atoms scales with the third potence of the radius. Another problem is the high degeneracy of energy levels. This makes it necessarry to simulate a higher number of modes, thus increasing the usage of resources further.
@@ -51,7 +51,7 @@ In the following discussion, the terms conduction band, band edge and so on are 
 	
 Taking a look at the eigenenergies close to the bandedge, one can see that there are 8 closely spaced modes, for conduction and valence band respectively. Generally, closest to the band edge there is a twofold degenerate energy level, followed by a fourfold degenerate level and then again a twofold degenerate level. (For a few simulations the order is different, for example the fourfold degenerate energy level is closest to the band edge.)
 	
-As the size of the QDs increases, the energy levels get closer to each other, resulting in higher degeneracy. This is shown in figure~\ref{fig:e-levels} (a), (b), (d), where the energy levels (including degeneracy) are shown for 2, 6 and 10nm QDs. Since some levels are very closely spaced, they are not clearly distinguishable form each other. For this reason, the tolerance, within wich an energy level is shown as degenerate, was increased to 0.03 in figure~\ref{fig:e-levels} (c), (e). An effective eightfold degeneracy for the 10nm QD is now clearly visible.
+As the size of the QDs increases, the energy levels get closer to each other, resulting in higher degeneracy. This is shown in figure~\ref{fig:e-levels} (a),(b),(d), where the energy levels (including degeneracy) are shown for 2, 6 and 10nm QDs. Since some levels are very closely spaced, they are not clearly distinguishable form each other. For this reason, the tolerance, within wich an energy level is shown as degenerate, was increased in figure~\ref{fig:e-levels} (c),(e). An effective eightfold degeneracy for the 10nm QD is now clearly visible.
 	
 In the presence of an electric field, this degeneracy is broken, leading to more energy levels, which are all, interestingly, twofold degenerate. This is shown in figure~\ref{fig:EvsVolt} for a 5nm QD, where the energy levels are plotted against applied electric field. One can also clearly see how the bandgap gets smaller, as is discussed later on.
 \FloatBarrier
@@ -70,7 +70,7 @@ In the presence of an electric field, this degeneracy is broken, leading to more
 \begin{figure}
 	\centering
 	\includegraphics[width=200px]{Fig/Plots/r4CBMod6}
-	\caption{Probability density for an energy state in the lower conduction band of an 8nm QD. Locations of very high probability are shown in red, those of medium to high probability in yellow, such that the sum of the probabilities of all yellow and red locations is 50\%.}
+	\caption{Probability density for an energy state in the lower conduction band of an 8nm QD. Locations of very high probability are shown in red, those of medium to high probability in yellow, such that the sum of the probabilities of all yellow and red locations is 50\%. Note: In figures later on, different probability values may be used, for better visibility.}
 	\label{fig:sphericalWaveFn}
 \end{figure}
 %
@@ -103,7 +103,7 @@ Sometimes, the wave functions of QDs are described in analogy to atomic orbitals
 The 8 energy states (`modes') closest to the band edge (for conduction and valence band respectively) have wave functions with spherical symmetry, where the highest probability density in the center (fig.~\ref{fig:sphericalWaveFn}). This is in agreement with the 8 predicted $1S_{e,h}$ orbitals for PbS \cite[p.410]{ChemRev}.
 	
 The higher energy states show wave functions with more complex shapes. For example, a 8nm QD shows the following wave function shapes: After the 8 spherical conduction band states follow 4 (degenerate) states with barbell shape, in different orientations. Then 2 states with spherical shell shape. After that, 2 states with a shape similar to two crossed barbells. Then again 2 spherical shell-like states, followed by 2 ring-shaped wave functions, and so on (fig.~\ref{fig:HigherModWaveFn}). For the valence band states, the shapes are similar, although they do not occur in the same order (the same is true for QDs of different sizes).
-This is, however, not consistent with the expected 24 1P orbitals, TODO
+
 \subsubsection{QDs smaller than 3nm}	
 
 %FIGURES
@@ -149,29 +149,29 @@ For a 2 and 3nm QDs, the 8 lowest conduction band states still remain more or le
 	\centering
 	\begin{subfigure}{150px}
 		\includegraphics[width=150px]{Fig/Plots/r25v04Mod24}
-		\caption{}
+		\caption{Eigenstate at 0.313057eV}
 	\end{subfigure}
 	\begin{subfigure}{150px}
 		\includegraphics[width=150px]{Fig/Plots/r25v04Mod26}
-		\caption{}
+		\caption{Eigenstate at 0.324968eV}
 	\end{subfigure}
 	\begin{subfigure}{150px}
 		\includegraphics[width=150px]{Fig/Plots/r25v04Mod28}
-		\caption{}
+		\caption{Eigenstate at  0.329427eV}
 	\end{subfigure}
 	\begin{subfigure}{150px}
 		\includegraphics[width=150px]{Fig/Plots/r25v04Mod30}
-		\caption{}
+		\caption{Eigenstate at 0.34852eV}
 	\end{subfigure}
 	\begin{subfigure}{150px}
 		\includegraphics[width=150px]{Fig/Plots/r25v04Mod32}
-		\caption{}
+		\caption{Eigenstate at 0.348806eV}
 	\end{subfigure}
 	\begin{subfigure}{150px}
 		\includegraphics[width=150px]{Fig/Plots/r25v04Mod34}
-		\caption{}
+		\caption{Eigenstate at 0.362633eV}
 	\end{subfigure}
-	\caption{Probability density in the presence of a high electric field (0.4V/nm). Increasing energy from (a) to (f). Hole-like states (a),(d),(e) become mixed with electron-like states (b),(c),(f).}
+	\caption{Probability densities in the presence of a high electric field (0.4V/nm). Increasing energy from (a) to (f). Hole-like states (a),(d),(e) become mixed with electron-like states (b),(c),(f).}
 	\label{fig:HighEfieldWaveFn}
 \end{figure}
 
@@ -179,9 +179,9 @@ For a 2 and 3nm QDs, the 8 lowest conduction band states still remain more or le
 %TEXT
 The presence of an electric field results in a shift of the wave function, i.e. the maximum of the probability density is not in the center anymore and the spherical symetry of the 8 first states is broken (for conduction and valence band respectively). Furthermore, one can see that the valence band states really behave differently than conduction band states: The wave function is shifted in the opposite direction (fig.~\ref{fig:EfieldWaveFn}). This confirms that the valence band states are hole-like, similar to semiconductor band theory. 
 	
-For larger electric fields the bandgap gets smaller until it finally disappears, i.e. conduction and valence band states are not separated anymore. For example, for a 5nm  QD, the band gap disappers for electirc fields larger than 0.35 V/nm (fig.~\ref{fig:EvsVolt}). The states which are close to the (former) band gap cannot be sepearted in conduction and valence band: as energy increases, some hole-like states (below 0.313 eV) are followed by electron-like (i.e. conduction band-like) states (0.325...0.329 eV) which then again are followed by hole-like states (around 0.348 eV) and later again electron-like states (fig.~\ref{fig:HighEfieldWaveFn}).
+For larger electric fields the bandgap gets smaller until it finally disappears, i.e. conduction and valence band states are not separated anymore. For example, for a 5nm  QD, the band gap disappers for electirc fields larger than 0.35 V/nm (fig.~\ref{fig:EvsVolt}). The states which are close to the (former) band gap cannot be sepearted in conduction and valence band: as energy increases, some hole-like states are followed by electron-like (i.e. conduction band-like) states which in turn are followed by hole-like states and later again electron-like states (fig.~\ref{fig:HighEfieldWaveFn}).
 	
-Additionally, with higher electric fields, the wave functions seem not only to be shifted, but change shape: Some now look more like asymetric barbells or even stranger, ring-like shapes (fig. ~\ref{fig:HighEfieldWaveFn} (a) and (f)).
+Additionally, with higher electric fields, the wave functions seem not only to be shifted, but change shape: Some now look more like asymetric barbells or even stranger, ring-like shapes (fig.~\ref{fig:HighEfieldWaveFn} (a) and (f)).
 
 \FloatBarrier
 
