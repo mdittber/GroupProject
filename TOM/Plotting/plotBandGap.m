@@ -13,7 +13,7 @@ function plotBandGap(QDOA)
         [BGap(i), Radius(i,:), Volt(i), Mat(i)] = getBandGap(QDOA(i));
     end
     
-    Col = Volt;
+    Col = Volt/max(Volt);
     S = 20;
     [cMat,iMat,icMat] = unique(Mat);
     nMat = length(cMat);
@@ -21,19 +21,18 @@ function plotBandGap(QDOA)
         if cMat(k) ~= 3
             idx = find(Mat == cMat(k));
             figure;
-            sVolt = round(sort(unique(Volt)/max(Volt))*100)/100;
-            scatter(Radius(idx,1),BGap(idx),S,Col(idx),'filled');
+            Col = Volt(idx)/max(Volt(idx));
+            scatter(Radius(idx,1),BGap(idx),S,Col,'filled');
             xlabel('Radius of Quantum Dot in nm');
             ylabel('Band Gap in eV');
             axis([0 max(Radius(:,1)) 0 max(BGap)]);
-            hcb = colorbar('Location','SouthOutside','XTickLabel',sVolt);
-            caxis(hcb,[min(Volt), max(Volt)]);
+            hcb = colorbar('Location','SouthOutside','XTickLabel',linspace(min(Volt(idx)),max(Volt(idx)),11));
+            caxis(hcb,[min(Col), max(Col)]);
             xlabel(hcb, 'Voltage in V');
             set(hcb,'XTickMode','manual');
             stitle = QDOA(idx(1)).mat_name;
             title(stitle,'interpreter','none');
             hold on;
-            
             % Fit r^-2 dependence to data points where Volt=0
             r = [min(Radius(:,1)):0.01:max(Radius(:,1))];
             [A,B] = BandGapFitting(Radius(idx,1),BGap(idx),Volt(idx));
@@ -46,6 +45,8 @@ function plotBandGap(QDOA)
             'HorizontalAlignment','right',...
             'FontSize',10);
         end
+
+        
     end
     
     for k=1:nMat
@@ -64,8 +65,8 @@ function plotBandGap(QDOA)
                 xlabel('Inner radius of Quantum Dot in nm');
                 ylabel('Outer radius of Quantum Dot in nm');
                 axis([0 max(Radius(:,1)) 0 max(Radius(:,2))]);
-                cBGap = round(sort(unique(BGap(idxV))/max(BGap(idxV))*100)/100);
-                hcb = colorbar('Location','SouthOutside','XTickLabel',cBGap);
+                cBGap = Volt(idx)/max(Volt(idx));
+                hcb = colorbar('Location','SouthOutside','XTickLabel',linspace(min(iVolt),max(iVolt),11));
                 xlabel(hcb, 'Band Gap in eV');
                 set(hcb,'XTickMode','manual');
                 stitle = [QDOA(idxV(1)).mat_name, ', Voltage in V = ', num2str(Volt(idxV(1)))];

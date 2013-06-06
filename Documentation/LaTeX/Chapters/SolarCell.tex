@@ -1,6 +1,6 @@
 \chapter{QD Solar Cells}
 
-This chapter gives a brief overview over the fundamental principles of photovoltaic cells and QD solar cells in particular, then focusing on the example of PbS cells to give some specific information.
+This chapter gives a brief overview over the fundamental principles of photovoltaic cells and QD solar cells in particular, then focuses on the example of PbS cells to give some specific information.
 
 \section{Solar Cell Principles}
 
@@ -22,7 +22,7 @@ This chapter gives a brief overview over the fundamental principles of photovolt
 % TEXT
 The basic idea of a solar cell is to convert light into electrical power. Light is absorbed in a material, thus generating an electron-hole pair. The generated electrons and holes must then be separted and conducted to electrodes attached to the material. The accumulation of carriers at the electrodes generates a potential difference, and a current will flow between the electrodes, if a load is connected.
 
-The carrier separation can be achieved by an electirc field inside the material. Different types of solar cells exist based on different approaches. The typical silicon solar cell uses a semiconductor p-n junction: When a photon (with energy greater than the band gap) is absorbed in the semiconductor, an electron is promoted from the valence to the conduction band. Near the junction, these photogenerated electrons and holes are swept away to different sides, due to the built-in electric field of the p-n junction (fig.~\ref{fig:pnSolarCell}). 
+The carrier separation can be achieved by an electric field inside the material. Different types of solar cells exist, based on different approaches. The typical silicon solar cell uses a semiconductor p-n junction: When a photon (with energy greater than the band gap) is absorbed in the semiconductor, an electron is promoted from the valence to the conduction band. Near the junction, these photogenerated electrons and holes are swept away to different sides, due to the built-in electric field of the p-n junction (fig.~\ref{fig:pnSolarCell}). 
 
 Other approaches are also widely used, for example Schottky contacts (metal-semiconductor interface) or semiconductor-liquid interfaces.\\
 
@@ -30,7 +30,7 @@ The electrical behaviour of a photovoltaic cell can be well described by its I-V
 
 To characterise the solar cell, there are some common parameters, which are mentioned in the following paragraph. The open-circuit voltage $V_{OC}$ is the maximum voltage provided by the cell. It is directly related to the energy band structure and thus to the built-in potential. The short-circuit current $I_{SC}$ gives the maximum current, which flows if the electrodes are connected. $I_{SC}$ is proportional to the carrier density under illumination and to the carrier mobility, which are therefore important parameters to maximize.
 
-An often used quantity is the \textit{fill factor (FF)}, which is the ratio between the maximum power $P_M=I_M V_M$ and the product $I_{SC} V_{OC}$. It describes how well behaved the I-V characteristics is (the more the curve approaches a rechtangular shape, the better).
+An often used quantity is the \textit{fill factor (FF)}, which is the ratio between the maximum power $P_M=I_M V_M$ and the product $I_{SC} V_{OC}$. It describes how well behaved the I-V characteristics are (the more the curve approaches a rectangular shape, the better).
 
 Of practical importance for comparing solar cells is the power conversion efficiency $\eta$, giving the ratio of optical power which is converted into electrical power. 
 \[\eta = \frac{P_{max}}{P_{in}} = FF\frac{I_{SC}V_{OC}}{P_{in}}\]
@@ -38,7 +38,11 @@ Usually an optical source called AM1.5 is used, whose spectral intensity distrib
 
 \section{Solar Cells using QDs}
 
+<<<<<<< HEAD
 Semiconductor nanocrystal solids, can be used for solar cells. Thus nanocrystals (NC) made of CdSe, CdTe, PbSe, PbS and many more can be used for this purpose. Like with bulk semiconductors, heterojunction solar cells are possible (using materials with different band gaps), such as CdSe-CdTe cells \cite[p.430]{Talapin}. Similarly, using Schottky-contacs is also an option.\\
+=======
+Semiconductor nanocrystal solids can be used for solar cells. Thus nanocrystals (NC) made of CdSe, CdTe, PbSe, PbS and many more can be used for this purpose. Like with bulk semiconductors, heterojunction solar cells are possible (using materials with different band gaps), such as CdSe-CdTe cells \cite[p.430]{ChemRev}. Similarly, using Schottky-contacs is also an option.\\
+>>>>>>> bcabdd6f940bd618ed317354202fe8b026b2551b
 
 Using NC solids made of QDs offers several advantages. One big advantage is the possibilty of choosing the size of the band gap by controlling the size of the QDs, which can be done easily during the synthesis of CQDs. Controlling the band gap means essentially choosing the spectrum which can be absorbed, and consequently cells, which can make use of a broad spectrum, can be engineered.
 
@@ -46,7 +50,7 @@ Furthermore QD solar cells are easy to fabricate and that at low costs. Large-sc
 
 Using NC solids, there are promising perspectives for more advanced techniques, in order to increase efficiency. These invlove e.g.~carrier multiplication (the absorption of one highly energetic photon causes the creation of multiple electron-hole pairs) or hot carrier solar cells (electrons in higher energy states in the conduction band are extracted before they relax to the band edge and lose some energy).\\
 
-However, there are some problems which have to be overcome. One is the (air-) stability and lifespan of QD based photovoltaic cells. In many cases, the devices lose dramatically in efficiency after some time, which can be as short as hours or even minutes \cite[p.26]{Tang2011}. Another problem is the currently rather low efficiency of the cells (maxium acchieved efficiency of around 7\% for a PbS cell \cite[p.1]{Ip2012}). One issue leading to reduced efficiency is the presence of undesired states in the band gap (mid-gap or trap states). These arise due to `dangling' (unbound) bonds of surface atoms, and are significant in a QD, since its surface to volume ratio is high. So-called \textit{passivation} of the surface is thus very important. 
+However, there are some problems which have to be overcome. One is the (air-) stability and lifespan of QD based photovoltaic cells. In many cases, the devices lose dramatically in efficiency after some time, which can be as short as hours or even minutes \cite[p.26]{Tang2011}. Another problem is the currently rather low efficiency of the cells (maxium achieved efficiency of around 7\% for a PbS cell \cite[p.1]{Ip2012}). One issue leading to reduced efficiency is the presence of undesired states in the band gap (mid-gap or trap states). These arise due to `dangling' (unbound) bonds of surface atoms and are significant in a QD, since its surface to volume ratio is high. So-called \textit{passivation} of the surface is thus very important. 
 
 Furthermore, for furture large-scale production, the materials used in the production process should be cheap,  available in large quantities and preferably non-toxic, which contrasts with some NC materials that contain toxic elements like Cd or Pb.
 

@@ -129,7 +129,7 @@ function [QDOA, simSuccess] = simAll(QDOG)
     
     LOGDIR = ['log'];
     
-    if exist( LOGDIR , 'dir' ) ==0
+    if exist( [config.simulations LOGDIR] , 'dir' ) ==0
         mkdir(LOGDIR);
     end
     
