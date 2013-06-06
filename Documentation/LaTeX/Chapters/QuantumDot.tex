@@ -1,11 +1,11 @@
 \chapter{The Quantum Dot} \label{sec:QuantumDot} \index{Quantum Dot}
 
-	Quantum dots are atomic structures (usually spherical) that have a size of about 1-10nm in diameter. They are often referred to as \glspl{NC}, though this
-	term is more general and includes also other shapes and morphologies, which might extend to several $\mu$m, such as rods, wires etc.
+	\glspl{QD} are atomic structures (usually spherical) that have a size of about 1-10nm in diameter. They are often referred to as \glspl{NC}, though this
+	term is more general and includes also other shapes\index{Shape} and morphologies\index{Morphology}, which might extend to several $\mu$m, such as rods, wires etc.
 	Figure \ref{fig:QDshapes} gives some examples of possible shapes and morphologies, that are possible with nowadays technologies.
 	
-	\glspl{QD} are possible with various materials such as metals, semiconductors and compounds. According to their size and material,
-	a \glspl{QD} can contain just a few or millions of atoms. A 10nm cube of GaAs contains for example 40,000 atoms \cite{SalehTeich}.
+	\glspl{QD} of various materials such as metals, semiconductors and compounds exist. According to their size and material,
+	a \gls{QD} can contain just a few or millions of atoms. A 10nm cube of GaAs contains for example 40,000 atoms \cite{SalehTeich}.
 	
 	The properties of \glspl{QD} are strongly dependent on their size. Figure \ref{fig:QDTheory} illustrates this effect for a semiconductor \gls{QD}.
 	Under ultraviolet excitation, the \glspl{QD} emit light according to their size and therefore band gap.
@@ -25,26 +25,26 @@
 		\begin{minipage}[t]{0.49\textwidth}
 			\centering
 			\includegraphics[width=\textwidth]{Fig/QDcolor.jpg}
-			\caption{This photograph shows the size-dependent \gls{PL} of the quantum dots. The particles with the smallest ($\sim$1.7nm)
+			\caption{This photograph shows the size-dependent \gls{PL} of the QDs. The particles with the smallest ($\sim$1.7nm)
 							 CdSe cores emit blue and those with the largest cores ($\sim$5nm) emit red.
 							 {\scshape Source:} \cite[p.393]{Talapin}}
 			\label{fig:QDcolor}
 		\end{minipage}
 	\end{figure}			
 
-	\paragraph{Basic physics of the Quantum Dot}
-		For bulk materials the band gap \index{Band gap} is a fixed parameter, that specifies the type of material. But when a particle gets smaller and reaches
-		a size of about 10nm this will not be the case anymore. The band gap is than depending on the size of this particle (\glspl{NC}). As
+	\paragraph{Basic physics of the \glspl{QD} }
+		For bulk materials\index{Bulk Material} the band gap\index{Band gap} is a fixed material parameter. But when a particle gets smaller and reaches
+		a size of about 10nm, this will not be the case anymore. The band gap is then depending on the size of this particle (\gls{NC}). As
 		the mobility of the charge carriers (electrons, holes) is very limited in all three dimensions in the quantum dot, the energy levels
 		are not continuous, but instead discrete.
-		This phenomenon is called the {\it quantum size effect}.
+		This phenomenon is called the {\it quantum size effect}\index{Quantum Size Effect}.
 		
 		The band gap \index{Band gap} of a spherical \gls{QD} of radius $R$ is then approximately:
 		\begin{equation}
 			E_{g} \approx E_{g,0} + \frac{\hbar^2 \pi^2}{2 m_{eh} R^2}
 			\label{eq:Bandgap}
 		\end{equation}
-		where $E_{g,0}$ denotes the band gap of the bulk material and $m_{eh}$ is obtained through the effective masses of electrons and holes $m_{e,p}$:
+		where $E_{g,0}$ denotes the band gap of the bulk material and $m_{eh}$ is the reduced mass of the effective electron and hole masses $m_{e,p}$:
 		\begin{equation}
 			m_{eh} = \frac{m_e m_h}{m_e + m_h}
 			\label{eq:QuantumBox}
@@ -60,16 +60,16 @@
 		\end{figure}
 		
 		
-		We will see later in chapter \ref{sec:BandGapAnalysis} that the \gls{QD} absorption spectrum \index{Absorption spectrum} as shown in figure \ref{fig:QDTheory}(c) is not really discrete; as it is
-		not possible to fabricate \glspl{QD} that are perfectly equal in size, this results in a broadening of the spectrum.
+		We will see in chapter \ref{sec:BandGapAnalysis} that the \gls{QD} absorption spectrum, \index{Absorption spectrum} as shown in figure \ref{fig:QDTheory}(c), is not really discrete. Since it is
+		not possible to fabricate \glspl{QD} that are perfectly equal in size, this results in a broadening of the spectrum\index{Spectrum}\index{Spectrum!Broadening}.
 		The energy gap increases for decreasing \gls{QD} sizes, because more energy is required to confine the electron to a smaller volume.
-		This is caused by Heisenberg's uncertainty principle \index{Heisenberg uncertainty principle}, which says, that if we want to locate a particle of effective mass $m$ (for example an electron),
-		on an x-axis within an interval	$\Delta x$, we can only make an uncertain prediction of its impulse. If the spatial region gets smaller, the uncertainty
+		This is caused by Heisenberg's uncertainty principle \index{Heisenberg uncertainty principle}, which states, that if we want to locate a particle of effective mass $m$ (for example an electron),
+		within an interval	$\Delta x$, we can only make an uncertain prediction of its impulse. If the spatial region gets smaller, the uncertainty
 		of the impulse will	increase.
 		\begin{equation}
 			\Delta p_{x} \sim \frac{\hbar}{\Delta x}
 		\end{equation}
-		This adds to the kinetic energy of the free particle, which is called the confinement \index{Confinement} energy \index{Confinement!Energy}, that has an significant impact, if it gets bigger
+		This adds to the kinetic energy of the free particle, which is called the confinement \index{Confinement} energy\index{Confinement!Energy}. It has an significant impact, if it gets bigger
 		than the thermal energy of the particle.
 		\begin{equation}
 			E_{confinement} = \frac{(\Delta p_{x})^2}{2 m} \sim \frac{\hbar^2}{2 m (\Delta x)^2} > \frac{1}{2} k_{B} T
@@ -78,7 +78,7 @@
 		\begin{equation}
 			\Delta x < \sqrt{\frac{\hbar^2}{m k_{B} T}}
 		\end{equation}
-		Table \ref{tbl:ConfinedStr} shows 4 possible confinement structures\index{Confinement!Structure}, which are illustrated in Figure \ref{fig:ConfinedStr} with their
+		Table \ref{tbl:ConfinedStr} shows four possible confinement structures\index{Confinement!Structure}, which are illustrated in Figure \ref{fig:ConfinedStr} with their
 		characteristic energy levels \index{Energy level} in	the conduction band.
 
 		\begin{figure}[htbp]		
@@ -95,8 +95,8 @@
 		\begin{table}[htbp]
 		\centering
 			\begin{tabular}{lccc}
-				Structure											&	Quantum				&	\# of free		&	Electron						\\
-																			&	confinement		&	dimensions		&	density of states		\\
+				Structure											&	Quantum	\index{Confinement!Quantum}			&	\# of free		&	Electron						\\
+																			&	confinement		&	dimensions		&	density of states\index{Density of States}		\\
 				\hline
 				Bulk													&	none					&	3							&	$\propto E^{1/2}$		\\
 				Quantum well/superlattice			&	1-D						&	2							&	$\propto E^{0}$			\\
@@ -109,16 +109,16 @@
 			\label{tbl:ConfinedStr}
 		\end{table}
 	
-	\paragraph{Fabrication techniques of \gls{QD}}
+	\paragraph{Fabrication techniques of \gls{QD}}\index{Fabrication Techniques of QDs}
 	
 		A lot of different ways to make \glspl{QD} have been developed. Research efforts are made to create
-		more efficient \glspl{QD} and new shapes and morphologies. As \glspl{QD} are more and more interesting for various commercial applications,
-		low costs play an important factor. The colloidal chemistry has made a major contribution, as it offers low energy
+		more efficient \glspl{QD}, new shapes and morphologies. As \glspl{QD} are more and more interesting for various commercial applications,
+		low costs are an important factor. The colloidal chemistry has made a major contribution, as it offers low energy
 		synthesis of \glspl{NC}/\glspl{QD} using very simple and affordable laboratory equipment.		
 		In the next chapter we will briefly discuss the mentioned technique, by giving a short overview
-		that avoids the use of chemical terms as much as possible, rather than a detailed disquisition, as this is a research field on its own.
+		while avoiding the use of chemical terms as much as possible, rather than providing a detailed disquisition, as this is a research field on its own.
 		
-		Some other methods are listed below.
+		Some methods are listed below.
 	
 		\begin{tabularx}{\textwidth}{Xl}
 			{\bf Physical methods}														&	{\bf Characterization}										\\
@@ -136,17 +136,17 @@
 	
 		
 		
-	\paragraph{Applications}
+	\paragraph{Applications}\index{Applications of QDs}
 		
 		In biology and chemistry \glspl{QD} are used as spectral tags that are attached to molecules, making their position visible for identification
-		under optical illumination. In the past, one used organic dyes, but compared to \glspl{QD} the sharpness of emission lines is not as good.
+		under optical illumination. In the past, one used organic dyes, but compared to \glspl{QD} the sharpness of the emission lines is not as good.
 		
 		In electronics, \glspl{QD} are used to increase the efficiency of lasers \cite{SemiconductorCD}, everyday light sources and solar cells.
-		Furthermore they are used	in broadband \gls{LED}, memory elements, flexible displays, photodetectors.
+		Furthermore they are used	in broadband \gls{LED}, memory elements, flexible displays and photodetectors.
 		
 		We have to add that a lot of these applications are still developed in research institutions and are not yet available for commercial use.
 		
 		Although the applications seem impressive and will probably motivate new technologies, there are reasonable concerns about these nanoscale
 		particles. Some of the materials are toxic and through the small sizes it is unclear what might happen if the particles end up in living
-		organisms or generally speaking, into the the environment.
+		organisms or generally speaking, in the environment.
 		For more interested readers, we recommend the following paper for further reading: \citeauthor{Hardman} \citetitle{Hardman} \cite{Hardman}.
