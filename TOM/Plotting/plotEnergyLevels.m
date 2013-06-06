@@ -28,8 +28,14 @@ function plotEnergyLevels(QDOA)
     
     % For scaling purposes
     for k=1:N
-        load([config.simulations, QDOA(k).path, '/CB_E_0_0.dat']);
-        load([config.simulations, QDOA(k).path, '/VB_E_0_0.dat']);
+        %get XB_E
+        if QDOA(k).update_bs_target == 0
+            load([config.simulations, QDOA(k).path, '/CB_E_0_0.dat']);
+            load([config.simulations, QDOA(k).path, '/VB_E_0_0.dat']);
+        else
+            [CB_E_0_0, VB_E_0_0,~,~] = splitCBVBE(QDOA(k));
+        end
+            
         maxCB(k) = max(CB_E_0_0);
         minVB(k) = min(VB_E_0_0);
     end
@@ -39,14 +45,33 @@ function plotEnergyLevels(QDOA)
     
     % Calculate band gaps
     for k=1:N
-        load([config.simulations, QDOA(k).path, '/CB_E_0_0.dat']);
-        load([config.simulations, QDOA(k).path, '/VB_E_0_0.dat']);
+        %get XB_E
+        if QDOA(k).update_bs_target == 0
+            load([config.simulations, QDOA(k).path, '/CB_E_0_0.dat']);
+            load([config.simulations, QDOA(k).path, '/VB_E_0_0.dat']);
+        else
+            [CB_E_0_0, VB_E_0_0,~,~] = splitCBVBE(QDOA(k));
+        end
+        
+        
+        
         minCB(k) = min(CB_E_0_0);
         maxCB(k) = max(CB_E_0_0);
         minVB(k) = min(VB_E_0_0);
         maxVB(k) = max(VB_E_0_0);
         BGap(k)  = minCB(k)-maxVB(k);
-        NM(k)    = length(CB_E_0_0);    % Number of modes
+        
+        NM(k)    = max(length(CB_E_0_0),length(VB_E_0_0));    % Number of modes
+        
+        % Make CB_E and VB_E of equal length (fill shorter vector up)
+        diff = length(CB_E_0_0) - length(VB_E_0_0);
+        if diff > 0
+            VB_E_0_0(end+1:end+diff) = ones(diff,1)*VB_E_0_0(end);
+        elseif diff < 0
+            diff = abs(diff);
+            CB_E_0_0(end+1:end+diff) = ones(diff,1)*CB_E_0_0(end);
+        end
+        
         
         M = zeros(3,NM(k));
         M(2,:) = CB_E_0_0;
