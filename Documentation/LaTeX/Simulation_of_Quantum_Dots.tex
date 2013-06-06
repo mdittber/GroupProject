@@ -1,0 +1,82 @@
+\input{Misc/Header}
+\input{Misc/GlossaryAcronym}
+\bibliography{Bibliography}
+
+
+%\includeonly{Chapters/Matt_Analysis}
+%\includeonly{Chapters/OMEN_MATLAB, Chapters/matlab,Chapters/QnA}
+%\includeonly{Misc/Titlepage, Chapters/CQDSynthesis, Chapters/QuantumDot,Chapters/PbSParameters}
+
+
+\begin{document}
+
+	%%%%%%%%%%%%%%%%%%%
+	%   FRONTMATTER   %
+	%%%%%%%%%%%%%%%%%%%
+	\frontmatter
+
+
+	% TITLEPAGE
+	\include{Misc/Titlepage}
+	
+	% TABLE OF CONTENTS
+	\cleardoublepage\pdfbookmark{\contentsname}{toc}		% Add Table of Contents to the PDF bookmarks
+	\tableofcontents
+	\newpage
+
+	% ACKNOLEDGEMENT, ABSTRACT
+	\include{Chapters/Acknowledgements}
+	\include{Chapters/Abstract}
+
+
+
+	%%%%%%%%%%%%%%%%%%
+	%   MAINMATTER   %
+	%%%%%%%%%%%%%%%%%%
+	\mainmatter
+	
+	
+	% CHAPTERS
+	\include{Chapters/QuantumDot}
+	\include{Chapters/CQDSynthesis}
+	\include{Chapters/SolarCell}
+	%\include{Chapters/TOM}
+	%\include{Chapters/matlab}
+	%\include{Chapters/OMEN_MATLAB}
+	%\include{Chapters/Matt_Analysis}
+	\include{Chapters/Analysis}
+	
+	% APPENDIX
+	\begin{appendix}
+		%\include{Chapters/QnA}
+		\include{Chapters/PbSParameters}
+	\end{appendix}
+
+	% GLOSSARY
+	\glsaddall
+	\printglossaries \label{glossary}
+
+	% INDEX
+	\clearpage
+	\phantomsection
+	\addcontentsline{toc}{chapter}{\indexname}
+	\printindex
+
+	% BIBLIOGRAPHY
+	\clearpage
+	\phantomsection
+	\addcontentsline{toc}{chapter}{Bibliography}
+	\nocite{*}
+	\printbibliography
+	
+	
+	
+	%%%%%%%%%%%%%%%%%%
+	%   BACKMATTER   %
+	%%%%%%%%%%%%%%%%%%
+	\backmatter
+	
+	% DECLARATION OF ORIGINALITY
+	\include{Chapters/DeclarationOfOriginality}
+	
+\end{document}
