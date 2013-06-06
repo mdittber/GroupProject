@@ -21,7 +21,11 @@ function plotBandGap(QDOA)
         if cMat(k) ~= 3
             idx = find(Mat == cMat(k));
             figure;
-            Col = Volt(idx)/max(Volt(idx));
+            if max(Volt(idx)) == 0
+                Col = 0*Volt(idx);
+            else
+                Col = Volt(idx)/max(Volt(idx));
+            end
             scatter(Radius(idx,1),BGap(idx),S,Col,'filled');
             xlabel('Radius of Quantum Dot in nm');
             ylabel('Band Gap in eV');
