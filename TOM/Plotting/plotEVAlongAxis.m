@@ -34,7 +34,7 @@ function plotEVAlongAxis(QDOA, propertyName, startPoint, direction, plotGrid, to
         end
         EV{k} = load([simPath, EVfile]);
 
-        pValue{1,k} = eval( sprintf('dots(%i).%s',k,propertyName) );
+        pValue{1,k} = eval( sprintf('QDOA(%i).%s',k,propertyName) );
         
         tol(k) = QDOA(k).a0 * tolerance;
         if strcmp(QDOA(k).lattice_type, 'zincblende')

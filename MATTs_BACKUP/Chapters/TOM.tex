@@ -1,0 +1,325 @@
+\chapter{Toolbox for \omen in \matlab (TOM)}
+
+	\gls{TOM} was programmed to simulate spherical nanocrystals and to visualize the results of the simulations.
+	Though we focused on spherical structures, the code is hold abstract and slim to make extending to other
+	structures, such as nanowires, fairly easy.
+	The main aim of \software is to offer \omen users a toolbox, which includes the following 3 main tasks:
+	\begin{enumerate}
+		\itemsep 0pt
+		\item Automatization of the \omen simulation process \\
+					When it comes to simulating quantum dots with different parameters users do not want to spend a lot
+					of time on writing command files for OMEN by themselves and start each OMEN task via the shell, but 
+					rather enter the main parameters into a \gls{GUI} and let \gls{TOM} do the rest (see section \ref{sec:RunSim}).
+					This makes overnight simulations for large parameter sets possible.
+		\item Overview of all simulations done in the past	\\
+					All information respectively parameters of past simulations can be displayed in a \gls{GUI}. Exporting selected
+					simulations and visualizing them is possible as well (see section \ref{sec:guiDB})
+		\item Visualization of simulation data	\\
+					All different kinds of plots are available within the toolbox, such as visualizing band gaps, wave functions or
+					quantum dot structures (see section \ref{sec:Visualization}).
+	\end{enumerate}
+
+	\section{Installing the Software}
+		*********************** \\
+		****** TO DO !!! ****** \\
+		*********************** \\
+		
+		VERY IMPORTANT: Please specify the necessary data in the init.m file according to:
+		
+		\begin{lstlisting}
+			if strcmp(getenv('USER'), 'gra13f2')
+		    config.root     = '/usr/zupo/stud7/gra13f2/GroupProject/';
+		    config.user     = getenv('USER');
+		    config.machine  = getenv('HOSTNAME');
+			elseif strcmp(getenv('USER'), 'christianfunck')
+		    config.root     = '/Users/christianfunck/Data/ETH/ITET/GA/GroupProject/';
+		    config.user     = getenv('USER');
+		    config.machine  = getenv('HOSTNAME');
+		 		getenv('USERNAME')
+ 
+			config.system       = [config.root, 'MATLAB/System/'];
+			config.log          = [config.root, 'SystemData'];
+			config.OMEN         = [config.root, 'OMEN_ethz-amd64'];
+			config.vOMEN        = '04May2013';
+		
+			config.experimentalData = [config.root, 'ExperimentalData/'];
+			config.simulations  = [config.root, 'Simulations/'];
+		\end{lstlisting}
+
+
+	\section{Using a newer version of \omen}
+		\begin{enumerate}
+			\item Change \lstinline{config.vOMEN} and if necessary \lstinline{config.vOMEN} in the \lstinline{init.m} file
+		
+		\end{enumerate}
+	
+	\section{Using TOM}
+	
+		\begin{table}[htbp]
+		\begin{tabular}{ll}
+			DIR						&	Directory path														\\
+			EDO						& Experimental data object									\\
+			EDOA					& Array of experimental data objects				\\
+			QDO						& Quantum dot object												\\
+			QDOA					&	Array of quantum dot objects							\\
+			propertyName	& Property name of an EDO or QDO						\\
+			BGap					& Band Gap																	\\
+			NMod					& Number of modes														\\
+			NOrb					& Number of orbitals												\\
+			band					& CB: Conduction band or VB: Valence Band		\\
+			tol						& tolerance																	\\
+		\end{tabular}
+			\caption{Important function parmeters}
+			\label{tbl:functionParmeters}
+		\end{table}
+		
+		\begin{tabular}{ll}
+			{\it Material Name}\_lent		&	Simulations done with Tight binding parameters by Lent	\\
+			{\it Material Name}\_allan	&	Simulations done with Tight binding parameters by Allan	\\
+		\end{tabular}
+		
+	
+		\subsection{Running a simulation} \label{sec:RunSim}
+			Type gui\_simulate \index{gui\_simulate} in the \matlab command window and hit enter. The window as in figure \ref{fig:gui_simulate} will open.
+			\begin{figure}[htbp]
+				\centering
+				\includegraphics[width=0.8\textwidth]{Fig/Scrn_gui_simulate.png}
+				\caption{The gui\_simualte window}
+				\label{fig:gui_simulate}
+			\end{figure}
+			A simulation set is defined as one row of the table, i.e one material with all kinds of sweeps. You can add more simulation sets
+			by using the {\it Add rows to the table} panel.
+			It is possible to copy and paste single cells of the table using the appropriate short cuts of your \matlab default keyboard setup
+			(\lstinline{CTRL+C & CTRL+V} Windows setting, \lstinline{ALT+W & CTRL+Y} Emacs setting).
+			The columns are filled as follows:
+			\begin{enumerate}
+				\item Material		\\
+							Enter the number for the material you would like to simulate, according to the {\it Material / Compound} list.
+				\item Geometry		\\
+							Enter the number of the geometry given in the {\it Geometry} list. Very important in the case of materials with
+							shells is, that you have to enter the geometry type of the core and the shell. The geometry types are separated	
+							with a comma.
+							\begin{EXAMPLE}
+								For a spherical CdS-CdSe quantum dot the cell would look like this: 1, 1
+							\end{EXAMPLE}
+				\item Radius [$nm$]			\\
+							The radius has to be entered in a specific way. The syntax is: \\
+							\lstinline{[Rmin(1), Rmax(1), Rsweep(1)][Rmin(2), Rmax(2), Rsweep(2)]...} \\
+							\newline
+%							\begin{tabular}{@{}ll}
+%								\lstinline{Rmin(i)}		& smallest radius of the i\textsuperscript{th} material to be simulated				\\
+%								\lstinline{max(i)}		& largest radius of the i\textsuperscript{th} material to be simulated				\\
+%								\lstinline{Rsweep(i)}	& number of equidistant points between \lstinline{Rmin(i)} \& \lstinline{Rmax(i)}		\\
+%							\end{tabular}
+							
+							\begin{EXAMPLE}
+								Simulation a single spherical PbS quantum dot with radius 3.5 nm you would enter: [3.5,3.5,1]
+							\end{EXAMPLE}
+							
+							\begin{EXAMPLE}
+								For a spherical CdS-CdSe quantum dot the cell would look like this: [1,4,4][5,6,2]
+								Looking at the radius parameters, \software will do all the permutations and generate therefore 8 quantum dots: \\
+								\newline
+								\begin{tabular}{@{}lcccccccc}
+									Quantum dot					&	1	&	2	&	3	&	4 &	5	&	6	& 7	&	8	\\
+									Core radius	in nm		&	1	& 1 & 2 & 2 & 3	& 3 & 4 & 4	\\
+									Shell radius in nm	& 5	& 6 & 5 & 6 & 5 & 6 & 5 & 6	\\
+								\end{tabular}
+							\end{EXAMPLE}
+				\item \# of modes	\\
+							Enter a number of modes you would like to calculate.
+				\item Electric field in units [$V/nm$]			\\
+							The electric field sweep is entered in the same way as the radius. You find more information under the following remark.
+				\item update\_bs\_target
+							For higher electric fields \omen cannot differentiate conduction and valence band, therefore the user has to make a guess
+							where the bandgap might be. \omen will then simulate the \# of modes around this given energy (bs\_target).
+							If you would like to make use of this option enter 1 in the {\it update\_bs\_target} field otherwise 0.
+							Please note, that if you choose 0, you will have to enter any numerical value (i.e. 0) in the {\it bs\_target} field as well, otherwise
+							the \gls{GUI} cannot process the data.
+				\item bs\_target [$eV$]
+							The 
+				\item Permute
+							Enter 0 if the radii vectors should be combined element wise, i.e. first element of R(1) and R(2) give a simulation, second element
+							of R(1) and R(2) give a simulation and so on. Each radius pair will be simulated with all possible electric fields specified.
+							Selecting 1 will permute all possible radii with each other and all electric fields.
+			\end{enumerate}
+			
+			A simulation example is given below.
+			
+			\begin{REMARK}[Vectors \& Matrices] \index{Vector}
+				As the \matlab \gls{GUI}s do not accept vectors or matrices as it is known from the command window, the parameters
+				have to be entered as a string and are converted to matrices later on.
+				
+				There are different ways how to enter the parameters. Use the one, that is the most clear for you.
+				\begin{lstlisting}
+               a,b,c,...,d                 or
+              [a,b,c,...,d]                becomes a double vector
+
+              V = [ a b c ... d]
+
+
+              [a,b,c][d,e,f]...[g,h,j]     or
+               a,b,c; d,e,f;...;g,h,j      or
+              [a,b,c; d,e,f;...;g,h,j]     becomes a double matrix
+
+              M = [ a b c
+                    d e f
+                    . . .
+                    g h j ]
+
+              where a,b,...,j are doubles as strings.
+   			\end{lstlisting}
+   			These input styles can be applied to column {\it Geometry}, {\it Radius} and {\it Voltage}.	\\
+   			You can use as many spaces as you want in between. The first and the last brace are not necessary if only a vector is entered or if
+   			rows are separated by semicolons.
+			\end{REMARK}
+			
+			After entering all the necessary parameters proceed by clicking \lstinline{Start Simulation}. The {\it Progress of the simulation} panel will
+			keep you informed about the warnings, wrong entered parameters and the current status of the simulation.
+			
+			\begin{EXAMPLE}[Simulation example]	\index{Simulation example}
+				
+			
+			\end{EXAMPLE}
+
+
+
+		\subsection{Display simulation information} \label{sec:guiDB}
+			There are two ways of displaying simulation information, either you can see the whole database \index{Database} (all simulations
+			that are stored in the Simulations folder) or only specific data, for example only PbS simulation data.
+			
+			\begin{REMARK}
+				\software uses objects (called {\it qdotObj}) to store all important data of simulations such as the simulation parameters, date of simulation etc.
+				(futher information section \ref{sec:SoftwareStructure}). All operations are done using these objects. If you would like to display only
+				certain simulation data, you would need an {\it qdotObj} array. How to create such an array please read section \ref{sec:addTools}.
+			\end{REMARK}
+			
+			Displaying the whole database can be done by typing \lstinline{gui_db} \index{gui\_db} into the \matlab command window. A window as in figure \ref{fig:gui_database} will appear
+			showing all parameters and technical information of each simulation. Please note, that according to the size of the database, it might take some seconds
+			to load all data.
+			If you only want to display a set of simulation data, you can also call \lstinline{gui_db(qdotObj_ARRAY)}, where \lstinline{qdotObj_ARRAY} is an array of qdotQbj objects.
+			
+			\begin{figure}[htbp]
+				\centering
+				\includegraphics[width=\textwidth]{Fig/Scrn_gui_database.png}
+				\caption{The gui\_database window}
+				\label{fig:gui_database}
+			\end{figure}
+			
+			Display all database entries
+                             Sort and filter the entries
+                             Select entries and export them as an QDOA
+                             Open entires
+                             Delete entries
+                             Plotting with default values
+			
+			Within the \gls{GUI} you can sort the simulations with the column header, select simulations and let plot them, open the directory of a simulation or 
+			even export a selection, which is available as an qdotObj array in the main workspace entitled {\it ExportedDB}.
+
+
+	\input{Chapters/Plotting}
+			 
+	
+	\section{Maintaining \software}
+		\subsection{General Structure} \label{sec:SoftwareStructure}
+			\subsubsection{Workflows}
+				%\include{Fig/Tikz_SimWorkflow}
+			
+			\subsubsection{File system}
+		
+			\begin{figure}[htbp]
+				\begin{minipage}[b]{0.59\textwidth}
+				% Creates a directory structure figure
+				\dirtree{%
+				.1 /root.
+					.2 TOM.
+						.3 Classes.
+						.3 DataUtils.
+						.3 GUI.
+						.3 Plotting.
+						.3 SimProcedure.
+						.3 System.
+					.2 OMEN.
+						.3 OMEN executables.
+					.2 Simulations.
+						.3 ID*.
+						.3 \vdots.
+						.3 log.
+				}
+				\caption{The \software structure by default}
+				\label{dir:ToolboxTree}
+			\end{minipage}
+			\hfill
+			\begin{minipage}[b]{0.39\textwidth}
+			\dirtree{%
+			.1 ID*.
+				.2 CB\_E\_0\_0.dat.
+				.2 CB\_V\_0\_0.dat.
+				.2 H\_0.dat.
+				.2 Layer\_Matrix.dat.
+				.2 qdot\_cmd.
+				.2 qdotObj.mat.
+				.2 simlog\_{\it yyyymmdd\_hhmm\_ssfff}.
+				.2 VB\_E\_0\_0.dat.
+				.2 VB\_E\_0\_0.dat.
+			}
+			\caption{Structure of a simulation set}
+			\label{dir:SimSetTree}
+			\end{minipage}
+			\end{figure}
+			
+			\begin{lstlisting}[frame=single]
+				IDyyyymmdd-hhmm-ssfff_MATNAME
+			\end{lstlisting}
+				
+			\begin{lstlisting}%[frame=single]
+			struct global config {
+				config.root        = '';
+				config.user        = '';
+				config.machine     = '';
+				config.OMEN        = '';
+				config.vOMEN       = '';
+				config.simulations = '';
+				config.experimentalData = '';
+			}
+			\end{lstlisting}
+			
+			\subsubsection{Classes}
+			
+			\begin{table}[htbp]
+			\begin{tabular}{ll}
+				\verb|MPar_raw|		&		\\
+				Nerror						&		\\
+			\end{tabular}
+				\caption{Important function parmeters during the simulation procedure}
+				\label{tbl:functionSimParmeters}
+			\end{table}
+				
+			\lstinline{function [Mpar] = delEmptyRows(Mpar_raw)} \\ \\
+			\lstinline{function [CHK, M] = getUitInput(cellstr)} \\ \\
+			\lstinline{function Nerror = checkUitInput(CHK, M, pos, Nerror)} \\ \\
+			\lstinline{function simProcedure(Mpar_raw)} \\ \\
+			\lstinline{function [QDO, Nerror] = writeQdot(Mpar_row, row)} \\ \\
+			
+			
+		\subsubsection{System STUFFFFFF...}
+			
+		\subsection{GUI}
+			\subsubsection{Changing the GUI - Plots}
+			\gls{TEM}
+			
+			\gls{ccqd}
+			
+			\subsubsection{Sort and Filter tables using Java}
+			
+			
+						
+%	\subsection{Installing and setting up \software}
+%		\subsection{\acl{GUI}}
+%			\subsubsection{Starting a new Simulation}
+%			
+%			\subsubsection{}
+%		
+%		\subsection{OMEN Procedures}
+%		
+%		\subsection{Visualization}

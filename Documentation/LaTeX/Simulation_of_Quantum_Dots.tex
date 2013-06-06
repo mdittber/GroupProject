@@ -1,5 +1,6 @@
 \input{Misc/Header}
-%\includeonly{Misc/Titlepage, Chapters/OMEN_MATLAB, Chapters/matlab,Chapters/QnA}
+
+%\includeonly{Chapters/SolarCell, Chapters/Analysis, Chapters/matlab}
 
 \newacronym{GUI}{GUI}{Graphical User Interface}
 \newacronym{CQD}{CQD}{Colloidal Quantum Dot}
@@ -9,20 +10,27 @@
 	\include{Misc/Titlepage}
 	
 	\cleardoublepage\pdfbookmark{\contentsname}{toc}		% Add Table of Contents to the PDF bookmarks
+	
+	\include{Chapters/Acknowledgements}
+	\include{Chapters/Abstract}
+	
 	\tableofcontents
 	\newpage
 
 
 	\mainmatter
 
-	%\include{Chapters/QuantumDot}
+	\include{Chapters/QuantumDot}
+	\include{Chapters/SolarCell}
+	\include{Chapters/Analysis}
 	\include{Chapters/OMEN_MATLAB}
 	%\include{Fig/Tikz_SimWorkflow}
 	\include{Chapters/matlab}
-	%\include{Chapters/Simulations}
+	\include{Chapters/Simulations}
 	
 
 	\begin{appendix}
+		\include{Chapters/SimParameters}
 		\include{Chapters/QnA}
 	\end{appendix}
 		
@@ -34,13 +42,13 @@
 %		
 %	
 %	%%%%%%%%%%%%%%%%%%%%%%%%%%%  Glossary - End %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%	\clearpage
-%	\phantomsection
-%	\addcontentsline{toc}{chapter}{Glossary}
+
+	\clearpage
+	\phantomsection
+	\addcontentsline{toc}{chapter}{Glossary}
 	\printglossaries
-	%\printglossary[type=\acronymtype]
-	%\printglossary[type=main]
+	\printglossary[type=\acronymtype]
+	\printglossary[type=main]
 	
 	\clearpage
 	\phantomsection
@@ -59,13 +67,14 @@
 		\nocite{Efros2000}
 		\nocite{Lent1986}
 		\nocite{OMENmanual}
-	\bibliography{Bibliography}
-	\bibliographystyle{plain}
 	
-%	\clearpage
-%	\phantomsection
-%	\addcontentsline{toc}{chapter}{List of Tables}
-%	\listoftables
+	\bibliography{Bibliography}	
+	\bibliographystyle{plain}
+
+	\clearpage
+	\phantomsection
+	\addcontentsline{toc}{chapter}{List of Tables}
+	\listoftables
 	
 	
 	\backmatter

@@ -1,12 +1,12 @@
-function plotEV3Dmax(QDOA, band, probLim, NMod)
-% plotEV3Dmax(QDOA, band, probLim, NMod)
+function plotEV3Dmax(QDOA, band, probLim, Mod)
+% plotEV3Dmax(QDOA, band, probLim, Mod)
 % Plot wavefn of QDOA:
 % red appear atoms where probability density is largest:
 % sum( psi( all red atoms ) )< probLim(1)
 % yellow appear atoms where probability density is large:
 % probLim(1) < sum( psi( all yellow and red atoms ) ) < probLim(2)
 % band = 'CB' or 'VB'
-% NMod = number of modes to be plotted
+% for Modes specified in vector 
 
 
 global config;
@@ -20,11 +20,11 @@ global config;
         if isequal(band, 'CB')
             EV = load([simPath, '/CB_V_0_0.dat']);
             E = load([simPath, '/CB_E_0_0.dat']);
-            plotid = 1;
+%             plotid = 1;
         elseif isequal(band, 'VB')
             EV = load([simPath, '/VB_V_0_0.dat']);
             E = load([simPath, '/VB_E_0_0.dat']);
-            plotid = 2;
+%             plotid = 2;
         end
         
         [NAtom,~] = size(LayerMatrix);            
@@ -33,16 +33,17 @@ global config;
         AllMod = m/2;
 
         if nargin < 4
-            NMod = 1:m/2; %default: nr of modes = all modes
+            Mod = 1:m/2; %default: nr of modes = all modes
         end
 
     % convert EV to probability (psi^2) for requested modes
         psi2 = EV2psi(EV, NOrb, AllMod);
         
     % PLOT
-        for i=NMod,
+        for i=Mod,
            
-            figure(1000*plotid+100*k+i);
+%             figure(1000*plotid+100*k+i);
+            figure
             suptitle( strrep(sprintf('plotID: %i, mat: %s, Efield: %g, ModNr: %i, E-Level: %g eV', k, QDOA(k).mat_name, QDOA(k).Efield, i, E(i)),'_','\_') );
             title( sprintf('VB mode %i',i) );            
 

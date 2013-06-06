@@ -1,7 +1,12 @@
 #################
-## Eclipse
+## Latex
 #################
 
+*.lot
+*.bbl
+*.glo
+*.blg
+*converted-to.pdf
 *.toc
 *.acn
 *.ist
@@ -16,6 +21,9 @@ HIDE*
 Papers_References/
 Simulations/
 
+############
+# Eclispse
+###########
 *.pydevproject
 .project
 .metadata
