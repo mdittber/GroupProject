@@ -18,7 +18,9 @@
 *.aux
 
 HIDE*
-Papers_References/
+
+*.DS_Store
+
 Simulations/
 
 ############

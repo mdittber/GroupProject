@@ -1,0 +1,1 @@
+Hide fancy effects (such as drop shadow) before saving for much smaller file size.
